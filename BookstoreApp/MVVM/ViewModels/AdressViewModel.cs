@@ -1,13 +1,23 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using BookstoreWebAPI.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bookstore_MAUI.MVVM.ViewModels
+namespace BookstoreApp.MVVM.ViewModels
 {
     public partial class AdressViewModel : ObservableObject
     {
+        public int Id { get; set; }
+        public string Street { get; set; }
+        public string City { get; set; }
+        public string Province { get; set; }
+        public string State { get; set; }
+        public string PostalCode { get; set; }
+        public string Country { get; set; }
+        public bool IsPrimary { get; set; }
+        public List<Client> Clients { get; set; }
     }
 }

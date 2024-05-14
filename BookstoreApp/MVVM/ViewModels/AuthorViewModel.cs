@@ -1,20 +1,17 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using BookstoreWebAPI.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bookstore_MAUI.MVVM.ViewModels
+namespace BookstoreApp.MVVM.ViewModels
 {
     public partial class AuthorViewModel : ObservableObject
     {
-        //private readonly ApplicationDbContext _dbContext;
-
         public int Id { get; set; }
         public string Name { get; set; }
-        public List<BookViewModel> Books { get; set; }
-
-
+        public List<Book> Books { get; set; }
     }
 }
