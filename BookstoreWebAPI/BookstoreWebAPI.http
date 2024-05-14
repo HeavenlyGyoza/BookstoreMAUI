@@ -1,0 +1,6 @@
+@BookstoreWebAPI_HostAddress = http://localhost:5121
+
+GET {{BookstoreWebAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
