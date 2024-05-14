@@ -1,12 +1,12 @@
 ﻿using Android.App;
 using Android.Runtime;
 
-namespace BookstoreApp.Platforms.Android
+namespace BookstoreApp
 {
     [Application]
     public class MainApplication : MauiApplication
     {
-        public MainApplication(nint handle, JniHandleOwnership ownership)
+        public MainApplication(IntPtr handle, JniHandleOwnership ownership)
             : base(handle, ownership)
         {
         }
