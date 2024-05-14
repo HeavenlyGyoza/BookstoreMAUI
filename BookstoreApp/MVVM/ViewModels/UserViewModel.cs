@@ -1,20 +1,12 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using BookstoreWebAPI.Data.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
-namespace BookstoreApp.MVVM.ViewModels
+namespace Bookstore_MAUI.MVVM.ViewModels
 {
-    internal class UserViewModel : ObservableObject
+    internal class UserViewModel
     {
-        public int Id { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public string Role { get; set; }
-        public Client Client { get; set; }
     }
 }
