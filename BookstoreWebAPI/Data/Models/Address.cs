@@ -13,15 +13,18 @@ namespace BookstoreWebAPI.Data.Models
         public int Id { get; set; }
         [Required]
         public string Street { get; set; }
+        public string AddInfo { get; set; }
         [Required]
         public string City { get; set; }
+        [Required]
+        [MaxLength(5)]
+        public string PostalCode { get; set; }
         [Required]
         public string Province { get; set; }
         [Required]
         public string State { get; set; }
         [Required]
-        public string PostalCode { get; set; }
-        [Required]
+        [MaxLength(3)]
         public string Country { get; set; }
         [Required]
         public bool IsPrimary { get; set; }

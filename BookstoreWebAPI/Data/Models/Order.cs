@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -18,6 +19,7 @@ namespace BookstoreWebAPI.Data.Models
         [Required]
         public int Quantity { get; set; }
         [Required]
+        [Precision(18, 2)]
         public decimal Price { get; set; }
         [Required]
         public DateOnly OrderDate { get; set; }

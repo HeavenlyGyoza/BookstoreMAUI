@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -12,6 +13,7 @@ namespace BookstoreWebAPI.Data.Models
         [Key]
         public int Id { get; set; }
         [Required]
+        [MaxLength(17), MinLength(10)]
         public string Isbn { get; set; }
         [Required]
         public string Title { get; set; }
@@ -29,6 +31,7 @@ namespace BookstoreWebAPI.Data.Models
         [Required]
         public int Stock { get; set; }
         [Required]
+        [Precision(18, 2)]
         public decimal Price { get; set; }
         public string Description { get; set; }
     }
