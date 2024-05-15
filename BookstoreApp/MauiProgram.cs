@@ -15,6 +15,8 @@ namespace BookstoreApp
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
+            builder.Services.AddSingleton<HttpClient>();
+
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif
