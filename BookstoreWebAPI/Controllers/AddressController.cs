@@ -29,7 +29,19 @@ namespace BookstoreWebAPI.Controllers
             {
                 return NotFound();
             }
-            return address;
+            return Ok(address);
+        }
+
+        [HttpPost("add")]
+        public async Task<ActionResult<Address>> AddAddress(Address address)
+        {
+            if (address == null)
+            {
+                return BadRequest();
+            }
+            _dbContext.Addresses.Add(address);
+            _dbContext.SaveChangesAsync();
+            return Ok();
         }
 
         [HttpPut("{id}")]

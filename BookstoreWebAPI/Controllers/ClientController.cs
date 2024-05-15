@@ -29,7 +29,19 @@ namespace BookstoreWebAPI.Controllers
             {
                 return NotFound();
             }
-            return client;
+            return Ok(client);
+        }
+
+        [HttpPost("add")]
+        public async Task<ActionResult<Client>> AddClient(Client client)
+        {
+            if (client == null)
+            {
+                return BadRequest();
+            }
+            _dbContext.Clients.Add(client);
+            _dbContext.SaveChangesAsync();
+            return Ok();
         }
 
         [HttpPut("{id}")]

@@ -29,9 +29,20 @@ namespace BookstoreWebAPI.Controllers
             {
                 return NotFound();
             }
-            return order;
+            return Ok(order);
         }
 
+        [HttpPost("add")]
+        public async Task<ActionResult<Order>> AddOrder(Order order)
+        {
+            if (order == null)
+            {
+                return BadRequest();
+            }
+            _dbContext.Orders.Add(order);
+            _dbContext.SaveChangesAsync();
+            return Ok();
+        }
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateOrder(int id, Order order)
         {
