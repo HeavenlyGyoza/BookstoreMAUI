@@ -7,52 +7,52 @@ namespace BookstoreWebAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ClientController : Controller
+    public class OrderController : Controller
     {
         private readonly ApplicationDbContext _dbContext;
-        public ClientController(ApplicationDbContext dbContext)
+        public OrderController(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
         }
 
         [HttpGet("all")]
-        public async Task <ActionResult<IEnumerable<Client>>> GetAllClients()
+        public async Task<ActionResult<IEnumerable<Order>>> GetAllOrders()
         {
-            return await _dbContext.Clients.ToListAsync();
+            return await _dbContext.Orders.ToListAsync();
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Client>> GetClientById(int id)
+        public async Task<ActionResult<Order>> GetOrderById(int id)
         {
-            var client = await _dbContext.Clients.FindAsync(id);
-            if (client == null)
+            var order = await _dbContext.Orders.FindAsync(id);
+            if (order == null)
             {
                 return NotFound();
             }
-            return client;
+            return order;
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateClient(int id, Client client)
+        public async Task<IActionResult> UpdateOrder(int id, Order order)
         {
-            if (id != client.Id)
+            if (id != order.Id)
             {
                 return BadRequest();
-            }
-            _dbContext.Entry(client).State = EntityState.Modified;
+            } 
+            _dbContext.Entry(order).State = EntityState.Modified;
             await _dbContext.SaveChangesAsync();
             return Ok();
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteClient(int id)
+        public async Task<IActionResult> DeleteOrder(int id)
         {
-            var client = await _dbContext.Clients.FindAsync(id);
-            if (client == null)
+            var order = await _dbContext.Orders.FindAsync(id);
+            if (order == null)
             {
                 return NotFound();
             }
-            _dbContext.Clients.Remove(client);
+            _dbContext.Orders.Remove(order);
             await _dbContext.SaveChangesAsync();
             return Ok();
         }

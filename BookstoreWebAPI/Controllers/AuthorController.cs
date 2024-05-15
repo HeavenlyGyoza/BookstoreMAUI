@@ -15,13 +15,13 @@ namespace BookstoreWebAPI.Controllers
             _dbContext = dbContext;
         }
 
-        [HttpGet]
+        [HttpGet("all")]
         public async Task<ActionResult<IEnumerable<Author>>> GetAllAuthors()
         {
             return await _dbContext.Authors.ToListAsync();
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public async Task<ActionResult<Author>> GetAuthorById(int id)
         {
             var author = await _dbContext.Authors.FindAsync(id);

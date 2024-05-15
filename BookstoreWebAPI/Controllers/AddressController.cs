@@ -7,52 +7,52 @@ namespace BookstoreWebAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ClientController : Controller
+    public class AddressController : Controller
     {
         private readonly ApplicationDbContext _dbContext;
-        public ClientController(ApplicationDbContext dbContext)
+        public AddressController (ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
         }
 
         [HttpGet("all")]
-        public async Task <ActionResult<IEnumerable<Client>>> GetAllClients()
+        public async Task<ActionResult<IEnumerable<Address>>> GetAllAddresses()
         {
-            return await _dbContext.Clients.ToListAsync();
+            return await _dbContext.Addresses.ToListAsync();
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Client>> GetClientById(int id)
+        public async Task<ActionResult<Address>> GetAddressById(int id)
         {
-            var client = await _dbContext.Clients.FindAsync(id);
-            if (client == null)
+            var address = await _dbContext.Addresses.FindAsync(id);
+            if (address == null)
             {
                 return NotFound();
             }
-            return client;
+            return address;
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateClient(int id, Client client)
+        public async Task<IActionResult> UpdateAddress(int id, Address address)
         {
-            if (id != client.Id)
+            if (id != address.Id)
             {
                 return BadRequest();
             }
-            _dbContext.Entry(client).State = EntityState.Modified;
+            _dbContext.Entry(address).State = EntityState.Modified;
             await _dbContext.SaveChangesAsync();
             return Ok();
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteClient(int id)
+        public async Task<IActionResult> DeleteAddress(int id)
         {
-            var client = await _dbContext.Clients.FindAsync(id);
-            if (client == null)
+            var address = await _dbContext.Addresses.FindAsync(id);
+            if (address == null)
             {
                 return NotFound();
             }
-            _dbContext.Clients.Remove(client);
+            _dbContext.Addresses.Remove(address);
             await _dbContext.SaveChangesAsync();
             return Ok();
         }
