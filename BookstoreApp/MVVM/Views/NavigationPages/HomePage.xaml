@@ -2,10 +2,16 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BookstoreApp.MVVM.Views.NavigationPages.HomePage">
+    
     <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        <Button x:Name="SearchButton"
+                ImageSource="loupe.png"
+                Clicked="SearchButton_Clicked"
+                WidthRequest="64"/>
+        <SearchBar x:Name="SearchBar" 
+                   IsVisible="False"
+                   Placeholder="Search..."
+                   SearchButtonPressed="SearchItems"/>
+        
     </VerticalStackLayout>
 </ContentPage>
