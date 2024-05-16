@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using BookstoreApp.MVVM.Views.LoginPages;
+using Microsoft.Extensions.Logging;
 
 namespace BookstoreApp
 {
@@ -16,6 +17,8 @@ namespace BookstoreApp
                 });
 
             builder.Services.AddSingleton<HttpClient>();
+
+            Routing.RegisterRoute("RegistrationPage", typeof(RegistrationPage));
 
 #if DEBUG
     		builder.Logging.AddDebug();
