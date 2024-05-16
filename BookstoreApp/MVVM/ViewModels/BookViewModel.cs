@@ -38,6 +38,9 @@ namespace Bookstore_MAUI.MVVM.ViewModels
         public float discount;
         [ObservableProperty]
         public string description;
+        [ObservableProperty]
+        public string coverImage;
+
         public BookViewModel(HttpClient httpClient)
         {
             _httpClient = httpClient;
