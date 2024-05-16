@@ -27,4 +27,9 @@ public partial class LoginPage : ContentPage
     {
         await Shell.Current.GoToAsync($"{nameof(RegistrationPage)}");
     }
+
+    private async void NoLoginTapped(object sender, TappedEventArgs e)
+    {
+        await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
+    }
 }

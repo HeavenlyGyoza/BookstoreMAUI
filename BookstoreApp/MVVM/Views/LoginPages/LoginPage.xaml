@@ -4,9 +4,11 @@
              x:Class="BookstoreApp.MVVM.Views.LoginPages.LoginPage"
              Shell.NavBarIsVisible="False">
     
-    <VerticalStackLayout HorizontalOptions="FillAndExpand"
+    <VerticalStackLayout HorizontalOptions="{OnPlatform Default=Center, Android=FillAndExpand}"
+                         WidthRequest="{OnPlatform WinUI=600}"
                          VerticalOptions="Center"
-                         Padding="40">
+                         Padding="40"
+                         Spacing="{OnPlatform WinUI=10}">
         <Label Text="Username:"/>
         <Entry Placeholder="Username"/>
         <Label Text="Password:"/>
@@ -14,10 +16,21 @@
                IsPassword="True"/>
         <Button Text="Login"
                 Clicked="LoginButtonClicked"/>
-        <Label Text="Register">
-            <Label.GestureRecognizers>
-                <TapGestureRecognizer Tapped="RegisterTapped"/>
-            </Label.GestureRecognizers>
-        </Label>
+        <HorizontalStackLayout Spacing="5">
+            <Label Text="Register"
+                   TextDecorations="Underline"
+                   TextColor="LightBlue">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="RegisterTapped"/>
+                </Label.GestureRecognizers>
+            </Label>
+            <Label Text="or"/>
+            <Label Text="continue without logging in"
+                   TextDecorations="Underline">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="NoLoginTapped"/>
+                </Label.GestureRecognizers>
+            </Label>
+        </HorizontalStackLayout>
     </VerticalStackLayout>
 </ContentPage>
