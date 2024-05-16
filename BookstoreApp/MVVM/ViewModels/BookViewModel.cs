@@ -14,19 +14,30 @@ namespace Bookstore_MAUI.MVVM.ViewModels
         private const string BaseUrl = "https://localhost:7299/Book";
 
         public int Id { get; set; }
-        public string Isbn { get; set; }
-        public string Title { get; set; }
-        public List<AuthorViewModel> Authors { get; set; }
-        public string Publisher { get; set; }
-        public string Genre { get; set; }
-        public DateOnly PubDate {  get; set; }
-        public string Language { get; set; }
-        public int PageCount { get; set; }
-        public int Stock {  get; set; }
-        public decimal Price { get; set; }
-        public float Discount { get; set; }
-        public string Description { get; set; }
-
+        [ObservableProperty]
+        public string isbn;
+        [ObservableProperty]
+        public string title;
+        [ObservableProperty]
+        public List<AuthorViewModel> authors;
+        [ObservableProperty]
+        public string publisher;
+        [ObservableProperty]
+        public string genre;
+        [ObservableProperty]
+        public DateOnly pubDate;
+        [ObservableProperty]
+        public string language;
+        [ObservableProperty]
+        public int pageCount;
+        [ObservableProperty]
+        public int stock;
+        [ObservableProperty]
+        public decimal price;
+        [ObservableProperty]
+        public float discount;
+        [ObservableProperty]
+        public string description;
         public BookViewModel(HttpClient httpClient)
         {
             _httpClient = httpClient;

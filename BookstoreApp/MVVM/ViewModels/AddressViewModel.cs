@@ -14,14 +14,22 @@ namespace Bookstore_MAUI.MVVM.ViewModels
         private const string BaseUrl = "https://localhost:7299/Address";
 
         public int Id { get; set; }
-        public string Street { get; set; }
-        public string AddInfo { get; set; }
-        public string City { get; set; }
-        public string PostalCode { get; set; }
-        public string Province { get; set; }
-        public string State { get; set; }
-        public string Country { get; set; }
-        public bool IsPrimary { get; set; }
+        [ObservableProperty]
+        public string treet;
+        [ObservableProperty]
+        public string addInfo;
+        [ObservableProperty]
+        public string city;
+        [ObservableProperty]
+        public string postalCode;
+        [ObservableProperty]
+        public string province;
+        [ObservableProperty]
+        public string state;
+        [ObservableProperty]
+        public string country;
+        [ObservableProperty]
+        public bool isPrimary;
         public List<ClientViewModel> Clients { get; set; }
 
         public AddressViewModel (HttpClient httpClient)

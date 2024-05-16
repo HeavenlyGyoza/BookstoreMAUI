@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Json;
@@ -7,15 +8,18 @@ using System.Threading.Tasks;
 
 namespace Bookstore_MAUI.MVVM.ViewModels
 {
-    internal class UserViewModel
+    public partial class UserViewModel : ObservableObject
     {
         private readonly HttpClient _httpClient;
         private const string BaseUrl = "https://localhost:7299/User";
 
         public int Id { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public string Role { get; set; }
+        [ObservableProperty]
+        public string email;
+        [ObservableProperty]
+        public string password;
+        [ObservableProperty]
+        public string role;
 
         public UserViewModel (HttpClient httpClient)
         {

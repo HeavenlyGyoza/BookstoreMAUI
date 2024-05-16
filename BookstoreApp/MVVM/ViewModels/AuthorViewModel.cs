@@ -14,8 +14,10 @@ namespace Bookstore_MAUI.MVVM.ViewModels
         private const string BaseUrl = "https://localhost:7299/Author";
 
         public int Id { get; set; }
-        public string Name { get; set; }
-        public List<BookViewModel> Books { get; set; }
+        [ObservableProperty]
+        public string name;
+        [ObservableProperty]
+        public List<BookViewModel> books;
 
         public AuthorViewModel (HttpClient httpClient)
         {
