@@ -32,7 +32,7 @@ namespace Bookstore_MAUI.MVVM.ViewModels
             return await _httpClient.GetFromJsonAsync<AuthorViewModel>($"{BaseUrl}/{id}");
         }
 
-        public async Task<bool>AddAuthorAsync(AuthorViewModel author)
+        public async Task<bool> AddAuthorAsync(AuthorViewModel author)
         {
             var response = await _httpClient.PostAsJsonAsync($"{BaseUrl}/add", author);
             return response.IsSuccessStatusCode;

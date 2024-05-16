@@ -39,6 +39,12 @@ namespace Bookstore_MAUI.MVVM.ViewModels
             return await _httpClient.GetFromJsonAsync<AddressViewModel>($"{BaseUrl}/{id}");
         }
 
+        public async Task<bool> AddAddressAsync(AddressViewModel address)
+        {
+            var response = await _httpClient.PatchAsJsonAsync($"{BaseUrl}/add", address);
+            return response.IsSuccessStatusCode;
+        }
+
         public async Task<bool> UpdateAddressAsync(AddressViewModel address)
         {
             if (address == null)
@@ -46,6 +52,12 @@ namespace Bookstore_MAUI.MVVM.ViewModels
                 return false;
             }
             var response = await _httpClient.PutAsJsonAsync($"{BaseUrl}/{address.Id}", address);
+            return response.IsSuccessStatusCode;
+        }
+
+        public async Task<bool> DeleteAuthorAsync(int id)
+        {
+            var response = await _httpClient.DeleteAsync($"{BaseUrl}/{id}");
             return response.IsSuccessStatusCode;
         }
     }
