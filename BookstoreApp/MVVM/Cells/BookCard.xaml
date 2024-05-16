@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="BookstoreApp.MVVM.Cells.BookCard"
-             xmlns:models="clr-namespace:Bookstore_MAUI.MVVM.ViewModels"
-             x:DataType="models:BookViewModel">
+             x:Class="BookstoreApp.MVVM.Cells.BookCard">
 
-    <Border StrokeShape="RoundRectangle 5"
+    <!--<Border StrokeShape="RoundRectangle 5"
                 StrokeThickness="1"
                 Padding="5"
                 HeightRequest="520"
                 WidthRequest="450">
         <VerticalStackLayout>
-            <Image Source="{Binding Image}"
+            <Image Source="{Binding coverImage}"
                        HeightRequest="450"
                        Aspect="AspectFit">
                 <Image.GestureRecognizers>
@@ -25,5 +23,5 @@
             <Label Text="{Binding Price}"
                        HorizontalOptions="Center"/>
         </VerticalStackLayout>
-    </Border>
+    </Border>-->
 </ContentView>
