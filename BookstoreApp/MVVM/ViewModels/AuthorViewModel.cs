@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http.Json;
 using System.Text;
@@ -19,6 +20,8 @@ namespace Bookstore_MAUI.MVVM.ViewModels
         public string name;
         [ObservableProperty]
         public List<Book> books;
+
+        public ObservableCollection<Author> Authors { get; set; }
 
         public AuthorViewModel (HttpClient httpClient)
         {
@@ -56,5 +59,26 @@ namespace Bookstore_MAUI.MVVM.ViewModels
             var response = await _httpClient.DeleteAsync($"{BaseUrl}/{id}");
             return response.IsSuccessStatusCode;
         }
+
+        //TODO make API first
+        //public async Task SearchBooksByAuthorAsync(string query)
+        //{
+        //    var response = await _httpClient.GetFromJsonAsync<Author>($"{BaseUrl}?query={query}");
+        //    if (response.IsSuccessStatusCode)
+        //    {
+        //        var 
+        //    }
+        //}
+
+        //public async Task<IEnumerable<Author>> GetAuthorByNameAsync(string query)
+        //{
+        //    Authors.Clear();
+        //    var response = await _httpClient.GetFromJsonAsync<IEnumerable<Author>>($"{BaseUrl}?query={query}");
+        //    foreach (var author in response)
+        //    {
+        //        Authors.Add(author);
+        //    }
+        //    return Authors;
+        //}
     }
 }
