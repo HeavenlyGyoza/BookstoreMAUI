@@ -11,19 +11,19 @@ public partial class HomePage : ContentPage
 
     private async void SearchButton_Clicked(object sender, EventArgs e)
     {
-		if (SearchBar.IsVisible)
+		if (searchBarCell.IsVisible)
 		{
-			await SearchBar.TranslateTo(0, SearchBar.Height, 250);
-			//await SearchBar.FadeTo(0, 250);
-			SearchBar.IsVisible = false;
+			await searchBarCell.TranslateTo(0, searchBarCell.Height, 250);
+            //await searchBarCell.FadeTo(0, 250);
+            searchBarCell.IsVisible = false;
 		}
 		else
 		{
-			SearchBar.IsVisible = true;
-			await SearchBar.TranslateTo(0, 0, 250);
-			SearchBar.Focus();
-			//await SearchBar.FadeTo(1, 250);
-		}
+            searchBarCell.IsVisible = true;
+			await searchBarCell.TranslateTo(0, 0, 250);
+            searchBarCell.Focus();
+            //await searchBarCell.FadeTo(1, 250);
+        }
     }
 
     private async void SearchItems(object sender, EventArgs e)
