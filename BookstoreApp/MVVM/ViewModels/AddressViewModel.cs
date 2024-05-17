@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using BookstoreClassLibrary.Models;
+using CommunityToolkit.Mvvm.ComponentModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,30 +31,30 @@ namespace Bookstore_MAUI.MVVM.ViewModels
         public string country;
         [ObservableProperty]
         public bool isPrimary;
-        public List<ClientViewModel> Clients { get; set; }
+        public List<Client> Clients { get; set; }
 
         public AddressViewModel (HttpClient httpClient)
         {
             _httpClient = httpClient;
         }
 
-        public async Task<IEnumerable<AddressViewModel>> GetAllAddressesAsync()
+        public async Task<IEnumerable<Address>> GetAllAddressesAsync()
         {
-            return await _httpClient.GetFromJsonAsync<IEnumerable<AddressViewModel>>($"{BaseUrl}/all");
+            return await _httpClient.GetFromJsonAsync<IEnumerable<Address>>($"{BaseUrl}/all");
         }
 
-        public async Task<AddressViewModel> GetAddressByIdAsync(int id)
+        public async Task<Address> GetAddressByIdAsync(int id)
         {
-            return await _httpClient.GetFromJsonAsync<AddressViewModel>($"{BaseUrl}/{id}");
+            return await _httpClient.GetFromJsonAsync<Address>($"{BaseUrl}/{id}");
         }
 
-        public async Task<bool> AddAddressAsync(AddressViewModel address)
+        public async Task<bool> AddAddressAsync(Address address)
         {
             var response = await _httpClient.PatchAsJsonAsync($"{BaseUrl}/add", address);
             return response.IsSuccessStatusCode;
         }
 
-        public async Task<bool> UpdateAddressAsync(AddressViewModel address)
+        public async Task<bool> UpdateAddressAsync(Address address)
         {
             if (address == null)
             {

@@ -1,5 +1,5 @@
-﻿using BookstoreWebAPI.Data;
-using BookstoreWebAPI.Data.Models;
+﻿using BookstoreClassLibrary.Models;
+using BookstoreWebAPI.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 

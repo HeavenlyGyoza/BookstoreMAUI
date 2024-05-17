@@ -86,6 +86,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\BookstoreClassLibrary\BookstoreClassLibrary.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <MauiXaml Update="MVVM\Cells\BookCard.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

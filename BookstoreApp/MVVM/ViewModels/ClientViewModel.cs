@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using BookstoreClassLibrary.Models;
+using CommunityToolkit.Mvvm.ComponentModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,30 +24,30 @@ namespace Bookstore_MAUI.MVVM.ViewModels
         [ObservableProperty]
         public string phone;
         [ObservableProperty]
-        public List<AddressViewModel> addresses;
+        public List<Address> addresses;
         
         public ClientViewModel(HttpClient httpClient)
         {
             _httpClient = httpClient;
         }
 
-        public async Task<IEnumerable<ClientViewModel>> GetAllClientsAsync()
+        public async Task<IEnumerable<Client>> GetAllClientsAsync()
         {
-            return await _httpClient.GetFromJsonAsync<IEnumerable<ClientViewModel>>($"{BaseUrl}/all");
+            return await _httpClient.GetFromJsonAsync<IEnumerable<Client>>($"{BaseUrl}/all");
         }
 
-        public async Task<ClientViewModel> GetClientByIdAsync(int id)
+        public async Task<Client> GetClientByIdAsync(int id)
         {
-            return await _httpClient.GetFromJsonAsync<ClientViewModel>($"{BaseUrl}/{id}");
+            return await _httpClient.GetFromJsonAsync<Client>($"{BaseUrl}/{id}");
         }
 
-        public async Task<bool> AddClientAsync(ClientViewModel client)
+        public async Task<bool> AddClientAsync(Client client)
         {
             var response = await _httpClient.PostAsJsonAsync($"{BaseUrl}/add", client);
             return response.IsSuccessStatusCode;
         }
 
-        public async Task<bool> UpdateClientAsync(ClientViewModel client)
+        public async Task<bool> UpdateClientAsync(Client client)
         {
             var response = await _httpClient.PutAsJsonAsync($"{BaseUrl}/{client.Id}", client);
             return response.IsSuccessStatusCode;

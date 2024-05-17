@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using BookstoreClassLibrary.Models;
+using CommunityToolkit.Mvvm.ComponentModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace Bookstore_MAUI.MVVM.ViewModels
         [ObservableProperty]
         public string title;
         [ObservableProperty]
-        public List<AuthorViewModel> authors;
+        public List<Author> authors;
         [ObservableProperty]
         public string publisher;
         [ObservableProperty]
@@ -46,23 +47,23 @@ namespace Bookstore_MAUI.MVVM.ViewModels
             _httpClient = httpClient;
         }
 
-        public async Task<IEnumerable<BookViewModel>> GetAllBooksAsync()
+        public async Task<IEnumerable<Book>> GetAllBooksAsync()
         {
-            return await _httpClient.GetFromJsonAsync<IEnumerable<BookViewModel>>($"{BaseUrl}/all");
+            return await _httpClient.GetFromJsonAsync<IEnumerable<Book>>($"{BaseUrl}/all");
         }
 
-        public async Task<BookViewModel> GetBookByIdAsync(int id)
+        public async Task<Book> GetBookByIdAsync(int id)
         {
-            return await _httpClient.GetFromJsonAsync<BookViewModel>($"{BaseUrl}/{id}");
+            return await _httpClient.GetFromJsonAsync<Book>($"{BaseUrl}/{id}");
         }
 
-        public async Task<bool> AddBookAsync(BookViewModel book)
+        public async Task<bool> AddBookAsync(Book book)
         {
             var response = await _httpClient.PostAsJsonAsync($"{BaseUrl}/add", book);
             return response.IsSuccessStatusCode;
         }
 
-        public async Task<bool> UpdateBookAsync(BookViewModel book)
+        public async Task<bool> UpdateBookAsync(Book book)
         {
             var response = await _httpClient.PutAsJsonAsync($"{BaseUrl}/{book.Id}", book);
             return response.IsSuccessStatusCode;

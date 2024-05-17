@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using BookstoreClassLibrary.Models;
+using CommunityToolkit.Mvvm.ComponentModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,32 +22,32 @@ namespace Bookstore_MAUI.MVVM.ViewModels
         [ObservableProperty]
         public DateOnly orderDate;
         [ObservableProperty]
-        public ClientViewModel client;
+        public Client client;
         [ObservableProperty]
-        public AddressViewModel address;
+        public Address address;
 
         public OrderViewModel (HttpClient httpClient)
         {
             _httpClient = httpClient;
         }
 
-        public async Task<IEnumerable<OrderViewModel>> GettAllOrdersAsync()
+        public async Task<IEnumerable<Order>> GettAllOrdersAsync()
         {
-            return await _httpClient.GetFromJsonAsync<IEnumerable<OrderViewModel>>($"{BaseUrl}/all");
+            return await _httpClient.GetFromJsonAsync<IEnumerable<Order>>($"{BaseUrl}/all");
         }
 
-        public async Task<OrderViewModel> GetOrderByIdAsync(int id)
+        public async Task<Order> GetOrderByIdAsync(int id)
         {
-            return await _httpClient.GetFromJsonAsync<OrderViewModel>($"{BaseUrl}({id}");
+            return await _httpClient.GetFromJsonAsync<Order>($"{BaseUrl}({id}");
         }
 
-        public async Task<bool> AddOrderAsync(OrderViewModel order)
+        public async Task<bool> AddOrderAsync(Order order)
         {
             var response = await _httpClient.PostAsJsonAsync($"{BaseUrl}/{order.Id}", order);
             return response.IsSuccessStatusCode;
         }
 
-        public async Task<bool> UpdateOrderAsync(OrderViewModel order)
+        public async Task<bool> UpdateOrderAsync(Order order)
         {
             var response = await _httpClient.PutAsJsonAsync($"{BaseUrl}/{order.Id}", order);
             return response.IsSuccessStatusCode;

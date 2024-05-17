@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using BookstoreClassLibrary.Models;
+using CommunityToolkit.Mvvm.ComponentModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,23 +27,23 @@ namespace Bookstore_MAUI.MVVM.ViewModels
             _httpClient = httpClient;
         }
 
-        public async Task<IEnumerable<UserViewModel>> GetAllUsersAsync()
+        public async Task<IEnumerable<User>> GetAllUsersAsync()
         {
-            return await _httpClient.GetFromJsonAsync<IEnumerable<UserViewModel>>($"{BaseUrl}/all");
+            return await _httpClient.GetFromJsonAsync<IEnumerable<User>>($"{BaseUrl}/all");
         }
 
-        public async Task<UserViewModel> GetUserByIdAsync(int id)
+        public async Task<User> GetUserByIdAsync(int id)
         {
-            return await _httpClient.GetFromJsonAsync<UserViewModel>($"{BaseUrl}/{id}");
+            return await _httpClient.GetFromJsonAsync<User>($"{BaseUrl}/{id}");
         }
 
-        public async Task<bool> AddUserAsync(UserViewModel user)
+        public async Task<bool> AddUserAsync(User user)
         {
             var response = await _httpClient.PostAsJsonAsync($"{BaseUrl}/add", user);
             return response.IsSuccessStatusCode;
         }
 
-        public async Task<bool> UpdateUserAsync(UserViewModel user)
+        public async Task<bool> UpdateUserAsync(User user)
         {
             var response = await _httpClient.PutAsJsonAsync($"{BaseUrl}/{user.Id}", user);
             return response.IsSuccessStatusCode;
