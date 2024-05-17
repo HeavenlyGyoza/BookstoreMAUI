@@ -1,8 +1,9 @@
 namespace BookstoreApp.MVVM.Views.ApplicationPages;
 
-[QueryProperty("query", "query")]
+[QueryProperty(nameof(Query), "query")]
 public partial class ExplorePage : ContentPage
 {
+    public string Query { get; set; }
 	public ExplorePage()
 	{
 		InitializeComponent();
@@ -11,6 +12,6 @@ public partial class ExplorePage : ContentPage
     protected override void OnNavigatedTo(NavigatedToEventArgs args)
     {
         base.OnNavigatedTo(args);
-        //query = Uri.EscapeDataString(query);
+        TestLabel.Text = Query;
     }
 }
