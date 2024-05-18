@@ -9,15 +9,6 @@ public partial class LoginPage : ContentPage
 		InitializeComponent();
 	}
 
-    protected override async void OnAppearing()
-    {
-        var LoggedIn = false;
-        if (LoggedIn)
-        {
-            await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
-        }
-    }
-
     private async void LoginButtonClicked(object sender, EventArgs e)
     {
         await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
