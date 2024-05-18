@@ -50,6 +50,10 @@ namespace BookstoreWebAPI.Controllers
             {
                 return BadRequest();
             }
+            foreach (var book in author.Books)
+            {
+                _dbContext.Entry(book).State = EntityState.Unchanged;
+            }
             _dbContext.Authors.Add(author);
             await _dbContext.SaveChangesAsync();
             return Ok();
