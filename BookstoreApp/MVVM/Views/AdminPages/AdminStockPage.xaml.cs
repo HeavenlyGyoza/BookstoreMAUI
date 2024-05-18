@@ -6,4 +6,9 @@ public partial class AdminStockPage : ContentPage
 	{
 		InitializeComponent();
 	}
+
+    private async void AddNewBookButtonClicked(object sender, EventArgs e)
+    {
+		await Shell.Current.GoToAsync($"{nameof(AddBookPage)}");
+    }
 }
