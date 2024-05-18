@@ -16,13 +16,13 @@ namespace BookstoreWebAPI.Controllers
         }
 
         [HttpGet("all")]
-        public async Task<ActionResult<IEnumerable<Author>>> GetAllAuthors()
+        public async Task<ActionResult<IEnumerable<Author>>> GetAllAuthorsAsync()
         {
             return await _dbContext.Authors.ToListAsync();
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Author>> GetAuthorById(int id)
+        public async Task<ActionResult<Author>> GetAuthorByIdAsync(int id)
         {
             var author = await _dbContext.Authors.FindAsync(id);
             if (author == null)
@@ -32,8 +32,19 @@ namespace BookstoreWebAPI.Controllers
             return Ok(author);
         }
 
+        [HttpGet("byName")]
+        public async Task<IActionResult> GetAuthorsByNameAsync(string query)
+        {
+            var authors = await _dbContext.Authors.Include(a => a.Books).Where(a => a.Name.Contains(query)).ToListAsync();
+            if (authors == null)
+            {
+                return NotFound("Author not found");
+            }
+            return Ok(authors);
+        }
+
         [HttpPost("add")]
-        public async Task<ActionResult<Author>> AddAuthor(Author author)
+        public async Task<ActionResult<Author>> AddAuthorAsync(Author author)
         {
             if (author == null)
             {
@@ -45,7 +56,7 @@ namespace BookstoreWebAPI.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateAuthor(int id, Author author)
+        public async Task<IActionResult> UpdateAuthorAsync(int id, Author author)
         {
             if (id != author.Id)
             {
@@ -57,7 +68,7 @@ namespace BookstoreWebAPI.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAuthor(int id)
+        public async Task<IActionResult> DeleteAuthorAsync(int id)
         {
             var author = await _dbContext.Authors.FindAsync(id);
             if (author == null) 
