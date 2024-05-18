@@ -1,4 +1,6 @@
-﻿using BookstoreApp.MVVM.Views.ApplicationPages;
+﻿using Bookstore_MAUI.MVVM.ViewModels;
+using BookstoreApp.MVVM.Services;
+using BookstoreApp.MVVM.Views.ApplicationPages;
 using BookstoreApp.MVVM.Views.LoginPages;
 using Microsoft.Extensions.Logging;
 
@@ -17,10 +19,19 @@ namespace BookstoreApp
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
+            //Register services
             builder.Services.AddSingleton<HttpClient>();
-
-            Routing.RegisterRoute("RegistrationPage", typeof(RegistrationPage));
-            Routing.RegisterRoute("ExplorePage", typeof(ExplorePage));
+            builder.Services.AddSingleton<SearchService>();
+            //Register ViewModels
+            builder.Services.AddTransient<BookViewModel>();
+            builder.Services.AddTransient<AuthorViewModel>();
+            builder.Services.AddTransient<ClientViewModel>();
+            builder.Services.AddTransient<AddressViewModel>();
+            builder.Services.AddTransient<OrderViewModel>();
+            builder.Services.AddTransient<UserViewModel>();
+            //Register Shell routes
+            Routing.RegisterRoute(nameof(RegistrationPage), typeof(RegistrationPage));
+            Routing.RegisterRoute(nameof(ExplorePage), typeof(ExplorePage));
 
 #if DEBUG
     		builder.Logging.AddDebug();
