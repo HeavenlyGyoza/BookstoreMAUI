@@ -1,7 +1,9 @@
-﻿using BookstoreClassLibrary.Models;
+﻿using BookstoreApp.MVVM.Services;
+using BookstoreClassLibrary.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http.Json;
 using System.Text;
@@ -12,6 +14,7 @@ namespace Bookstore_MAUI.MVVM.ViewModels
     public partial class BookViewModel : ObservableObject
     {
         private readonly HttpClient _httpClient;
+        private readonly SearchService _searchService;
         private const string BaseUrl = "https://localhost:7299/Book";
 
         public int Id { get; set; }
@@ -42,9 +45,11 @@ namespace Bookstore_MAUI.MVVM.ViewModels
         [ObservableProperty]
         public string coverImage;
 
-        public BookViewModel(HttpClient httpClient)
+        public ObservableCollection<Book> Books { get; set; } = new ObservableCollection<Book>();
+        public BookViewModel(HttpClient httpClient, SearchService searchService)
         {
             _httpClient = httpClient;
+            _searchService = searchService;
         }
 
         public async Task<IEnumerable<Book>> GetAllBooksAsync()
@@ -73,6 +78,17 @@ namespace Bookstore_MAUI.MVVM.ViewModels
         {
             var response = await _httpClient.DeleteAsync($"{BaseUrl}/{id}");
             return response.IsSuccessStatusCode;
+        }
+
+        public async Task<IEnumerable<Book>> SearchBooksByQuery(string query)
+        {
+            Books.Clear();
+            var books = await _searchService.SearchBooksAsync(query);
+            foreach (var book in books)
+            {
+                Books.Add(book);
+            }
+            return books;
         }
     }
 }

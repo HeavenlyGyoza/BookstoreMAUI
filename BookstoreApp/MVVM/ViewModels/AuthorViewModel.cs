@@ -1,4 +1,5 @@
-﻿using BookstoreClassLibrary.Models;
+﻿using BookstoreApp.MVVM.Services;
+using BookstoreClassLibrary.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace Bookstore_MAUI.MVVM.ViewModels
     public partial class AuthorViewModel : ObservableObject
     {
         private readonly HttpClient _httpClient;
+        private readonly SearchService _searchService;
         private const string BaseUrl = "https://localhost:7299/Author";
 
         public int Id { get; set; }
@@ -23,9 +25,10 @@ namespace Bookstore_MAUI.MVVM.ViewModels
 
         public ObservableCollection<Author> Authors { get; set; }
 
-        public AuthorViewModel (HttpClient httpClient)
+        public AuthorViewModel (HttpClient httpClient, SearchService searchService)
         {
             _httpClient = httpClient;
+            _searchService = searchService;
         }
 
         public async Task<IEnumerable<Author>> GetAllAuthorsAsync()
@@ -49,6 +52,7 @@ namespace Bookstore_MAUI.MVVM.ViewModels
             if (author == null)
             {
                 return false;
+
             }
             var response = await _httpClient.PutAsJsonAsync($"{BaseUrl}/{author.Id}", author);
             return response.IsSuccessStatusCode;
@@ -60,25 +64,15 @@ namespace Bookstore_MAUI.MVVM.ViewModels
             return response.IsSuccessStatusCode;
         }
 
-        //TODO make API first
-        //public async Task SearchBooksByAuthorAsync(string query)
-        //{
-        //    var response = await _httpClient.GetFromJsonAsync<Author>($"{BaseUrl}?query={query}");
-        //    if (response.IsSuccessStatusCode)
-        //    {
-        //        var 
-        //    }
-        //}
-
-        //public async Task<IEnumerable<Author>> GetAuthorByNameAsync(string query)
-        //{
-        //    Authors.Clear();
-        //    var response = await _httpClient.GetFromJsonAsync<IEnumerable<Author>>($"{BaseUrl}?query={query}");
-        //    foreach (var author in response)
-        //    {
-        //        Authors.Add(author);
-        //    }
-        //    return Authors;
-        //}
+        public async Task<IEnumerable<Author>> GetAuthorsByNameAsync(string query)
+        {
+            Authors.Clear();
+            var response = await _searchService.SearchAuthorsAsync(query);
+            foreach (var author in response)
+            {
+                Authors.Add(author);
+            }
+            return Authors;
+        }
     }
 }
