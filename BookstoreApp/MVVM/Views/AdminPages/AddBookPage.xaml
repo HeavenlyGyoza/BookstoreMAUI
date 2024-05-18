@@ -3,10 +3,49 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BookstoreApp.MVVM.Views.AdminPages.AddBookPage"
              Title="AddBookPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+
+    <ScrollView>
+        <VerticalStackLayout Margin="30"
+                             Spacing="10">
+            <Label Text="Title:"/>
+            <Entry x:Name="titleEntry"/>
+
+            <Label Text="ISBN:"/>
+            <Entry x:Name="isbnEntry"
+                   MaxLength="17"
+                   ClearButtonVisibility="WhileEditing"/>
+
+            <Label Text="Authors:"/>
+            <Entry x:Name="authorsEntry"
+                   Placeholder="Use commas to separate multiple authors"/>
+
+            <Label Text="Publisher:"/>
+            <Entry x:Name="publisherEntry"/>
+
+            <Label Text="Genre:"/>
+            <Entry x:Name="genreEntry"/>
+
+            <Label Text="Publishing date:"/>
+            <DatePicker x:Name="pubDateDatePicker"/>
+
+            <Label Text="Language:"/>
+            <Entry x:Name="languageEntry"
+                   Placeholder="SPA, ENG..."
+                   MaxLength="3"/>
+
+            <Label Text="Page size:"/>
+            <Entry x:Name="pageSizeEntry"
+                   Keyboard="Numeric"/>
+
+            <Label Text="Stock"/>
+            <Entry x:Name="stockEntry"
+                   Keyboard="Numeric"/>
+
+            <Label Text="Price"/>
+            <Entry x:Name="priceEntry"
+                   Keyboard="Numeric"/>
+
+            <Button Text="Add Book"/>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
