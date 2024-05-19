@@ -39,10 +39,21 @@ namespace BookstoreWebAPI.Controllers
             {
                 return BadRequest();
             }
+            var authors = new List<Author>();
+            //Checks if author already exists to avoid duplicates
             foreach (var author in book.Authors)
             {
-                _dbContext.Entry(author).State = EntityState.Unchanged;
+                var existingAuthor = await _dbContext.Authors.FirstOrDefaultAsync(a => a.Name == author.Name);
+                if (existingAuthor != null) 
+                {
+                    authors.Add(existingAuthor);
+                }
+                else
+                {
+                    authors.Add(author);
+                }
             }
+            book.Authors = authors;
             _dbContext.Books.Add(book);
             _dbContext.SaveChangesAsync();
             return Ok();
