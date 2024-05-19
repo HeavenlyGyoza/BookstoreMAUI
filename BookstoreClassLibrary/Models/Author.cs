@@ -14,6 +14,6 @@ namespace BookstoreClassLibrary.Models
         [Required]
         [StringLength(50)]
         public string Name { get; set; }
-        public ICollection<Book> Books { get; set; }
+        public ICollection<Book>? Books { get; set; }
     }
 }
