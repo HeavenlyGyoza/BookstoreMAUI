@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="BookstoreApp.MVVM.Views.AdminPages.AddBookPage"
-             Title="AddBookPage">
+             x:Class="BookstoreApp.MVVM.Views.AdminPages.AddBookPage">
 
     <ScrollView>
         <VerticalStackLayout Margin="30"
@@ -37,6 +36,13 @@
             <Entry x:Name="pageSizeEntry"
                    Keyboard="Numeric"/>
 
+            <Label Text="Description:"/>
+            <Editor x:Name="descriptionEditor"/>
+
+            <!--TODO: ENTRY FOR TEST PURPOSES ONLY. CHANGE TO FILE PICKER-->
+            <Label Text="Cover image"/>
+            <Entry x:Name="coverImageEntry"/>
+
             <Label Text="Stock"/>
             <Entry x:Name="stockEntry"
                    Keyboard="Numeric"/>
@@ -45,7 +51,8 @@
             <Entry x:Name="priceEntry"
                    Keyboard="Numeric"/>
 
-            <Button Text="Add Book"/>
+            <Button Text="Add Book"
+                    Clicked="AddBookButtonClicked"/>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
