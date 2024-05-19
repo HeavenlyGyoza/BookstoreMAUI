@@ -31,6 +31,8 @@ namespace BookstoreApp
             builder.Services.AddTransient<AddressViewModel>();
             builder.Services.AddTransient<OrderViewModel>();
             builder.Services.AddTransient<UserViewModel>();
+            //Register pages
+            builder.Services.AddTransient<AddBookPage>();
             //Register Shell routes
             Routing.RegisterRoute(nameof(RegistrationPage), typeof(RegistrationPage));
             Routing.RegisterRoute(nameof(ExplorePage), typeof(ExplorePage));
