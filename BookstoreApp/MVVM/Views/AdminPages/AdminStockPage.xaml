@@ -1,16 +1,26 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:sf="clr-namespace:Syncfusion.Maui.DataGrid;assembly=Syncfusion.Maui.DataGrid"
              x:Class="BookstoreApp.MVVM.Views.AdminPages.AdminStockPage">
-    
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
 
+    <VerticalStackLayout>
         <Button Text="Add new book"
                 Clicked="AddNewBookButtonClicked"/>
-        
+
+        <sf:SfDataGrid ItemsSource="{Binding Books}"
+                       AutoGenerateColumnsMode="None"
+                       ColumnWidthMode="Fill"
+                       SortingMode="Single"
+                       SelectionMode="SingleDeselect"
+                       AllowTriStateSorting="True">
+            <sf:SfDataGrid.Columns>
+                <sf:DataGridTextColumn MappingName="Title" HeaderText="Title"></sf:DataGridTextColumn>
+                <sf:DataGridTextColumn MappingName="Isbn" HeaderText="ISBN"></sf:DataGridTextColumn>
+                <sf:DataGridTextColumn MappingName="AuthorsDisplay" HeaderText="Authors"></sf:DataGridTextColumn>
+                <sf:DataGridTextColumn MappingName="Stock" HeaderText="Stock"></sf:DataGridTextColumn>
+                <sf:DataGridTextColumn MappingName="Price" HeaderText="Price"></sf:DataGridTextColumn>
+            </sf:SfDataGrid.Columns>
+        </sf:SfDataGrid>
     </VerticalStackLayout>
 </ContentPage>
