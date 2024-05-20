@@ -5,6 +5,7 @@ using BookstoreApp.MVVM.Views.ApplicationPages;
 using BookstoreApp.MVVM.Views.LoginPages;
 using BookstoreApp.MVVM.Views.NavigationPages;
 using Microsoft.Extensions.Logging;
+using Syncfusion.Maui.Core.Hosting;
 
 namespace BookstoreApp
 {
@@ -15,6 +16,7 @@ namespace BookstoreApp
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .ConfigureSyncfusionCore()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
