@@ -18,13 +18,14 @@ namespace BookstoreWebAPI.Controllers
         [HttpGet("all")]
         public async Task<ActionResult<IEnumerable<Book>>> GetAllBooks()
         {
-            return await _dbContext.Books.ToListAsync();
+            return await _dbContext.Books.Include(b => b.Authors).ToListAsync();
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Book>> GetBookById(int id)
         {
-            var book = await _dbContext.Books.FindAsync(id);
+            var book = await _dbContext.Books.Include(b => b.Authors).FirstOrDefaultAsync(b => b.Id == id);
+
             if (book == null)
             {
                 return NotFound();
@@ -74,7 +75,7 @@ namespace BookstoreWebAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteBook(int id)
         {
-            var book = await _dbContext.Books.FindAsync(id);
+            var book = await _dbContext.Books.FirstOrDefaultAsync(b => b.Id == id);
             if (book == null)
             {
                 return NotFound();
