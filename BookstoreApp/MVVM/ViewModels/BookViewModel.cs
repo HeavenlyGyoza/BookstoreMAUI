@@ -1,6 +1,7 @@
 ﻿using BookstoreApp.MVVM.Services;
 using BookstoreClassLibrary.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -46,10 +47,15 @@ namespace Bookstore_MAUI.MVVM.ViewModels
         public string coverImage;
 
         public ObservableCollection<Book> Books { get; set; } = new ObservableCollection<Book>();
+
+        public IRelayCommand LoadBooksCommand { get; }
+
+        public BookViewModel() { }
         public BookViewModel(HttpClient httpClient, SearchService searchService)
         {
             _httpClient = httpClient;
             _searchService = searchService;
+            LoadBooksCommand = new RelayCommand(async () => await LoadBooksCollection());
         }
 
         public async Task<IEnumerable<Book>> GetAllBooksAsync()
@@ -89,6 +95,16 @@ namespace Bookstore_MAUI.MVVM.ViewModels
                 Books.Add(book);
             }
             return books;
+        }
+
+        private async Task LoadBooksCollection()
+        {
+            Books.Clear();
+            var books = await GetAllBooksAsync();
+            foreach (var book in books)
+            {
+                Books.Add(book);
+            }
         }
     }
 }
