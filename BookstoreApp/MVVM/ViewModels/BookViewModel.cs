@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 
 namespace Bookstore_MAUI.MVVM.ViewModels
 {
+    [QueryProperty(nameof(SelectedBook), nameof(SelectedBook))]
     public partial class BookViewModel : ObservableObject
     {
         private readonly HttpClient _httpClient;
@@ -49,12 +50,14 @@ namespace Bookstore_MAUI.MVVM.ViewModels
         public string coverImagePath;
         [ObservableProperty]
         public Stream coverImageStream;
-
-        public ObservableCollection<Book> Books { get; set; } = new ObservableCollection<Book>();
+        [ObservableProperty]
+        public Book selectedBook;
+        public ObservableCollection<Book> Books { get; set; } = [];
 
         public IRelayCommand LoadBooksCommand { get; }
         public IRelayCommand EditBookCommand { get; }
         public IRelayCommand DeleteBookCommand { get; }
+        public IRelayCommand SaveChangesCommand { get; }
 
         public BookViewModel() { }
         public BookViewModel(HttpClient httpClient, SearchService searchService)
@@ -63,7 +66,9 @@ namespace Bookstore_MAUI.MVVM.ViewModels
             _searchService = searchService;
             LoadBooksCommand = new RelayCommand(async () => await LoadBooksCollection());
             EditBookCommand = new RelayCommand<Book>(EditBookCommandAction);
+            //EditBookCommand = new RelayCommand<int>(EditBookCommandAction);
             DeleteBookCommand = new RelayCommand<Book>(DeleteBookCommandAction);
+            SaveChangesCommand = new RelayCommand(async () => await SaveChangesCommandAction());
         }
 
         public async Task<IEnumerable<Book>> GetAllBooksAsync()
@@ -92,9 +97,18 @@ namespace Bookstore_MAUI.MVVM.ViewModels
             return response.IsSuccessStatusCode;
         }
 
-        public async Task<bool> UpdateBookAsync(Book book)
+        public async Task<bool> UpdateBookAsync(Book book, Stream coverImageStream)
         {
-            var response = await _httpClient.PutAsJsonAsync($"{BaseUrl}/{book.Id}", book);
+            var content = new MultipartFormDataContent();
+
+            var bookJson = JsonSerializer.Serialize(book);
+            content.Add(new StringContent(bookJson, Encoding.UTF8, "application/json"), "bookJson");
+
+            var streamContent = new StreamContent(coverImageStream);
+            streamContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("image/jpeg");
+            content.Add(streamContent, "coverImage", "cover.jpeg");
+
+            var response = await _httpClient.PutAsJsonAsync($"{BaseUrl}/{book.Id}", content);
             return response.IsSuccessStatusCode;
         }
 
@@ -127,11 +141,17 @@ namespace Bookstore_MAUI.MVVM.ViewModels
 
         private async void EditBookCommandAction(Book book)
         {
+            SelectedBook = book;
             await Shell.Current.GoToAsync(nameof(EditBookPage), new Dictionary<string, object>
             {
                 {"SelectedBook", book }
             });
         }
+
+        //private async void EditBookCommandAction(int id)
+        //{
+        //    await Shell.Current.GoToAsync($"{nameof(EditBookPage)}?BookId={id}");
+        //}
 
         private async void DeleteBookCommandAction(Book book)
         {
@@ -139,6 +159,23 @@ namespace Bookstore_MAUI.MVVM.ViewModels
             if (response)
             {
                 Books.Remove(book);
+            }
+        }
+
+        private async Task SaveChangesCommandAction()
+        {
+            if (SelectedBook == null) return;
+
+            MemoryStream coverImageStream = null;
+            var response = await UpdateBookAsync(SelectedBook, coverImageStream);
+            if (response)
+            {
+                await Application.Current.MainPage.DisplayAlert("Success", "Book updated succesfully.", "OK");
+                await Shell.Current.GoToAsync("..");
+            }
+            else
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "Failed to update book.", "OK");
             }
         }
     }
