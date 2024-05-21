@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http.Json;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Bookstore_MAUI.MVVM.ViewModels
@@ -44,7 +45,9 @@ namespace Bookstore_MAUI.MVVM.ViewModels
         [ObservableProperty]
         public string description;
         [ObservableProperty]
-        public string coverImage;
+        public string coverImagePath;
+        [ObservableProperty]
+        public Stream coverImageStream;
 
         public ObservableCollection<Book> Books { get; set; } = new ObservableCollection<Book>();
 
@@ -68,9 +71,19 @@ namespace Bookstore_MAUI.MVVM.ViewModels
             return await _httpClient.GetFromJsonAsync<Book>($"{BaseUrl}/{id}");
         }
 
-        public async Task<bool> AddBookAsync(Book book)
+        public async Task<bool> AddBookAsync(Book book, Stream coverImageStream)
         {
-            var response = await _httpClient.PostAsJsonAsync($"{BaseUrl}/add", book);
+
+            var content = new MultipartFormDataContent();
+
+            var bookJson = JsonSerializer.Serialize(book);
+            content.Add(new StringContent(bookJson, Encoding.UTF8, "application/json"), "bookJson");
+
+            var streamContent = new StreamContent(coverImageStream);
+            streamContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("image/jpeg");
+            content.Add(streamContent, "coverImage", "cover.jpeg");
+
+            var response = await _httpClient.PostAsync($"{BaseUrl}/add", content);
             return response.IsSuccessStatusCode;
         }
 
