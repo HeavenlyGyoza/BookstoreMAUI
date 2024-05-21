@@ -2,6 +2,7 @@
 using BookstoreWebAPI.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
 
 namespace BookstoreWebAPI.Controllers
 {
@@ -10,9 +11,12 @@ namespace BookstoreWebAPI.Controllers
     public class BookController : Controller
     {
         private readonly ApplicationDbContext _dbContext;
-        public BookController(ApplicationDbContext dbContext)
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        public BookController(ApplicationDbContext dbContext, IWebHostEnvironment webHostEnvironment)
         {
             _dbContext = dbContext;
+            _webHostEnvironment = webHostEnvironment;
+
         }
 
         [HttpGet("all")]
@@ -34,12 +38,13 @@ namespace BookstoreWebAPI.Controllers
         }
 
         [HttpPost("add")]
-        public async Task<ActionResult<Book>> AddBook(Book book)
+        public async Task<ActionResult<Book>> AddBook([FromForm] string bookJson, IFormFile coverImage)
         {
-            if (book == null)
+            if (string.IsNullOrEmpty(bookJson) || coverImage == null)
             {
                 return BadRequest();
             }
+            var book = JsonSerializer.Deserialize<Book>(bookJson);
             var authors = new List<Author>();
             //Checks if author already exists to avoid duplicates
             foreach (var author in book.Authors)
@@ -55,9 +60,28 @@ namespace BookstoreWebAPI.Controllers
                 }
             }
             book.Authors = authors;
+
+            //Save book to get Id
             _dbContext.Books.Add(book);
-            _dbContext.SaveChangesAsync();
-            return Ok();
+            await _dbContext.SaveChangesAsync();
+
+            string filePath = Path.Combine(_webHostEnvironment.WebRootPath, "Upload", "BookCovers", book.Id.ToString());
+            if (!Directory.Exists(filePath))
+            {
+                Directory.CreateDirectory(filePath);
+            }
+
+            string imagePath = Path.Combine(filePath, "cover.jpeg");
+            using (var stream = new FileStream(imagePath, FileMode.Create))
+            {
+                await coverImage.CopyToAsync(stream);
+            }
+            book.CoverImagePath = imagePath;
+
+            _dbContext.Entry(book).State = EntityState.Modified;
+
+            await _dbContext.SaveChangesAsync();
+            return Ok(book);
         }
 
         [HttpPut("{id}")]
