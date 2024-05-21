@@ -25,7 +25,7 @@ namespace Bookstore_MAUI.MVVM.ViewModels
 
         public ObservableCollection<Author> Authors { get; set; }
 
-        public AuthorViewModel (HttpClient httpClient, SearchService searchService)
+        public AuthorViewModel(HttpClient httpClient, SearchService searchService)
         {
             _httpClient = httpClient;
             _searchService = searchService;

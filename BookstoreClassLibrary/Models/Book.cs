@@ -43,7 +43,7 @@ namespace BookstoreClassLibrary.Models
 
         public Book()
         {
-            Authors = new List<Author>();
+            Authors = [];
         }
     }
 }
