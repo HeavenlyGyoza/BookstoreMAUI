@@ -39,15 +39,18 @@
             <Label Text="Description:"/>
             <Editor x:Name="descriptionEditor"/>
 
-            <!--TODO: ENTRY FOR TEST PURPOSES ONLY. CHANGE TO FILE PICKER-->
-            <Label Text="Cover image"/>
-            <Entry x:Name="coverImageEntry"/>
+            <Image x:Name="bookCoverImage"
+                   WidthRequest="200"
+                   HeightRequest="200"/>
+            
+            <Label Text="Book cover:"/>
+            <Button Text="Select Image" Clicked="FilePickerButtonClicked"/>
 
-            <Label Text="Stock"/>
+            <Label Text="Stock:"/>
             <Entry x:Name="stockEntry"
                    Keyboard="Numeric"/>
 
-            <Label Text="Price"/>
+            <Label Text="Price:"/>
             <Entry x:Name="priceEntry"
                    Keyboard="Numeric"/>
 
