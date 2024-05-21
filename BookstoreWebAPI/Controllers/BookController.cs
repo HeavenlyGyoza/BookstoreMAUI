@@ -85,12 +85,40 @@ namespace BookstoreWebAPI.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateBook(int id, Book book)
+        public async Task<IActionResult> UpdateBook(int id, [FromForm] string bookJson, IFormFile coverImage)
         {
+            if (id <= 0 || string.IsNullOrEmpty(bookJson))
+            {
+                return BadRequest();
+            }
+            var book = JsonSerializer.Deserialize<Book>(bookJson);
             if (id != book.Id)
             {
                 return BadRequest();
             }
+
+            //if (coverImage != null)
+            //{
+            //    if (!string.IsNullOrEmpty(book.CoverImagePath) && System.IO.File.Exists(book.CoverImagePath))
+            //    {
+            //        System.IO.File.Delete(book.CoverImagePath);
+            //    }
+
+            //    string filePath = Path.Combine(_webHostEnvironment.WebRootPath, "Upload", "BookCovers", book.Id.ToString());
+            //    if (!Directory.Exists(filePath))
+            //    {
+            //        Directory.CreateDirectory(filePath);
+            //    }
+
+            //    string imagePath = Path.Combine(filePath, "cover.jpeg");
+            //    using (var stream = new FileStream(imagePath, FileMode.Create))
+            //    {
+            //        await coverImage.CopyToAsync(stream);
+            //    }
+
+            //    existingBook.CoverImagePath = imagePath;
+            //}
+
             _dbContext.Entry(book).State = EntityState.Modified;
             await _dbContext.SaveChangesAsync();
             return Ok();
@@ -104,6 +132,12 @@ namespace BookstoreWebAPI.Controllers
             {
                 return NotFound();
             }
+
+            if (!string.IsNullOrEmpty(book.CoverImagePath) && System.IO.File.Exists(book.CoverImagePath)) 
+            {
+                System.IO.File.Delete(book.CoverImagePath);
+            }
+
             _dbContext.Books.Remove(book);
             await _dbContext.SaveChangesAsync();
             return Ok();
