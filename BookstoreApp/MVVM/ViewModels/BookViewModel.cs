@@ -1,4 +1,5 @@
 ﻿using BookstoreApp.MVVM.Services;
+using BookstoreApp.MVVM.Views.AdminPages;
 using BookstoreClassLibrary.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -52,6 +53,8 @@ namespace Bookstore_MAUI.MVVM.ViewModels
         public ObservableCollection<Book> Books { get; set; } = new ObservableCollection<Book>();
 
         public IRelayCommand LoadBooksCommand { get; }
+        public IRelayCommand EditBookCommand { get; }
+        public IRelayCommand DeleteBookCommand { get; }
 
         public BookViewModel() { }
         public BookViewModel(HttpClient httpClient, SearchService searchService)
@@ -59,6 +62,8 @@ namespace Bookstore_MAUI.MVVM.ViewModels
             _httpClient = httpClient;
             _searchService = searchService;
             LoadBooksCommand = new RelayCommand(async () => await LoadBooksCollection());
+            EditBookCommand = new RelayCommand<Book>(EditBookCommandAction);
+            DeleteBookCommand = new RelayCommand<Book>(DeleteBookCommandAction);
         }
 
         public async Task<IEnumerable<Book>> GetAllBooksAsync()
@@ -117,6 +122,23 @@ namespace Bookstore_MAUI.MVVM.ViewModels
             foreach (var book in books)
             {
                 Books.Add(book);
+            }
+        }
+
+        private async void EditBookCommandAction(Book book)
+        {
+            await Shell.Current.GoToAsync(nameof(EditBookPage), new Dictionary<string, object>
+            {
+                {"SelectedBook", book }
+            });
+        }
+
+        private async void DeleteBookCommandAction(Book book)
+        {
+            var response = await DeleteBookAsync(book.Id);
+            if (response)
+            {
+                Books.Remove(book);
             }
         }
     }
