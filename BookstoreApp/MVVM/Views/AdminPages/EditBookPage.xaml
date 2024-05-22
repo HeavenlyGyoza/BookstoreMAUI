@@ -5,25 +5,78 @@
              xmlns:vm="clr-namespace:Bookstore_MAUI.MVVM.ViewModels"
              x:DataType="vm:BookViewModel"
              x:Class="BookstoreApp.MVVM.Views.AdminPages.EditBookPage">
-    
-    <VerticalStackLayout>
-        <sf:SfDataForm x:Name="dataForm"
-                       DataObject="{Binding SelectedBook}"
-                       AutoGenerateItems="False">
-            <sf:SfDataForm.Items>
-                <sf:DataFormTextItem FieldName="Title"/>
-                <sf:DataFormTextItem FieldName="Isbn"/>
-                <sf:DataFormTextItem FieldName="AuthorsDisplay"/>
-                <sf:DataFormTextItem FieldName="Publisher"/>
-                <sf:DataFormTextItem FieldName="Genre"/>
-                <sf:DataFormDateItem FieldName="PublishDate"/>
-                <sf:DataFormNumericItem FieldName="Price"/>
-                <sf:DataFormNumericItem FieldName="Stock"/>
-                <sf:DataFormMultilineItem FieldName="Description"/>
-            </sf:SfDataForm.Items>
-        </sf:SfDataForm>
+    <ScrollView>
+        <Grid Margin="25"
+              Padding="10"
+              RowSpacing="10"
+              ColumnSpacing="10"
+              RowDefinitions="*, Auto"
+              ColumnDefinitions="*, *">
 
-        <Button Text="Save changes"
-                Command="{Binding SaveChangesCommand}"/>
-    </VerticalStackLayout>
+            <sf:SfDataForm Grid.Row="0"
+                           Grid.Column="0"
+                           x:Name="dataForm"
+                           DataObject="{Binding SelectedBook}"
+                           AutoGenerateItems="False"
+                           HorizontalOptions="FillAndExpand"
+                           VerticalOptions="FillAndExpand"
+                           MinimumHeightRequest="750"
+                           LayoutType="TextInputLayout">
+
+                <sf:SfDataForm.Items>
+                    <sf:DataFormTextItem FieldName="Title"
+                                         LabelText="Title:"/>
+                    <sf:DataFormTextItem FieldName="Isbn"
+                                         LabelText="ISBN:"/>
+                    <sf:DataFormTextItem FieldName="AuthorsDisplay"
+                                         LabelText="Authors:"/>
+                    <sf:DataFormTextItem FieldName="Publisher"
+                                         LabelText="Publisher:"/>
+                    <sf:DataFormTextItem FieldName="Genre"
+                                         LabelText="Genre:"/>
+                    <sf:DataFormDateItem FieldName="PublishDate"
+                                         LabelText="Publishing date:"/>
+                    <sf:DataFormNumericItem FieldName="Price"
+                                            LabelText="Price:"/>
+                    <sf:DataFormNumericItem FieldName="Stock"
+                                            LabelText="Stock:"/>
+                    <sf:DataFormMultilineItem FieldName="Description"
+                                              LabelText="Description:"
+                                              EditorHeight="200"/>
+                </sf:SfDataForm.Items>
+            </sf:SfDataForm>
+
+            <Grid Grid.Column="1"
+                  Grid.Row="0"
+                  RowDefinitions="Auto, Auto, Auto"
+                  ColumnDefinitions="Auto"
+                  HorizontalOptions="Center">
+
+                <Label Grid.Row="0"
+                       Text="Book cover:"
+                       HorizontalTextAlignment="Center"
+                       VerticalOptions="Center"/>
+
+                <Image Grid.Row="1"
+                       x:Name="bookCoverImage"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                       WidthRequest="550"
+                       HeightRequest="550"
+                       Aspect="AspectFit"
+                       Source="{Binding SelectedBook.CoverImagePath}"/>
+
+                <Button Grid.Row="2"
+                        Text="Select Image" 
+                        Clicked="FilePickerButtonClicked"
+                        HorizontalOptions="FillAndExpand"/>
+            </Grid>
+            <Button Grid.Row="1"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Text="Save changes"
+                    Command="{Binding SaveChangesCommand}"
+                    HorizontalOptions="FillAndExpand"/>
+        </Grid>
+    </ScrollView>
 </ContentPage>
