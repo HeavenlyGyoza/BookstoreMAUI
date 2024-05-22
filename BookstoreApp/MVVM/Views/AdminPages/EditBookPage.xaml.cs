@@ -12,17 +12,24 @@ public partial class EditBookPage : ContentPage
 	{
 		InitializeComponent();
 		BindingContext = _bookVM = bookViewModel;
-		//var bookId = id;
 
 	}
 
-    //protected override void OnNavigatedTo(NavigatedToEventArgs args)
-    //{
-    //    base.OnNavigatedTo(args);
-    //}
-
-    protected override void OnAppearing()
+    private async void FilePickerButtonClicked(object sender, EventArgs e)
     {
-        base.OnAppearing();
+        var result = await FilePicker.PickAsync(new PickOptions
+        {
+            FileTypes = FilePickerFileType.Images,
+            PickerTitle = "Please select an image"
+        });
+
+        if (result != null)
+        {
+            bookCoverImage.Source = ImageSource.FromFile(result.FullPath);
+            var stream = await result.OpenReadAsync();
+            _bookVM.coverImageStream = new MemoryStream();
+            await stream.CopyToAsync(_bookVM.coverImageStream);
+            _bookVM.coverImageStream.Position = 0;
+        }
     }
 }
