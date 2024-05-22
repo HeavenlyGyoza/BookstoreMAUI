@@ -32,7 +32,8 @@
                                    HeightRequest="450"
                                    Aspect="AspectFit">
                                 <Image.GestureRecognizers>
-                                    <TapGestureRecognizer Command="OnItemTappedCommand"/>
+                                    <TapGestureRecognizer Command="BookTappedCommand"
+                                                          CommandParameter="{Binding .}"/>
                                 </Image.GestureRecognizers>
                             </Image>
                             <Label Text="{Binding Title}"
