@@ -87,7 +87,7 @@ namespace BookstoreWebAPI.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateBook(int id, [FromForm] string bookJson, IFormFile coverImage)
         {
-            if (id <= 0 || string.IsNullOrEmpty(bookJson))
+            if (id <= 0 || string.IsNullOrEmpty(bookJson) || coverImage == null)
             {
                 return BadRequest();
             }
@@ -97,31 +97,30 @@ namespace BookstoreWebAPI.Controllers
                 return BadRequest();
             }
 
-            //if (coverImage != null)
-            //{
-            //    if (!string.IsNullOrEmpty(book.CoverImagePath) && System.IO.File.Exists(book.CoverImagePath))
-            //    {
-            //        System.IO.File.Delete(book.CoverImagePath);
-            //    }
+            if (coverImage != null)
+            {
+                if (!string.IsNullOrEmpty(book.CoverImagePath) && System.IO.File.Exists(book.CoverImagePath))
+                {
+                    System.IO.File.Delete(book.CoverImagePath);
+                }
 
-            //    string filePath = Path.Combine(_webHostEnvironment.WebRootPath, "Upload", "BookCovers", book.Id.ToString());
-            //    if (!Directory.Exists(filePath))
-            //    {
-            //        Directory.CreateDirectory(filePath);
-            //    }
+                string filePath = Path.Combine(_webHostEnvironment.WebRootPath, "Upload", "BookCovers", book.Id.ToString());
+                if (!Directory.Exists(filePath))
+                {
+                    Directory.CreateDirectory(filePath);
+                }
 
-            //    string imagePath = Path.Combine(filePath, "cover.jpeg");
-            //    using (var stream = new FileStream(imagePath, FileMode.Create))
-            //    {
-            //        await coverImage.CopyToAsync(stream);
-            //    }
-
-            //    existingBook.CoverImagePath = imagePath;
-            //}
+                string imagePath = Path.Combine(filePath, "cover.jpeg");
+                using (var stream = new FileStream(imagePath, FileMode.Create))
+                {
+                    await coverImage.CopyToAsync(stream);
+                }
+                book.CoverImagePath = imagePath;
+            }
 
             _dbContext.Entry(book).State = EntityState.Modified;
             await _dbContext.SaveChangesAsync();
-            return Ok();
+            return Ok(book);
         }
 
         [HttpDelete("{id}")]
