@@ -66,7 +66,6 @@ namespace Bookstore_MAUI.MVVM.ViewModels
             _searchService = searchService;
             LoadBooksCommand = new RelayCommand(async () => await LoadBooksCollection());
             EditBookCommand = new RelayCommand<Book>(EditBookCommandAction);
-            //EditBookCommand = new RelayCommand<int>(EditBookCommandAction);
             DeleteBookCommand = new RelayCommand<Book>(DeleteBookCommandAction);
             SaveChangesCommand = new RelayCommand(async () => await SaveChangesCommandAction());
         }
@@ -103,12 +102,14 @@ namespace Bookstore_MAUI.MVVM.ViewModels
 
             var bookJson = JsonSerializer.Serialize(book);
             content.Add(new StringContent(bookJson, Encoding.UTF8, "application/json"), "bookJson");
+            if (coverImageStream != null)
+            {
+                var streamContent = new StreamContent(coverImageStream);
+                streamContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("image/jpeg");
+                content.Add(streamContent, "coverImage", "cover.jpeg");
+            }
 
-            var streamContent = new StreamContent(coverImageStream);
-            streamContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("image/jpeg");
-            content.Add(streamContent, "coverImage", "cover.jpeg");
-
-            var response = await _httpClient.PutAsJsonAsync($"{BaseUrl}/{book.Id}", content);
+            var response = await _httpClient.PutAsync($"{BaseUrl}/{book.Id}", content);
             return response.IsSuccessStatusCode;
         }
 
@@ -148,11 +149,6 @@ namespace Bookstore_MAUI.MVVM.ViewModels
             });
         }
 
-        //private async void EditBookCommandAction(int id)
-        //{
-        //    await Shell.Current.GoToAsync($"{nameof(EditBookPage)}?BookId={id}");
-        //}
-
         private async void DeleteBookCommandAction(Book book)
         {
             var response = await DeleteBookAsync(book.Id);
@@ -166,7 +162,6 @@ namespace Bookstore_MAUI.MVVM.ViewModels
         {
             if (SelectedBook == null) return;
 
-            MemoryStream coverImageStream = null;
             var response = await UpdateBookAsync(SelectedBook, coverImageStream);
             if (response)
             {
