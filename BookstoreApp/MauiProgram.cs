@@ -34,6 +34,7 @@ namespace BookstoreApp
             builder.Services.AddTransient<OrderViewModel>();
             builder.Services.AddTransient<UserViewModel>();
             //Register pages
+            builder.Services.AddTransient<HomePage>();
             builder.Services.AddTransient<AdminStockPage>();
             builder.Services.AddTransient<AddBookPage>();
             builder.Services.AddTransient<EditBookPage>();

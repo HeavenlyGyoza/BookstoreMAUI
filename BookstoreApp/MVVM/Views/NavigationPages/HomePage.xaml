@@ -3,19 +3,53 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:cells="clr-namespace:BookstoreApp.MVVM.Cells"
              x:Class="BookstoreApp.MVVM.Views.NavigationPages.HomePage">
-    
-    <VerticalStackLayout>
-        <Button x:Name="SearchButton"
-                ImageSource="loupe.png"
-                Clicked="SearchButton_Clicked"
-                WidthRequest="64"/>
 
+    <VerticalStackLayout Padding="10"
+                         Margin="25">
+        
         <cells:SearchBarCell x:Name="searchBarCell"/>
-        <!--<SearchBar x:Name="searchBar" 
-                   IsVisible="False"
-                   Placeholder="Search..."
-                   SearchButtonPressed="SearchItems"/>-->
-
+        <Label Text="Newly In"
+               HorizontalOptions="CenterAndExpand"
+               FontSize="42"
+               FontAttributes="Bold"
+               TextDecorations="Underline"
+               Padding="0,0,0,30"/>
+        <CollectionView x:Name="newInCollectionView"
+                        ItemsSource="{Binding Books}"
+                        SelectionMode="Single">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Horizontal"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border StrokeShape="RoundRectangle 5"
+                            StrokeThickness="1"
+                            Padding="5"
+                            HeightRequest="550"
+                            WidthRequest="450">
+                        <VerticalStackLayout>
+                            <Image Source="{Binding CoverImagePath}"
+                                   HeightRequest="450"
+                                   Aspect="AspectFit">
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer Command="OnItemTappedCommand"/>
+                                </Image.GestureRecognizers>
+                            </Image>
+                            <Label Text="{Binding Title}"
+                                   HorizontalOptions="Center"
+                                   FontSize="18"
+                                   FontAttributes="Italic, Bold"/>
+                            <Label Text="{Binding AuthorsDisplay}"
+                                   HorizontalOptions="Center"
+                                   FontSize="14"
+                                   FontAttributes="Italic"/>
+                            <Label Text="{Binding Price}"
+                                   HorizontalOptions="Center"/>
+                        </VerticalStackLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
 
     </VerticalStackLayout>
 </ContentPage>
