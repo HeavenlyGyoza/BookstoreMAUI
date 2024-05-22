@@ -1,5 +1,6 @@
 ﻿using BookstoreApp.MVVM.Services;
 using BookstoreApp.MVVM.Views.AdminPages;
+using BookstoreApp.MVVM.Views.ApplicationPages;
 using BookstoreClassLibrary.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -58,6 +59,7 @@ namespace Bookstore_MAUI.MVVM.ViewModels
         public IRelayCommand EditBookCommand { get; }
         public IRelayCommand DeleteBookCommand { get; }
         public IRelayCommand SaveChangesCommand { get; }
+        public IRelayCommand BookTappedCommand { get; }
 
         public BookViewModel() { }
         public BookViewModel(HttpClient httpClient, SearchService searchService)
@@ -68,6 +70,7 @@ namespace Bookstore_MAUI.MVVM.ViewModels
             EditBookCommand = new RelayCommand<Book>(EditBookCommandAction);
             DeleteBookCommand = new RelayCommand<Book>(DeleteBookCommandAction);
             SaveChangesCommand = new RelayCommand(async () => await SaveChangesCommandAction());
+            BookTappedCommand = new RelayCommand<Book>(BookTappedCommandAction);
         }
 
         public async Task<IEnumerable<Book>> GetAllBooksAsync()
@@ -172,6 +175,11 @@ namespace Bookstore_MAUI.MVVM.ViewModels
             {
                 await Application.Current.MainPage.DisplayAlert("Error", "Failed to update book.", "OK");
             }
+        }
+
+        private async void BookTappedCommandAction(Book book)
+        {
+            await Shell.Current.GoToAsync($"{nameof(ItemPage)}?BookId={book.Id}");
         }
     }
 }
