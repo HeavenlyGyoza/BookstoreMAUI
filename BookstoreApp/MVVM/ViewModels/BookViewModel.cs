@@ -60,6 +60,7 @@ namespace Bookstore_MAUI.MVVM.ViewModels
         public IRelayCommand DeleteBookCommand { get; }
         public IRelayCommand SaveChangesCommand { get; }
         public IRelayCommand BookTappedCommand { get; }
+        public IRelayCommand ToOrderPageCommand { get; }
 
         public BookViewModel() { }
         public BookViewModel(HttpClient httpClient, SearchService searchService)
@@ -71,6 +72,7 @@ namespace Bookstore_MAUI.MVVM.ViewModels
             DeleteBookCommand = new RelayCommand<Book>(DeleteBookCommandAction);
             SaveChangesCommand = new RelayCommand(async () => await SaveChangesCommandAction());
             BookTappedCommand = new RelayCommand<Book>(BookTappedCommandAction);
+            ToOrderPageCommand = new RelayCommand<Book>(ToOrderPageCommandAction);
         }
 
         public async Task<IEnumerable<Book>> GetAllBooksAsync()
@@ -179,7 +181,20 @@ namespace Bookstore_MAUI.MVVM.ViewModels
 
         private async void BookTappedCommandAction(Book book)
         {
-            await Shell.Current.GoToAsync($"{nameof(ItemPage)}?BookId={book.Id}");
+            SelectedBook = book;
+            await Shell.Current.GoToAsync(nameof(ItemPage), new Dictionary<string, object>
+            {
+                {"SelectedBook", book }
+            });
+        }
+
+        private async void ToOrderPageCommandAction(Book book)
+        {
+            SelectedBook = book;
+            await Shell.Current.GoToAsync(nameof(OrderPage), new Dictionary<string, object>
+            {
+                {"SelectedBook", book }
+            });
         }
     }
 }
