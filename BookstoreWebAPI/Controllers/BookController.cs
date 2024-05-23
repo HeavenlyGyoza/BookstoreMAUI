@@ -37,6 +37,23 @@ namespace BookstoreWebAPI.Controllers
             return Ok(book);
         }
 
+        [HttpGet("byTitle")]
+        public async Task<ActionResult<IEnumerable<Book>>> GetBooksByTitle(string query)
+        {
+            if (string.IsNullOrEmpty(query))
+            {
+                return BadRequest("Query parameter cannot be empty.");
+            }
+
+            var books = await _dbContext.Books.Include(b => b.Authors).Where(b => EF.Functions.Like(b.Title, $"%{query}%")).ToListAsync();
+            if (!books.Any())
+            {
+                return NotFound("No books found matching query.");
+            }
+
+            return Ok(books);
+        }
+
         [HttpPost("add")]
         public async Task<ActionResult<Book>> AddBook([FromForm] string bookJson, IFormFile coverImage)
         {
