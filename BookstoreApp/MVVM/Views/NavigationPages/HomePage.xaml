@@ -27,14 +27,14 @@
                             Padding="5"
                             HeightRequest="550"
                             WidthRequest="450">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Path=BindingContext.BookTappedCommand, Source={x:Reference newInCollectionView}}"
+                                                  CommandParameter="{Binding .}"/>
+                        </Border.GestureRecognizers>
                         <VerticalStackLayout>
                             <Image Source="{Binding CoverImagePath}"
                                    HeightRequest="450"
                                    Aspect="AspectFit">
-                                <Image.GestureRecognizers>
-                                    <TapGestureRecognizer Command="BookTappedCommand"
-                                                          CommandParameter="{Binding .}"/>
-                                </Image.GestureRecognizers>
                             </Image>
                             <Label Text="{Binding Title}"
                                    HorizontalOptions="Center"
