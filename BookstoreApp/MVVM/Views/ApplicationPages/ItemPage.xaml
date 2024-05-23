@@ -1,12 +1,61 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="BookstoreApp.MVVM.Views.ApplicationPages.ItemPage"
-             Title="ItemPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             xmlns:vm="clr-namespace:Bookstore_MAUI.MVVM.ViewModels"
+             x:DataType="vm:BookViewModel"
+             x:Class="BookstoreApp.MVVM.Views.ApplicationPages.ItemPage">
+    
+    <ScrollView>
+        <Grid RowDefinitions="Auto, Auto, Auto"
+              ColumnDefinitions="*, *"
+              Margin="15"
+              Padding="10">
+
+        <Image Grid.Column="0"
+               Grid.Row="1"
+               Source="{Binding SelectedBook.CoverImagePath}"
+               Aspect="AspectFit"
+               HeightRequest="550"/>
+
+            <VerticalStackLayout Grid.Row="1"
+                                 Grid.Column="1">
+                <Label Text="{Binding SelectedBook.Title}"
+                       FontSize="42"
+                       FontAttributes="Bold"/>
+
+                <Label Text="{Binding SelectedBook.AuthorsDisplay}"
+                       FontSize="26"
+                       TextColor="CadetBlue"
+                       Margin="0,0,0,15"/>
+
+                <Grid RowDefinitions="Auto, Auto, Auto"
+                      ColumnDefinitions="Auto, Auto">
+                    <Label Grid.Row="0" Grid.Column="0" Text="ISBN: " FontAttributes="Bold" FontSize="18" Padding="0, 0, 70, 0"/>
+                    <Label Grid.Row="0" Grid.Column="1" Text="{Binding SelectedBook.Isbn}" FontSize="18"/>
+                    <Label Grid.Row="1" Grid.Column="0" Text="Publisher: " FontAttributes="Bold" FontSize="18"/>
+                    <Label Grid.Row="1" Grid.Column="1" Text="{Binding SelectedBook.Publisher}" FontSize="18"/>
+                    <Label Grid.Row="2" Grid.Column="0" Text="Page count: " FontAttributes="Bold" FontSize="18"/>
+                    <Label Grid.Row="2" Grid.Column="1" Text="{Binding SelectedBook.PageSize}" FontSize="18"/>
+                </Grid>
+
+                <Button Text="{Binding SelectedBook.Price, StringFormat='{0:C}'}" 
+                        FontSize="18" 
+                        BackgroundColor="#007bff"
+                        CornerRadius="5"
+                        Padding="10"
+                        Margin="0, 20, 0, 20"
+                        FontAttributes="Bold"
+                        HorizontalOptions="Start"
+                        ContentLayout="Right, 0"
+                        ImageSource="shopping_cart.png"
+                        WidthRequest="150"
+                        Command="{Binding ToOrderPageCommand}"
+                        CommandParameter="{Binding .}"/>
+
+                
+                <Label Text="{Binding SelectedBook.Description}" 
+                       FontSize="16" />
+            </VerticalStackLayout>
+        </Grid>
+    </ScrollView>
 </ContentPage>
