@@ -6,7 +6,7 @@
 
     <VerticalStackLayout Padding="10"
                          Margin="25">
-        
+
         <cells:SearchBarCell x:Name="searchBarCell"/>
         <Label Text="Newly In"
                HorizontalOptions="CenterAndExpand"
@@ -44,7 +44,7 @@
                                    HorizontalOptions="Center"
                                    FontSize="14"
                                    FontAttributes="Italic"/>
-                            <Label Text="{Binding Price}"
+                            <Label Text="{Binding Price, StringFormat='{0:C}'}"
                                    HorizontalOptions="Center"/>
                         </VerticalStackLayout>
                     </Border>
