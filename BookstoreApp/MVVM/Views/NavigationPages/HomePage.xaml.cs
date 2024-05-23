@@ -20,10 +20,4 @@ public partial class HomePage : ContentPage
             _bookVM.LoadBooksCommand.Execute(null);
         }
     }
-
-    private async void SearchItems(object sender, EventArgs e)
-    {
-		string query = ((SearchBar)sender).Text;
-		await Shell.Current.GoToAsync($"{nameof(ExplorePage)}?query={Uri.EscapeDataString(query)}");
-    }
 }
