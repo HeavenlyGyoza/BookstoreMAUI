@@ -3,7 +3,6 @@ using BookstoreClassLibrary.Models;
 
 namespace BookstoreApp.MVVM.Views.AdminPages;
 
-[QueryProperty(nameof(Id), nameof(Id))]
 public partial class EditBookPage : ContentPage
 {
     private readonly BookViewModel _bookVM;
