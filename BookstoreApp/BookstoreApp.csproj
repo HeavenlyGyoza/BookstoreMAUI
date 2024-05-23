@@ -60,6 +60,7 @@
 	  <None Remove="Resources\Images\Icons\database.png" />
 	  <None Remove="Resources\Images\Icons\home.png" />
 	  <None Remove="Resources\Images\Icons\loupe.png" />
+	  <None Remove="Resources\Images\Icons\shopping_cart.png" />
 	  <None Remove="Resources\Images\Icons\user.png" />
 	</ItemGroup>
 
@@ -67,6 +68,7 @@
 	  <MauiImage Include="Resources\Images\Icons\database.png" />
 	  <MauiImage Include="Resources\Images\Icons\home.png" />
 	  <MauiImage Include="Resources\Images\Icons\loupe.png" />
+	  <MauiImage Include="Resources\Images\Icons\shopping_cart.png" />
 	  <MauiImage Include="Resources\Images\Icons\user.png" />
 	</ItemGroup>
 
@@ -114,6 +116,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="MVVM\Views\ApplicationPages\ItemPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="MVVM\Views\ApplicationPages\OrderPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="MVVM\Views\LoginPages\LoginPage.xaml">
