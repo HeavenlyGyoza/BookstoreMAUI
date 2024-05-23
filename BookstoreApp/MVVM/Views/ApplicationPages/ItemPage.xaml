@@ -50,7 +50,7 @@
                         ImageSource="shopping_cart.png"
                         WidthRequest="150"
                         Command="{Binding ToOrderPageCommand}"
-                        CommandParameter="{Binding .}"/>
+                        CommandParameter="{Binding SelectedBook}"/>
 
                 
                 <Label Text="{Binding SelectedBook.Description}" 

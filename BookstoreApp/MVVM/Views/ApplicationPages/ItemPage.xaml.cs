@@ -2,7 +2,6 @@ using Bookstore_MAUI.MVVM.ViewModels;
 
 namespace BookstoreApp.MVVM.Views.ApplicationPages;
 
-[QueryProperty(nameof(Id), nameof(Id))]
 public partial class ItemPage : ContentPage
 {
     private readonly BookViewModel _bookVM;
