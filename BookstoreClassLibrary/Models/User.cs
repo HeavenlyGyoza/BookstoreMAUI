@@ -8,18 +8,15 @@ using System.Threading.Tasks;
 
 namespace BookstoreClassLibrary.Models
 {
-    public class User
+    public class User : Client
     {
         [Key]
         public int Id { get; set; }
         [Required]
-        [EmailAddress]
-        public string Email { get; set; }
-        [Required]
-        [StringLength(128)]
+        [StringLength(64)]
         [MinLength(4)]
         public string Password { get; set; }
         public string Role { get; } = "User";
-        public Client Client { get; set; }
+        public ICollection<Wishlist>? Wishlists { get; set; }
     }
 }
