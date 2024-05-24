@@ -25,5 +25,6 @@ namespace BookstoreClassLibrary.Models
         public string Phone { get; set; }
         public ICollection<Address> Adresses { get; set; }
         public ICollection<Order> Orders { get; set; }
+        public ShoppingCart ShoppingCart { get; set; }
     }
 }
