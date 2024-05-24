@@ -28,13 +28,15 @@ namespace BookstoreClassLibrary.Models
         public int PageSize { get; set; }
         [Required]
         public string Language { get; set; }
-        public string Genre { get; set; }
+        public string? Genre { get; set; }
         [Required]
         public int Stock { get; set; }
         [Required]
         [Precision(18, 2)]
         public decimal Price { get; set; }
-        public string Description { get; set; }
+        public int? DiscountPercentage { get; set; }
+        public DateTime Created { get; set; }
+        public string? Description { get; set; }
         public string? CoverImagePath { get; set; }
         [NotMapped]
         public Stream? CoverImageStream { get; set; }
@@ -45,5 +47,5 @@ namespace BookstoreClassLibrary.Models
         {
             Authors = [];
         }
-    }
+    } 
 }
