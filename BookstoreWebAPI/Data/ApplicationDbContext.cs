@@ -18,6 +18,10 @@ namespace BookstoreWebAPI.Data
         public DbSet<Client> Clients { get; set; }
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Order> Orders { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Guest> Guests { get; set; }
+        public DbSet<Wishlist> Wishlists { get; set; }
+        public DbSet<ShoppingCart> ShoppingCarts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -34,6 +38,15 @@ namespace BookstoreWebAPI.Data
             modelBuilder.Entity<Order>()
                 .HasOne(o => o.Client)
                 .WithMany(o => o.Orders);
+
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.Wishlists)
+                .WithOne(w => w.User);
+
+            modelBuilder.Entity<Client>()
+                .HasOne(c => c.ShoppingCart)
+                .WithOne(s => s.Client)
+                .HasForeignKey<ShoppingCart>(s => s.ClientId);
         }
     }
 }
