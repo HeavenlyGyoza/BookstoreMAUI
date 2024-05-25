@@ -1,15 +1,41 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="BookstoreApp.MVVM.Views.LoginPages.RegistrationPage">
-    
-    <VerticalStackLayout>
-        <Label Text="Email:"/>
-        <Entry Placeholder="name@mail.com"/>
-        <Label Text="Password:"/>
-        <Entry Placeholder="Password"
-               IsPassword="True"/>
+             xmlns:sf="clr-namespace:Syncfusion.Maui.DataForm;assembly=Syncfusion.Maui.DataForm"
+             xmlns:vm="clr-namespace:Bookstore_MAUI.MVVM.ViewModels"
+             x:DataType="vm:UserViewModel"
+             x:Class="BookstoreApp.MVVM.Views.LoginPages.RegistrationPage"
+             Shell.TabBarIsVisible="False"
+             Shell.NavBarIsVisible="False">
+
+    <VerticalStackLayout HorizontalOptions="{OnPlatform Default=Center, Android=FillAndExpand}"
+                     WidthRequest="{OnPlatform WinUI=600}"
+                     VerticalOptions="Center"
+                     Padding="40"
+                     Spacing="{OnPlatform WinUI=10}">
+
+        <Label Text="Sign up"
+               FontSize="28"/>
+        <Border StrokeShape="RoundRectangle 5"
+            StrokeThickness="1"
+            Padding="5">
+            <sf:SfDataForm x:Name="loginDataForm"
+                       DataObject="{Binding .}"
+                       AutoGenerateItems="False"
+                       LayoutType="TextInputLayout"
+                       MinimumHeightRequest="100"
+                       HeightRequest="{OnPlatform WinUI=125}">
+                <sf:SfDataForm.Items>
+                    <sf:DataFormTextItem FieldName="Email"
+                                     LabelText="Email:"/>
+                    <sf:DataFormPasswordItem FieldName="Password"
+                                         LabelText="Password: "/>
+                </sf:SfDataForm.Items>
+            </sf:SfDataForm>
+        </Border>
+        
         <Button Text="Register"
-                Clicked="RegisterButtonClicked"/>
+                Command="{Binding SignUpCommand}"
+                CommandParameter="{Binding .}"/>
     </VerticalStackLayout>
 </ContentPage>

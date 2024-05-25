@@ -1,14 +1,13 @@
+using Bookstore_MAUI.MVVM.ViewModels;
+
 namespace BookstoreApp.MVVM.Views.LoginPages;
 
 public partial class RegistrationPage : ContentPage
 {
-	public RegistrationPage()
+    private readonly UserViewModel _userVM;
+	public RegistrationPage(UserViewModel userViewModel)
 	{
 		InitializeComponent();
+        BindingContext = _userVM = userViewModel;
 	}
-
-    private async void RegisterButtonClicked(object sender, EventArgs e)
-    {
-        await Shell.Current.GoToAsync($"..");
-    }
 }
