@@ -8,10 +8,6 @@
     xmlns:loginViews="clr-namespace:BookstoreApp.MVVM.Views.LoginPages"
     Shell.FlyoutBehavior="Disabled">
 
-    <!--<ShellItem Route="Login">
-        <ShellContent ContentTemplate="{DataTemplate loginViews:LoginPage}"/>
-    </ShellItem>-->
-    
     <TabBar>
         <Tab Title="Home" Icon="home.png">
             <ShellContent ContentTemplate="{DataTemplate navViews:HomePage}" Route="HomePage"/>
