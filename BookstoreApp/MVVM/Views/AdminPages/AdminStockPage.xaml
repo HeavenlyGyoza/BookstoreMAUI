@@ -31,7 +31,8 @@
                                   ColumnDefinitions="*, *">
                                 <Button Grid.Column="0" Text="Edit" Command="{Binding Path=BindingContext.EditBookCommand, Source={x:Reference dataGrid}}"
                                         CommandParameter="{Binding .}"></Button>
-                                <Button Grid.Column="1" Text="Delete" Command="{Binding Path=BindingContext.DeleteBookCommand, Source={x:Reference dataGrid}}"></Button>
+                                <Button Grid.Column="1" Text="Delete" Command="{Binding Path=BindingContext.DeleteBookCommand, Source={x:Reference dataGrid}}"
+                                        CommandParameter="{Binding .}"></Button>
                             </Grid>
                         </DataTemplate>
                     </sf:DataGridTemplateColumn.CellTemplate>
