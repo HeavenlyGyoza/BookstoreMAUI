@@ -41,8 +41,12 @@ namespace BookstoreApp
             builder.Services.AddTransient<ItemPage>();
             builder.Services.AddTransient<OrderPage>();
             builder.Services.AddTransient<ExplorePage>();
+            builder.Services.AddTransient<LoginPage>();
+            builder.Services.AddTransient<RegistrationPage>();
+            builder.Services.AddTransient<UserPage>();
             //Register Shell routes
-            Routing.RegisterRoute(nameof(RegistrationPage), typeof(RegistrationPage));
+            Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
+            Routing.RegisterRoute($"{nameof(LoginPage)}/{nameof(RegistrationPage)}", typeof(RegistrationPage));
             Routing.RegisterRoute(nameof(ExplorePage), typeof(ExplorePage));
             Routing.RegisterRoute(nameof(ItemPage), typeof(ItemPage));
             Routing.RegisterRoute($"{nameof(ItemPage)}/{nameof(OrderPage)}", typeof(OrderPage));
