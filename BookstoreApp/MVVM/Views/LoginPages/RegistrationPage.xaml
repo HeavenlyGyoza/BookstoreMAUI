@@ -24,18 +24,26 @@
                        AutoGenerateItems="False"
                        LayoutType="TextInputLayout"
                        MinimumHeightRequest="100"
-                       HeightRequest="{OnPlatform WinUI=125}">
+                       HeightRequest="{OnPlatform WinUI=305}">
                 <sf:SfDataForm.Items>
+                    <sf:DataFormTextItem FieldName="Name"
+                                         LabelText="Name: "/>
+                    <sf:DataFormTextItem FieldName="Surname"
+                                         LabelText="Surname: "/>
+                    <!--<sf:DataFormNumericItem FieldName="Phone"
+                                            LabelText="Phone: "/>-->
+                    <sf:DataFormTextItem FieldName="Phone"
+                                         LabelText="Phone: "
+                                         Keyboard="Numeric"/>
                     <sf:DataFormTextItem FieldName="Email"
-                                     LabelText="Email:"/>
+                                         LabelText="Email:"/>
                     <sf:DataFormPasswordItem FieldName="Password"
-                                         LabelText="Password: "/>
+                                             LabelText="Password: "/>
                 </sf:SfDataForm.Items>
             </sf:SfDataForm>
         </Border>
         
         <Button Text="Register"
-                Command="{Binding SignUpCommand}"
-                CommandParameter="{Binding .}"/>
+                Command="{Binding SignUpCommand}"/>
     </VerticalStackLayout>
 </ContentPage>

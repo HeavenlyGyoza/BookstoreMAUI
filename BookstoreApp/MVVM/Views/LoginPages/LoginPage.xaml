@@ -4,7 +4,7 @@
              xmlns:sf="clr-namespace:Syncfusion.Maui.DataForm;assembly=Syncfusion.Maui.DataForm"
              xmlns:vm="clr-namespace:Bookstore_MAUI.MVVM.ViewModels"
              x:Class="BookstoreApp.MVVM.Views.LoginPages.LoginPage"
-             x:DataType="vm:UserViewModel"
+             x:DataType="vm:ClientViewModel"
              Shell.TabBarIsVisible="False"
              Shell.NavBarIsVisible="False">
 
