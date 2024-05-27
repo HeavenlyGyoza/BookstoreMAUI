@@ -8,7 +8,9 @@
              Shell.TabBarIsVisible="False"
              Shell.NavBarIsVisible="False">
 
-
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsEnabled="False" IsVisible="False"/>
+    </Shell.BackButtonBehavior>
     <VerticalStackLayout HorizontalOptions="{OnPlatform Default=Center, Android=FillAndExpand}"
                          WidthRequest="{OnPlatform WinUI=600}"
                          VerticalOptions="Center"
