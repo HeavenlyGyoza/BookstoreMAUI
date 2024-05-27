@@ -36,15 +36,18 @@ namespace Bookstore_MAUI.MVVM.ViewModels
 
         public IRelayCommand LoginCommand { get; }
         public IRelayCommand ToRegisterPageCommand { get; }
+        public IRelayCommand ToLoginPageCommand { get; }
         public IRelayCommand SignUpCommand { get; }
+        public IRelayCommand LogOutCommand { get; }
 
         public ClientViewModel(HttpClient httpClient)
         {
             _httpClient = httpClient;
-            //LoginCommand = new RelayCommand<Client>(LoginCommandAction);
             LoginCommand = new RelayCommand(LoginCommandAction);
             ToRegisterPageCommand = new RelayCommand(ToRegisterPageCommandAction);
             SignUpCommand = new RelayCommand(SignUpCommandAction);
+            ToLoginPageCommand = new RelayCommand(ToLoginPageCommandAction);
+            LogOutCommand = new RelayCommand(LogOutCommandAction);
         }
 
         public async Task<IEnumerable<Client>> GetAllClientsAsync()
@@ -127,5 +130,23 @@ namespace Bookstore_MAUI.MVVM.ViewModels
             }
         }
 
+        public async void ToLoginPageCommandAction()
+        {
+            await Shell.Current.GoToAsync($"{nameof(LoginPage)}");
+        }
+
+        public async void LogOutCommandAction()
+        {
+            if (await Application.Current.MainPage.DisplayAlert("Log out", "Are you sure you want to log out?", "Yes", "No"))
+            {
+                SecureStorage.RemoveAll();
+                var stack = Shell.Current.Navigation.NavigationStack.ToArray();
+                for (int i = stack.Length - 1; i > 0; i--)
+                {
+                    Shell.Current.Navigation.RemovePage(stack[i]);
+                }
+                await Shell.Current.GoToAsync($"{nameof(LoginPage)}");
+            }
+        }
     }
 }
