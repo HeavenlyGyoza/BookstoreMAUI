@@ -4,6 +4,7 @@ using BookstoreWebAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookstoreWebAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240526175702_RemoveShoppingCart")]
+    partial class RemoveShoppingCart
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -162,6 +165,9 @@ namespace BookstoreWebAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("ShoppingCartId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Stock")
                         .HasColumnType("int");
 
@@ -173,6 +179,8 @@ namespace BookstoreWebAPI.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ShoppingCartId");
 
                     b.HasIndex("WishlistId");
 
@@ -187,6 +195,11 @@ namespace BookstoreWebAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasMaxLength(8)
+                        .HasColumnType("nvarchar(8)");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -196,12 +209,8 @@ namespace BookstoreWebAPI.Migrations
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasMaxLength(64)
-                        .HasColumnType("nvarchar(64)");
-
                     b.Property<string>("Phone")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Surname")
@@ -212,6 +221,10 @@ namespace BookstoreWebAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Clients");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Client");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("BookstoreClassLibrary.Models.Order", b =>
@@ -252,6 +265,26 @@ namespace BookstoreWebAPI.Migrations
                     b.ToTable("Orders");
                 });
 
+            modelBuilder.Entity("BookstoreClassLibrary.Models.ShoppingCart", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("ClientId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClientId")
+                        .IsUnique();
+
+                    b.ToTable("ShoppingCarts");
+                });
+
             modelBuilder.Entity("BookstoreClassLibrary.Models.Wishlist", b =>
                 {
                     b.Property<int>("Id")
@@ -260,7 +293,7 @@ namespace BookstoreWebAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("ClientId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.Property<string>("WishlistName")
@@ -269,9 +302,28 @@ namespace BookstoreWebAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ClientId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Wishlists");
+                });
+
+            modelBuilder.Entity("BookstoreClassLibrary.Models.Guest", b =>
+                {
+                    b.HasBaseType("BookstoreClassLibrary.Models.Client");
+
+                    b.HasDiscriminator().HasValue("Guest");
+                });
+
+            modelBuilder.Entity("BookstoreClassLibrary.Models.User", b =>
+                {
+                    b.HasBaseType("BookstoreClassLibrary.Models.Client");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.HasDiscriminator().HasValue("User");
                 });
 
             modelBuilder.Entity("AddressClient", b =>
@@ -306,6 +358,10 @@ namespace BookstoreWebAPI.Migrations
 
             modelBuilder.Entity("BookstoreClassLibrary.Models.Book", b =>
                 {
+                    b.HasOne("BookstoreClassLibrary.Models.ShoppingCart", null)
+                        .WithMany("Books")
+                        .HasForeignKey("ShoppingCartId");
+
                     b.HasOne("BookstoreClassLibrary.Models.Wishlist", null)
                         .WithMany("Books")
                         .HasForeignKey("WishlistId");
@@ -338,27 +394,48 @@ namespace BookstoreWebAPI.Migrations
                     b.Navigation("Client");
                 });
 
-            modelBuilder.Entity("BookstoreClassLibrary.Models.Wishlist", b =>
+            modelBuilder.Entity("BookstoreClassLibrary.Models.ShoppingCart", b =>
                 {
                     b.HasOne("BookstoreClassLibrary.Models.Client", "Client")
-                        .WithMany("Wishlists")
-                        .HasForeignKey("ClientId")
+                        .WithOne("ShoppingCart")
+                        .HasForeignKey("BookstoreClassLibrary.Models.ShoppingCart", "ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Client");
                 });
 
+            modelBuilder.Entity("BookstoreClassLibrary.Models.Wishlist", b =>
+                {
+                    b.HasOne("BookstoreClassLibrary.Models.User", "User")
+                        .WithMany("Wishlists")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("BookstoreClassLibrary.Models.Client", b =>
                 {
                     b.Navigation("Orders");
 
-                    b.Navigation("Wishlists");
+                    b.Navigation("ShoppingCart");
+                });
+
+            modelBuilder.Entity("BookstoreClassLibrary.Models.ShoppingCart", b =>
+                {
+                    b.Navigation("Books");
                 });
 
             modelBuilder.Entity("BookstoreClassLibrary.Models.Wishlist", b =>
                 {
                     b.Navigation("Books");
+                });
+
+            modelBuilder.Entity("BookstoreClassLibrary.Models.User", b =>
+                {
+                    b.Navigation("Wishlists");
                 });
 #pragma warning restore 612, 618
         }
