@@ -30,8 +30,6 @@
                                          LabelText="Name: "/>
                     <sf:DataFormTextItem FieldName="Surname"
                                          LabelText="Surname: "/>
-                    <!--<sf:DataFormNumericItem FieldName="Phone"
-                                            LabelText="Phone: "/>-->
                     <sf:DataFormTextItem FieldName="Phone"
                                          LabelText="Phone: "
                                          Keyboard="Numeric"/>
