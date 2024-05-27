@@ -20,11 +20,16 @@ namespace BookstoreClassLibrary.Models
         [Required]
         [EmailAddress]
         public string Email { get; set; }
-        [Required]
         [Phone]
-        public string Phone { get; set; }
-        public ICollection<Address> Adresses { get; set; }
-        public ICollection<Order> Orders { get; set; }
-        public ShoppingCart ShoppingCart { get; set; }
+        public string? Phone { get; set; }
+        [Required]
+        [StringLength(64)]
+        [MinLength(4)]
+        public string Password { get; set; }
+        public string Role { get; } = "User";
+        public ICollection<Address>? Adresses { get; set; } = [];
+        public ICollection<Order>? Orders { get; set; } = [];
+        public ICollection<Wishlist>? Wishlists { get; set; } = [];
+        //public ShoppingCart? ShoppingCart { get; set; }
     }
 }

@@ -19,6 +19,12 @@ namespace Bookstore_MAUI.MVVM.ViewModels
 
         public int Id { get; set; }
         [ObservableProperty]
+        public string name;
+        [ObservableProperty]
+        public string surname;
+        [ObservableProperty]
+        public string phone;
+        [ObservableProperty]
         public string email;
         [ObservableProperty]
         public string password;
@@ -29,12 +35,12 @@ namespace Bookstore_MAUI.MVVM.ViewModels
         public IRelayCommand ToRegisterPageCommand { get; }
         public IRelayCommand SignUpCommand { get; }
 
-        public UserViewModel (HttpClient httpClient)
+        public UserViewModel(HttpClient httpClient)
         {
             _httpClient = httpClient;
             LoginCommand = new RelayCommand<User>(LoginCommandAction);
             ToRegisterPageCommand = new RelayCommand(ToRegisterPageCommandAction);
-            SignUpCommand = new RelayCommand<User>(SignUpCommandAction);
+            SignUpCommand = new RelayCommand(SignUpCommandAction);
         }
 
         public async Task<IEnumerable<User>> GetAllUsersAsync()
@@ -102,11 +108,19 @@ namespace Bookstore_MAUI.MVVM.ViewModels
             await Shell.Current.GoToAsync($"{nameof(RegistrationPage)}");
         }
 
-        public async void SignUpCommandAction(User user)
+        public async void SignUpCommandAction()
         {
-            if (user != null)
+            var user = new User
             {
-                var response = await AddUserAsync(user);
+                Name = this.Name,
+                Surname = Surname,
+                Email = Email,
+                Password = Password,
+                Phone = Phone
+            };
+            var response = await AddUserAsync(user);
+            if (response)
+            {
                 await Shell.Current.GoToAsync($"..");
             }
             else

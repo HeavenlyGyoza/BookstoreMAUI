@@ -14,7 +14,7 @@ namespace BookstoreClassLibrary.Models
         public int Id { get; set; }
         [Required]
         [ForeignKey(nameof(Client.Id))]
-        public int ClientId { get; set; }
+        public int? ClientId { get; set; }
         public Client Client { get; set; }
         public ICollection<Book>? Books { get; set; }
     }

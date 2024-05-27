@@ -12,10 +12,8 @@ namespace BookstoreClassLibrary.Models
     {
         [Key]
         public int Id { get; set; }
-        [Required]
-        [ForeignKey(nameof(User.Id))]
-        public int UserId { get; set; }
-        public User User { get; set; }
+        public Client Client { get; set; }
+        //public User User { get; set; }
         public string WishlistName { get; set; }
         public ICollection<Book>? Books { get; set;}
     }

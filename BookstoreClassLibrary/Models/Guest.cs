@@ -9,9 +9,7 @@ namespace BookstoreClassLibrary.Models
 {
     public class Guest : Client
     {
-        [EmailAddress]
-        public string? Email { get; set; }
-        [Phone]
-        public string? Phone { get; set; }
+        public Order Order { get; set; }
+        public Address Address { get; set; }
     }
 }

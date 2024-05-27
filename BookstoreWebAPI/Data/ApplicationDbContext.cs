@@ -18,35 +18,31 @@ namespace BookstoreWebAPI.Data
         public DbSet<Client> Clients { get; set; }
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Order> Orders { get; set; }
-        public DbSet<User> Users { get; set; }
-        public DbSet<Guest> Guests { get; set; }
+        //public DbSet<User> Users { get; set; }
+        //public DbSet<Guest> Guests { get; set; }
         public DbSet<Wishlist> Wishlists { get; set; }
-        public DbSet<ShoppingCart> ShoppingCarts { get; set; }
+        //public DbSet<ShoppingCart> ShoppingCarts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Author>()
-                .HasMany(a => a.Books)
-                .WithMany(b => b.Authors);
+                        .HasMany(a => a.Books)
+                        .WithMany(b => b.Authors);
 
             modelBuilder.Entity<Client>()
-                .HasMany(c => c.Adresses)
-                .WithMany(c => c.Clients);
-
-            modelBuilder.Entity<Order>()
-                .HasOne(o => o.Client)
-                .WithMany(o => o.Orders);
-
-            modelBuilder.Entity<User>()
-                .HasMany(u => u.Wishlists)
-                .WithOne(w => w.User);
+                        .HasMany(c => c.Adresses)
+                        .WithMany(d => d.Clients);
 
             modelBuilder.Entity<Client>()
-                .HasOne(c => c.ShoppingCart)
-                .WithOne(s => s.Client)
-                .HasForeignKey<ShoppingCart>(s => s.ClientId);
+                        .HasMany(c => c.Orders)
+                        .WithOne(o => o.Client);
+
+            modelBuilder.Entity<Client>()
+                        .HasMany(c => c.Wishlists)
+                        .WithOne(w => w.Client);
+
         }
     }
 }

@@ -28,6 +28,6 @@ namespace BookstoreClassLibrary.Models
         public string Country { get; set; }
         [Required]
         public bool IsPrimary { get; set; }
-        public ICollection<Client> Clients { get; set; }
+        public ICollection<Client> Clients { get; set; } = [];
     }
 }
