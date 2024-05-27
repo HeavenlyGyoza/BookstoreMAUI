@@ -4,10 +4,11 @@ namespace BookstoreApp.MVVM.Views.LoginPages;
 
 public partial class RegistrationPage : ContentPage
 {
-    private readonly UserViewModel _userVM;
-	public RegistrationPage(UserViewModel userViewModel)
+    private readonly ClientViewModel _clientVM;
+	public RegistrationPage(ClientViewModel clientViewModel)
 	{
 		InitializeComponent();
-        BindingContext = _userVM = userViewModel;
-	}
+        _clientVM = clientViewModel;
+        BindingContext = _clientVM;
+    }
 }
