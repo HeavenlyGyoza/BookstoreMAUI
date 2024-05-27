@@ -29,7 +29,7 @@ namespace BookstoreApp
             //Register ViewModels
             builder.Services.AddTransient<BookViewModel>();
             builder.Services.AddTransient<AuthorViewModel>();
-            builder.Services.AddTransient<ClientViewModel>();
+            builder.Services.AddSingleton<ClientViewModel>();
             builder.Services.AddTransient<AddressViewModel>();
             builder.Services.AddTransient<OrderViewModel>();
             builder.Services.AddTransient<UserViewModel>();
