@@ -1,10 +1,14 @@
-﻿using BookstoreClassLibrary.Models;
+﻿using BookstoreApp.MVVM.Views.LoginPages;
+using BookstoreApp.MVVM.Views.NavigationPages;
+using BookstoreClassLibrary.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Json;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Bookstore_MAUI.MVVM.ViewModels
@@ -22,13 +26,25 @@ namespace Bookstore_MAUI.MVVM.ViewModels
         [ObservableProperty]
         public string email;
         [ObservableProperty]
+        public string password;
+        [ObservableProperty]
+        public string role;
+        [ObservableProperty]
         public string phone;
         [ObservableProperty]
         public List<Address> addresses;
-        
+
+        public IRelayCommand LoginCommand { get; }
+        public IRelayCommand ToRegisterPageCommand { get; }
+        public IRelayCommand SignUpCommand { get; }
+
         public ClientViewModel(HttpClient httpClient)
         {
             _httpClient = httpClient;
+            //LoginCommand = new RelayCommand<Client>(LoginCommandAction);
+            LoginCommand = new RelayCommand(LoginCommandAction);
+            ToRegisterPageCommand = new RelayCommand(ToRegisterPageCommandAction);
+            SignUpCommand = new RelayCommand(SignUpCommandAction);
         }
 
         public async Task<IEnumerable<Client>> GetAllClientsAsync()
@@ -58,5 +74,58 @@ namespace Bookstore_MAUI.MVVM.ViewModels
             var response = await _httpClient.DeleteAsync($"{BaseUrl}/{id}");
             return response.IsSuccessStatusCode;
         }
+
+        public async Task<Client> LoginAsync(string email, string password)
+        {
+            var client = new Client { Email = email, Password = password, Name = "null", Surname = "null" };
+            var response = await _httpClient.PostAsJsonAsync($"{BaseUrl}/login", client);
+            if (!response.IsSuccessStatusCode)
+            {
+                await Application.Current.MainPage.DisplayAlert("Login failed", "Invalid username or password.", "OK");
+                return null;
+            }
+            else 
+            {
+                return await response.Content.ReadFromJsonAsync<Client>();
+            }
+        }
+
+        public async void LoginCommandAction()
+        {
+            var client = await LoginAsync(email, password);
+            if (client != null)
+            {
+                await SecureStorage.SetAsync("ClientId", client.Id.ToString());
+                await SecureStorage.SetAsync("IsLoggedIn", "true");
+                await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
+            }
+        }
+
+
+        public async void ToRegisterPageCommandAction()
+        {
+            await Shell.Current.GoToAsync($"{nameof(RegistrationPage)}");
+        }
+
+        public async void SignUpCommandAction()
+        {
+            var client = new Client
+            {
+                Name = Name,
+                Surname = Surname,
+                Email = Email,
+                Password = Password,
+            };
+            var response = await AddClientAsync(client);
+            if (response)
+            {
+                await Shell.Current.GoToAsync($"..");
+            }
+            else
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "Invalid username or password.", "OK");
+            }
+        }
+
     }
 }
