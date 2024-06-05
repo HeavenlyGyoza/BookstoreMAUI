@@ -44,7 +44,7 @@ namespace BookstoreWebAPI.Controllers
             {
                 return Conflict("User with the same email already exists.");
             }
-            client.Adresses = client.Adresses ?? new List<Address>();
+            client.Addresses = client.Addresses ?? new List<Address>();
             client.Orders = client.Orders ?? new List<Order>();
             _dbContext.Clients.Add(client);
             _dbContext.SaveChangesAsync();
