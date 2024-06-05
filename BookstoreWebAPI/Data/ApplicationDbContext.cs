@@ -32,7 +32,7 @@ namespace BookstoreWebAPI.Data
                         .WithMany(b => b.Authors);
 
             modelBuilder.Entity<Client>()
-                        .HasMany(c => c.Adresses)
+                        .HasMany(c => c.Addresses)
                         .WithMany(d => d.Clients);
 
             modelBuilder.Entity<Client>()
