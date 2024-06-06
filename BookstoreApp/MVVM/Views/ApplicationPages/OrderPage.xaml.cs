@@ -7,11 +7,13 @@ public partial class OrderPage : ContentPage
 {
     private readonly OrderViewModel _orderVM;
     private readonly ClientViewModel _clientVM;
-    public OrderPage(OrderViewModel orderVM, ClientViewModel clientVM)
+    private readonly AddressViewModel _addressVM;
+    public OrderPage(OrderViewModel orderVM, ClientViewModel clientVM, AddressViewModel addressVM)
     {
         InitializeComponent();
         BindingContext = _orderVM = orderVM;
         _clientVM = clientVM;
+        _addressVM = addressVM;
     }
 
     protected override async void OnAppearing()
@@ -24,6 +26,10 @@ public partial class OrderPage : ContentPage
             {
                 _orderVM.Client = await _clientVM.GetClientByIdAsync(int.Parse(clientId));
             }
+            if (_orderVM.Client.Addresses.Any())
+            {
+                _orderVM.Address = await _addressVM.GetPrimaryAddressByClientIdAsync(int.Parse(clientId));
+            }
         }
     }
 
@@ -31,5 +37,11 @@ public partial class OrderPage : ContentPage
     {
         var isLogged = await SecureStorage.GetAsync("IsLoggedIn");
         return isLogged != null && isLogged == "true";
+    }
+
+    private void OnQuantityStepperChanged(object sender, ValueChangedEventArgs e)
+    {
+        _orderVM.Quantity = (int)e.NewValue;
+        _orderVM.UpdateTotalPrice();
     }
 }
