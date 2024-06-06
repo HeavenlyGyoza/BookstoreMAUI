@@ -13,7 +13,7 @@ namespace BookstoreClassLibrary.Models
         public int Id { get; set; }
         [Required]
         public string Street { get; set; }
-        public string AddInfo { get; set; }
+        public string? AddInfo { get; set; }
         [Required]
         public string City { get; set; }
         [Required]
@@ -24,7 +24,6 @@ namespace BookstoreClassLibrary.Models
         [Required]
         public string State { get; set; }
         [Required]
-        [MaxLength(3)]
         public string Country { get; set; }
         [Required]
         public bool IsPrimary { get; set; }
