@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Json;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Bookstore_MAUI.MVVM.ViewModels
@@ -37,7 +38,7 @@ namespace Bookstore_MAUI.MVVM.ViewModels
         {
             _httpClient = httpClient;
             PlaceOrderCommand = new AsyncRelayCommand(PlaceOrderCommandAction);
-
+            address = new Address();
         }
 
         public async Task<IEnumerable<Order>> GettAllOrdersAsync()
@@ -52,7 +53,7 @@ namespace Bookstore_MAUI.MVVM.ViewModels
 
         public async Task<bool> AddOrderAsync(Order order)
         {
-            var response = await _httpClient.PostAsJsonAsync($"{BaseUrl}/{order.Id}", order);
+            var response = await _httpClient.PostAsJsonAsync($"{BaseUrl}/add", order);
             return response.IsSuccessStatusCode;
         }
 
@@ -75,29 +76,28 @@ namespace Bookstore_MAUI.MVVM.ViewModels
                 Quantity = Quantity,
                 Price = SelectedBook.Price * Quantity,
                 OrderDate = DateOnly.FromDateTime(DateTime.Now),
+                ClientId = Client.Id,
                 Client = Client,
+                AddressId = Address.Id,
                 Address = Address,
+                BookId = SelectedBook.Id,
                 Book = SelectedBook
             };
-
-            var response = await _httpClient.PostAsJsonAsync($"{BaseUrl}/add", order);
-            if (response.IsSuccessStatusCode)
+            var json = JsonSerializer.Serialize(order);
+            var response = await AddOrderAsync(order);
+            if (response)
             {
-                SelectedBook.Stock -= Quantity;
-                var bookResponse = await _httpClient.PostAsJsonAsync($"{BookControllerUrl}/{SelectedBook.Id}", SelectedBook);
-                if (bookResponse.IsSuccessStatusCode)
-                {
-                    await Application.Current.MainPage.DisplayAlert("Success", "Order placed successfully.", "OK");
-                }
-                else
-                {
-                    await Application.Current.MainPage.DisplayAlert("Error", "Failed to update book stock.", "OK");
-                }
+                await Application.Current.MainPage.DisplayAlert("Success", "Order placed successfully.", "OK");
             }
             else
             {
                 await Application.Current.MainPage.DisplayAlert("Error", "Failed to place order.", "OK");
-            }       
+            }
+        }
+
+        public void UpdateTotalPrice()
+        {
+            Price = SelectedBook.Price * Quantity;
         }
     }
 }
