@@ -48,6 +48,12 @@ namespace Bookstore_MAUI.MVVM.ViewModels
             return await _httpClient.GetFromJsonAsync<Address>($"{BaseUrl}/{id}");
         }
 
+        public async Task<Address> GetPrimaryAddressByClientIdAsync(int clientId)
+        {
+            var addresses = await _httpClient.GetFromJsonAsync<IEnumerable<Address>>($"{BaseUrl}/byClientId/{clientId}");
+            return addresses?.FirstOrDefault(a => a.IsPrimary);
+        }
+
         public async Task<bool> AddAddressAsync(Address address)
         {
             var response = await _httpClient.PatchAsJsonAsync($"{BaseUrl}/add", address);

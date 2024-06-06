@@ -32,6 +32,20 @@ namespace BookstoreWebAPI.Controllers
             return Ok(address);
         }
 
+        [HttpGet("byClientId/{clientId}")]
+        public async Task<ActionResult<IEnumerable<Address>>> GetAddressesByClientId(int clientId)
+        {
+            if (clientId != null && clientId < 0) 
+            {
+                var addresses = await _dbContext.Addresses.Where(a => a.Clients.Any(c => c.Id == clientId)).ToListAsync();
+                return Ok(addresses);
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+
         [HttpPost("add")]
         public async Task<ActionResult<Address>> AddAddress(Address address)
         {
