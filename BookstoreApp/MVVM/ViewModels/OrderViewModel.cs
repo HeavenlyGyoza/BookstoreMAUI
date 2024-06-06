@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http.Json;
 using System.Text;
@@ -32,12 +33,14 @@ namespace Bookstore_MAUI.MVVM.ViewModels
         [ObservableProperty]
         public Book selectedBook;
 
+        public ObservableCollection<Order> Orders { get; set; } = [];
         public IAsyncRelayCommand PlaceOrderCommand { get; }
-
+        public IAsyncRelayCommand LoadClientOrdersCommand { get; }
         public OrderViewModel (HttpClient httpClient)
         {
             _httpClient = httpClient;
             PlaceOrderCommand = new AsyncRelayCommand(PlaceOrderCommandAction);
+            LoadClientOrdersCommand = new AsyncRelayCommand(LoadClientOrdersCollection);
             address = new Address();
         }
 
@@ -46,6 +49,10 @@ namespace Bookstore_MAUI.MVVM.ViewModels
             return await _httpClient.GetFromJsonAsync<IEnumerable<Order>>($"{BaseUrl}/all");
         }
 
+        public async Task<IEnumerable<Order>> GetAllOrdersByClientIdAsync(int clientId)
+        {
+            return await _httpClient.GetFromJsonAsync<IEnumerable<Order>>($"{BaseUrl}/byClientId/{clientId}");
+        }
         public async Task<Order> GetOrderByIdAsync(int id)
         {
             return await _httpClient.GetFromJsonAsync<Order>($"{BaseUrl}({id}");
@@ -98,6 +105,17 @@ namespace Bookstore_MAUI.MVVM.ViewModels
         public void UpdateTotalPrice()
         {
             Price = SelectedBook.Price * Quantity;
+        }
+
+        private async Task LoadClientOrdersCollection()
+        {
+            Orders.Clear();
+            var clientId = await SecureStorage.GetAsync("ClientId");
+            var orders = await GetAllOrdersByClientIdAsync(int.Parse(clientId));
+            foreach (var order in orders)
+            {
+                Orders.Add(order);
+            }
         }
     }
 }

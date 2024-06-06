@@ -24,6 +24,23 @@ namespace BookstoreWebAPI.Controllers
             return await _dbContext.Orders.ToListAsync();
         }
 
+        [HttpGet("byClientId/{clientId}")]
+        public async Task<ActionResult<IEnumerable<Order>>> GetAllOrdersByClientId(int clientId)
+        {
+            if (clientId != null && clientId > 0)
+            {
+                return await _dbContext.Orders
+                    .Include(o => o.Book)
+                    .Include(o => o.Client)
+                    .Include(o => o.Address)
+                    .Where(c => c.ClientId == clientId).ToListAsync();
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<Order>> GetOrderById(int id)
         {
