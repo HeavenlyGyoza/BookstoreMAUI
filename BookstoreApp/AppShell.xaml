@@ -4,12 +4,13 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:BookstoreApp"
+    xmlns:lang="clr-namespace:BookstoreApp.MVVM.Services.Localization"
     xmlns:navViews="clr-namespace:BookstoreApp.MVVM.Views.NavigationPages"
     xmlns:loginViews="clr-namespace:BookstoreApp.MVVM.Views.LoginPages"
     Shell.FlyoutBehavior="Disabled">
 
     <TabBar>
-        <Tab Title="Home" Icon="home.png">
+        <Tab Title="{lang:Translate Home}" Icon="home.png">
             <ShellContent ContentTemplate="{DataTemplate navViews:HomePage}" Route="HomePage"/>
         </Tab>
         <Tab Title="User" Icon="user.png">
