@@ -30,7 +30,7 @@ namespace BookstoreApp
             builder.Services.AddTransient<BookViewModel>();
             builder.Services.AddTransient<AuthorViewModel>();
             builder.Services.AddSingleton<ClientViewModel>();
-            builder.Services.AddTransient<AddressViewModel>();
+            builder.Services.AddSingleton<AddressViewModel>();
             builder.Services.AddTransient<OrderViewModel>();
             builder.Services.AddTransient<UserViewModel>();
             //Register pages
