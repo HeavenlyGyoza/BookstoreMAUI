@@ -8,30 +8,95 @@
 
 
     <ScrollView>
-        <VerticalStackLayout Padding="10">
-            <Label Text="Place your order"
-                   FontSize="24"
-                   FontAttributes="Bold"
-                   HorizontalOptions="Center"/>
+        <Grid ColumnDefinitions="*, *"
+              RowDefinitions="*, Auto"
+              Margin="30, 20, 30, 55">
+            <VerticalStackLayout Padding="10"
+                                 Grid.Column="0" Grid.Row="0">
+                <Label Text="Contact"
+                       FontSize="18"
+                       FontAttributes="Bold"/>
 
-            <Label Text="Book Title:" FontAttributes="Bold"/>
-            <Label Text="{Binding SelectedBook.Title}" FontSize="18"/>
+                <sf:SfDataForm LayoutType="TextInputLayout"
+                               AutoGenerateItems="False"
+                               DataObject="{Binding Client}"
+                               MinimumHeightRequest="100"
+                               HeightRequest="{OnPlatform WinUI=145}">
+                    <sf:SfDataForm.Items>
+                        <sf:DataFormTextItem FieldName="Email"
+                                             LabelText="Email:"/>
+                        <sf:DataFormTextItem FieldName="Phone"
+                                             LabelText="Phone: (optional)"
+                                             MaxLength="9"/>
+                    </sf:SfDataForm.Items>
+                </sf:SfDataForm>
 
-            <Label Text="Price:" FontAttributes="Bold"/>
-            <Label Text="{Binding SelectedBook.Price, StringFormat='{0:C}'}" FontSize="18"/>
+                <Label Text="Delivery"
+                       FontSize="18"
+                       FontAttributes="Bold"/>
+                <sf:SfDataForm LayoutType="TextInputLayout"
+                               AutoGenerateItems="False"
+                               DataObject="{Binding Address}"
+                               MinimumHeightRequest="100"
+                               HeightRequest="{OnPlatform WinUI=500}">
+                    <sf:SfDataForm.Items>
+                        <sf:DataFormTextItem FieldName="Country"
+                                             LabelText="Country:"/>
+                        <sf:DataFormTextItem FieldName="Street"
+                                             LabelText="Address:"/>
+                        <sf:DataFormTextItem FieldName="AddInfo"
+                                             LabelText="Appartment, suite, etc. (optional):"/>
+                        <sf:DataFormTextItem FieldName="City"
+                                             LabelText="City:"/>
+                        <sf:DataFormTextItem FieldName="Province"
+                                             LabelText="Province:"/>
+                        <sf:DataFormTextItem FieldName="State"
+                                             LabelText="State:"/>
+                        <sf:DataFormNumericItem FieldName="PostalCode"
+                                             LabelText="Postal Code:"/>
+                        
+                    </sf:SfDataForm.Items>
+                </sf:SfDataForm>
+                
+            </VerticalStackLayout>
 
-            <Label Text="Quantity:" FontAttributes="Bold"/>
-            <Entry Text="{Binding Quantity}" Keyboard="Numeric" FontSize="18"/>
+            <VerticalStackLayout Padding="10"
+                                 Grid.Column="1" Grid.Row="0">
+                <Label Text="Order details"
+                       FontSize="18"
+                       FontAttributes="Bold"/>
+                <Border StrokeShape="RoundRectangle 5"
+                        StrokeThickness="1"
+                        Padding="5">
+                    
+                    <Grid RowDefinitions="*, *, *, *"
+                          ColumnDefinitions="*, *, *, *">
+                        <Image Source="{Binding SelectedBook.CoverImagePath}"
+                               HeightRequest="120"
+                               Aspect="AspectFit"
+                               Grid.Row="0"
+                               Grid.Column="0">
+                        </Image>
+                        <Label Text="{Binding SelectedBook.Title}" FontSize="14" Grid.Column="1" Grid.Row="0"/>
+                        <Stepper Value="{Binding Quantity, Mode=TwoWay}"  Minimum="1" Maximum="{Binding SelectedBook.Stock}" Grid.Row="0" Grid.Column="2" ValueChanged="OnQuantityStepperChanged"/>
+                        <Label Text="{Binding SelectedBook.Price, StringFormat='{0:C}'}" Grid.Row="0" Grid.Column="3"/>
 
-            <Label Text="Address:" FontAttributes="Bold"/>
-            <Entry Text="{Binding Address.Street, Mode=TwoWay}" Placeholder="Street" FontSize="18"/>
-            <Entry Text="{Binding Address.City}" Placeholder="City" FontSize="18"/>
-            <Entry Text="{Binding Address.PostalCode}" Placeholder="Postal Code" FontSize="18"/>
-            <Entry Text="{Binding Address.Province}" Placeholder="Province" FontSize="18"/>
-            <Entry Text="{Binding Address.State}" Placeholder="State" FontSize="18"/>
-            <Entry Text="{Binding Address.Country}" Placeholder="Country" FontSize="18"/>
+                        <Entry Placeholder="Discount code or gift card"
+                               Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3"/>
+                        <Button Text="Apply" Grid.Row="1" Grid.Column="3"/>
 
-            <Button Text="Place Order" Command="{Binding PlaceOrderCommand}" FontSize="18" BackgroundColor="#007bff" TextColor="White" CornerRadius="5" Padding="10" HorizontalOptions="Center"/>
-        </VerticalStackLayout>
+                        <Label Text="Shipping: " Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3"/>
+                        <Label Text="FREE" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="3"/>
+                        <Label Text="Total: " Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2"/>
+                        <Label Text="{Binding Price, StringFormat='{0:C}'}" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="2"/>
+                    </Grid>
+                    
+                </Border>
+            </VerticalStackLayout>
+
+            <Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" 
+                    Text="Place Order" Command="{Binding PlaceOrderCommand}" 
+                    FontSize="18" BackgroundColor="#007bff" TextColor="White" CornerRadius="5" Padding="10" HorizontalOptions="Center"/>
+        </Grid>
     </ScrollView>
 </ContentPage>
