@@ -37,12 +37,27 @@ namespace BookstoreWebAPI.Data
 
             modelBuilder.Entity<Client>()
                         .HasMany(c => c.Orders)
-                        .WithOne(o => o.Client);
+                        .WithOne(o => o.Client)
+                        .HasForeignKey(o => o.ClientId);
 
             modelBuilder.Entity<Client>()
                         .HasMany(c => c.Wishlists)
                         .WithOne(w => w.Client);
 
+            modelBuilder.Entity<Order>()
+                        .HasOne(o => o.Client)
+                        .WithMany(c => c.Orders)
+                        .HasForeignKey(o => o.ClientId);
+
+            modelBuilder.Entity<Order>()
+                        .HasOne(o => o.Book)
+                        .WithMany()
+                        .HasForeignKey(o => o.BookId);
+
+            modelBuilder.Entity<Order>()
+                        .HasOne(o => o.Address)
+                        .WithMany()
+                        .HasForeignKey(o => o.AddressId);
         }
     }
 }
