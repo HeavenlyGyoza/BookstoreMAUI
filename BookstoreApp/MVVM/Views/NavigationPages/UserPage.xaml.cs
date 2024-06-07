@@ -1,4 +1,7 @@
 using Bookstore_MAUI.MVVM.ViewModels;
+using BookstoreApp.MVVM.Services.Localization;
+using BookstoreApp.Resources.Languages;
+using System.Globalization;
 
 namespace BookstoreApp.MVVM.Views.NavigationPages;
 
@@ -6,6 +9,7 @@ public partial class UserPage : ContentPage
 {
     private readonly ClientViewModel _clientVM;
     private readonly OrderViewModel _orderVM;
+    public LocalizationResourceManager LocalizationResourceManager => LocalizationResourceManager.Instance;
     public UserPage(ClientViewModel clientViewModel, OrderViewModel orderVM)
 	{
 		InitializeComponent();
@@ -28,4 +32,24 @@ public partial class UserPage : ContentPage
         }
     }
 
+    private void rbEnglish_CheckedChanged(object sender, CheckedChangedEventArgs e)
+    {
+        if (e.Value)
+        {
+            var switchToCulture = new CultureInfo("en-US");
+            BindingContext = this;
+            LocalizationResourceManager.SetCulture(switchToCulture);
+        }
+
+    }
+
+    private void rbSpanish_CheckedChanged(object sender, CheckedChangedEventArgs e)
+    {
+        if (e.Value)
+        {
+            var switchToCulture = new CultureInfo("es-ES");
+            BindingContext = this;
+            LocalizationResourceManager.SetCulture(switchToCulture);
+        }
+    }
 }
