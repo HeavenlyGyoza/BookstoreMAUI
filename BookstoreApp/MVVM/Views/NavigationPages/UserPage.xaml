@@ -7,44 +7,37 @@
     <VerticalStackLayout>
 
         <Button x:Name="signInButton"
+                x:DataType="vm:ClientViewModel"
                 Text="{lang:Translate LogIn}"
                 Command="{Binding ToLoginPageCommand}"/>
 
         <Grid x:Name="userGrid"
               ColumnDefinitions="*, *"
-              RowDefinitions="*, *"
+              RowDefinitions="*, *, *"
               IsVisible="False">
 
             <Button Grid.Column="0"
                     Grid.Row="0"
+                    x:DataType="vm:ClientViewModel"
                     Text="{lang:Translate LogOut}"
                     Command="{Binding LogOutCommand}"/>
             <Button Grid.Column="1"
                     Grid.Row="0"
-                    Text="{lang:Translate MyOrderHistory}"/>
+                    x:DataType="vm:ClientViewModel"
+                    Text="{lang:Translate MyOrderHistory}"
+                    Command="{Binding ToMyOrderHistoryPageCommand}"/>
             <Button Grid.Column="0"
                     Grid.Row="1"
-                    Text="{lang:Translate AccountSettings}"/>
+                    x:DataType="vm:ClientViewModel"
+                    Text="{lang:Translate AccountSettings}"
+                    Command="{Binding ToAccountSettingsPageCommand}"/>
             <Button Grid.Column="1"
                     Grid.Row="1"
                     Text="{lang:Translate MyWishlists}"/>
+
+            <Button Grid.Column="0" Grid.Row="2"
+                    Text="My Addresses"/>
         </Grid>
-        
-        <VerticalStackLayout>
-            <Label Text="{lang:Translate Orders}" FontSize="Medium" Margin="0,10"/>
-            <CollectionView x:DataType="vm:OrderViewModel" ItemsSource="{Binding Orders}" SelectionMode="Single">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <StackLayout>
-                            <Label Text="{Binding SelectedBook.Title}" FontAttributes="Bold"/>
-                            <Label Text="{Binding OrderDate}" />
-                            <Label Text="{Binding Quantity}" />
-                            <Label Text="{Binding Price, StringFormat='{0:C}'}" />
-                        </StackLayout>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </VerticalStackLayout>
 
         <VerticalStackLayout RadioButtonGroup.GroupName="Languague">
             <RadioButton Content="{lang:Translate English}" x:Name="rbEnglish" CheckedChanged="rbEnglish_CheckedChanged"/>
