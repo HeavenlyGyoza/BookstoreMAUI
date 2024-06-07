@@ -52,8 +52,9 @@
                                              LabelText="Province:"/>
                         <sf:DataFormTextItem FieldName="State"
                                              LabelText="State:"/>
-                        <sf:DataFormNumericItem FieldName="PostalCode"
-                                             LabelText="Postal Code:"/>
+                        <sf:DataFormTextItem FieldName="PostalCode"
+                                             LabelText="Postal Code:"
+                                             Keyboard="Numeric"/>
                         
                     </sf:SfDataForm.Items>
                 </sf:SfDataForm>
