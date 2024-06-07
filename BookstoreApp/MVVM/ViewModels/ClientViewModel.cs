@@ -1,10 +1,12 @@
 ﻿using BookstoreApp.MVVM.Views.LoginPages;
 using BookstoreApp.MVVM.Views.NavigationPages;
+using BookstoreApp.MVVM.Views.UserPages;
 using BookstoreClassLibrary.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net.Http.Json;
 using System.Text;
@@ -33,10 +35,13 @@ namespace Bookstore_MAUI.MVVM.ViewModels
         public string phone;
         [ObservableProperty]
         public List<Address> addresses;
+        public CultureInfo lang;
 
         public IRelayCommand LoginCommand { get; }
         public IRelayCommand ToRegisterPageCommand { get; }
         public IRelayCommand ToLoginPageCommand { get; }
+        public IRelayCommand ToMyOrderHistoryPageCommand { get; }
+        public IRelayCommand ToAccountSettingsPageCommand { get; }
         public IRelayCommand SignUpCommand { get; }
         public IRelayCommand LogOutCommand { get; }
 
@@ -48,6 +53,8 @@ namespace Bookstore_MAUI.MVVM.ViewModels
             SignUpCommand = new RelayCommand(SignUpCommandAction);
             ToLoginPageCommand = new RelayCommand(ToLoginPageCommandAction);
             LogOutCommand = new RelayCommand(LogOutCommandAction);
+            ToMyOrderHistoryPageCommand = new RelayCommand(ToMyOrderHistoryPageCommandAction);
+            ToAccountSettingsPageCommand = new RelayCommand(ToAccountSettingsPageCommandAction);
         }
 
         public async Task<IEnumerable<Client>> GetAllClientsAsync()
@@ -57,7 +64,15 @@ namespace Bookstore_MAUI.MVVM.ViewModels
 
         public async Task<Client> GetClientByIdAsync(int id)
         {
-            return await _httpClient.GetFromJsonAsync<Client>($"{BaseUrl}/{id}");
+            try
+            {
+                return await _httpClient.GetFromJsonAsync<Client>($"{BaseUrl}/{id}");
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", $"Failed to get client by ID: {ex.Message}", "OK");
+                return null;
+            }
         }
 
         public async Task<bool> AddClientAsync(Client client)
@@ -135,6 +150,16 @@ namespace Bookstore_MAUI.MVVM.ViewModels
             await Shell.Current.GoToAsync($"{nameof(LoginPage)}");
         }
 
+        public async void ToMyOrderHistoryPageCommandAction()
+        {
+            await Shell.Current.GoToAsync($"{nameof(MyOrderHistoryPage)}");
+        }
+
+        public async void ToAccountSettingsPageCommandAction()
+        {
+            await Shell.Current.GoToAsync($"{nameof(AccountSettingsPage)}");
+        }
+
         public async void LogOutCommandAction()
         {
             if (await Application.Current.MainPage.DisplayAlert("Log out", "Are you sure you want to log out?", "Yes", "No"))
@@ -147,6 +172,42 @@ namespace Bookstore_MAUI.MVVM.ViewModels
                 }
                 await Shell.Current.GoToAsync($"{nameof(LoginPage)}");
             }
+        }
+
+        public async Task LoadClientDataAsync()
+        {
+            try
+            {
+                if (await IsUserLoggedIn())
+                {
+                    var clientId = await SecureStorage.GetAsync("ClientId");
+                    if (clientId != null)
+                    {
+                        var client = await GetClientByIdAsync(int.Parse(clientId));
+                        Id = client.Id;
+                        Name = client.Name;
+                        Surname = client.Surname;
+                        Email = client.Email;
+                        Password = client.Password;
+                        Role = client.Role;
+                        Phone = client.Phone;
+                        Addresses = client.Addresses.ToList();
+                    }
+                }
+                else
+                {
+                    await Shell.Current.GoToAsync(nameof(LoginPage));
+                }
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", $"Failed to load client data: {ex.Message}", "OK");
+            }
+        }
+        private async Task<bool> IsUserLoggedIn()
+        {
+            var isLogged = await SecureStorage.GetAsync("IsLoggedIn");
+            return isLogged != null && isLogged == "true";
         }
     }
 }
