@@ -17,7 +17,6 @@ namespace Bookstore_MAUI.MVVM.ViewModels
     {
         private readonly HttpClient _httpClient;
         private const string BaseUrl = "https://localhost:7299/Order";
-        private const string BookControllerUrl = "https://localhost:7299/Book";
 
         public int Id { get; set; }
         [ObservableProperty]
@@ -90,7 +89,6 @@ namespace Bookstore_MAUI.MVVM.ViewModels
                 BookId = SelectedBook.Id,
                 Book = SelectedBook
             };
-            var json = JsonSerializer.Serialize(order);
             var response = await AddOrderAsync(order);
             if (response)
             {
