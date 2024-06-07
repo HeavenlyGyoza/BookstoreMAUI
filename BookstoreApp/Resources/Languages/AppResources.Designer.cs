@@ -61,6 +61,24 @@ namespace BookstoreApp.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Account settings.
+        /// </summary>
+        internal static string AccountSettings {
+            get {
+                return ResourceManager.GetString("AccountSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to English.
+        /// </summary>
+        internal static string English {
+            get {
+                return ResourceManager.GetString("English", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Home.
         /// </summary>
         internal static string Home {
@@ -70,11 +88,74 @@ namespace BookstoreApp.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Language.
+        /// </summary>
+        internal static string Language {
+            get {
+                return ResourceManager.GetString("Language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log in.
+        /// </summary>
+        internal static string LogIn {
+            get {
+                return ResourceManager.GetString("LogIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log out.
+        /// </summary>
+        internal static string LogOut {
+            get {
+                return ResourceManager.GetString("LogOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Management.
         /// </summary>
         internal static string Management {
             get {
                 return ResourceManager.GetString("Management", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to My order history.
+        /// </summary>
+        internal static string MyOrderHistory {
+            get {
+                return ResourceManager.GetString("MyOrderHistory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to My wishlists.
+        /// </summary>
+        internal static string MyWishlists {
+            get {
+                return ResourceManager.GetString("MyWishlists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Orders.
+        /// </summary>
+        internal static string Orders {
+            get {
+                return ResourceManager.GetString("Orders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Spanish.
+        /// </summary>
+        internal static string Spanish {
+            get {
+                return ResourceManager.GetString("Spanish", resourceCulture);
             }
         }
         
