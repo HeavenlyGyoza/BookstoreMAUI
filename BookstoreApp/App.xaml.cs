@@ -1,16 +1,21 @@
 ﻿
 using Bookstore_MAUI.MVVM.ViewModels;
+using BookstoreApp.MVVM.Services.Localization;
 using BookstoreApp.MVVM.Views.LoginPages;
+using System.Globalization;
 
 namespace BookstoreApp
 {
     public partial class App : Application
     {
         private readonly ClientViewModel _clientViewModel;
+        public LocalizationResourceManager LocalizationResourceManager => LocalizationResourceManager.Instance;
         public App(ClientViewModel clientViewModel)
         {
             InitializeComponent();
             _clientViewModel = clientViewModel;
+            var switchToCulture = new CultureInfo("en-US");
+            LocalizationResourceManager.SetCulture(switchToCulture);
             MainPage = new AppShell();
         }
 

@@ -13,10 +13,10 @@
         <Tab Title="{lang:Translate Home}" Icon="home.png">
             <ShellContent ContentTemplate="{DataTemplate navViews:HomePage}" Route="HomePage"/>
         </Tab>
-        <Tab Title="User" Icon="user.png">
+        <Tab Title="{lang:Translate User}" Icon="user.png">
             <ShellContent ContentTemplate="{DataTemplate navViews:UserPage}" Route="UserPage"/>
         </Tab>
-        <Tab Title="Management" Icon="database.png">
+        <Tab Title="{lang:Translate Management}" Icon="database.png">
             <ShellContent ContentTemplate="{DataTemplate navViews:ManagementPage}" Route="ManagementPage"/>
         </Tab>
     </TabBar>

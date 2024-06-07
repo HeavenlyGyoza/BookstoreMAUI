@@ -18,8 +18,8 @@ namespace BookstoreApp.MVVM.Services.Localization
 
         public static LocalizationResourceManager Instance { get; } = new();
 
-        public object this[string resourceKey]
-            => AppResources.ResourceManager.GetObject(resourceKey, AppResources.Culture) ?? Array.Empty<byte>();
+        //public object this[string resourceKey] => AppResources.ResourceManager.GetObject(resourceKey, AppResources.Culture) ?? Array.Empty<byte>();
+        public object this[string resourceKey] => AppResources.ResourceManager.GetObject(resourceKey, AppResources.Culture) ?? string.Empty;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
