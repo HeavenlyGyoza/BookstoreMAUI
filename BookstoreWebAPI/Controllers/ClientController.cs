@@ -24,7 +24,7 @@ namespace BookstoreWebAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Client>> GetClientById(int id)
         {
-            var client = await _dbContext.Clients.FirstOrDefaultAsync(x => x.Id == id);
+            var client = await _dbContext.Clients.Include(c => c.Addresses).FirstOrDefaultAsync(x => x.Id == id);
             if (client == null)
             {
                 return NotFound();
