@@ -11,13 +11,23 @@ public partial class UserPage : ContentPage
         BindingContext = _clientVM = clientViewModel;
     }
 
-    protected override void OnAppearing()
+    protected override async void OnAppearing()
     {
         base.OnAppearing();
+        UpdateUI();
+    }
+
+    private void UpdateUI()
+    {
         if (_clientVM.Id > 0)
         {
             signInButton.IsVisible = false;
             userGrid.IsVisible = true;
+        }
+        else
+        {
+            signInButton.IsVisible = true;
+            userGrid.IsVisible = false;
         }
     }
 }
