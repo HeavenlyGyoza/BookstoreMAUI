@@ -47,8 +47,10 @@ namespace BookstoreApp
             builder.Services.AddTransient<LoginPage>();
             builder.Services.AddTransient<RegistrationPage>();
             builder.Services.AddTransient<UserPage>();
-            builder.Services.AddTransient<MyOrderHistoryPage>();
+            builder.Services.AddTransient<UserOrderHistoryPage>();
             builder.Services.AddTransient<AccountSettingsPage>();
+            builder.Services.AddTransient<UserAddressesPage>();
+            builder.Services.AddTransient<UserWishlistsPage>();
             //Register Shell routes
             Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
             Routing.RegisterRoute($"{nameof(LoginPage)}/{nameof(RegistrationPage)}", typeof(RegistrationPage));
@@ -58,8 +60,10 @@ namespace BookstoreApp
             Routing.RegisterRoute($"{nameof(ManagementPage)}/{nameof(AdminStockPage)}", typeof(AdminStockPage));
             Routing.RegisterRoute($"{nameof(ManagementPage)}/{nameof(AdminStockPage)}/{nameof(AddBookPage)}", typeof(AddBookPage));
             Routing.RegisterRoute($"{nameof(ManagementPage)}/{nameof(AdminStockPage)}/{nameof(EditBookPage)}", typeof(EditBookPage));
-            Routing.RegisterRoute($"{nameof(UserPage)}/{nameof(MyOrderHistoryPage)}", typeof(MyOrderHistoryPage));
+            Routing.RegisterRoute($"{nameof(UserPage)}/{nameof(UserOrderHistoryPage)}", typeof(UserOrderHistoryPage));
             Routing.RegisterRoute($"{nameof(UserPage)}/{nameof(AccountSettingsPage)}", typeof(AccountSettingsPage));
+            Routing.RegisterRoute($"{nameof(UserPage)}/{nameof(UserAddressesPage)}", typeof(UserAddressesPage));
+            Routing.RegisterRoute($"{nameof(UserPage)}/{nameof(UserWishlistsPage)}", typeof(UserWishlistsPage));
 
 #if DEBUG
             builder.Logging.AddDebug();
