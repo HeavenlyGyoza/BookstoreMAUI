@@ -2,10 +2,11 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:sf="clr-namespace:Syncfusion.Maui.DataGrid;assembly=Syncfusion.Maui.DataGrid"
+             xmlns:lang="clr-namespace:BookstoreApp.MVVM.Services.Localization"
              x:Class="BookstoreApp.MVVM.Views.AdminPages.AdminStockPage">
 
     <VerticalStackLayout>
-        <Button Text="Add new book"
+        <Button Text="{lang:Translate AddNewBook}"
                 Clicked="AddNewBookButtonClicked"/>
 
         <sf:SfDataGrid x:Name="dataGrid"
@@ -19,19 +20,19 @@
                        HeaderRowHeight="100"
                        HeaderGridLinesVisibility="Both">
             <sf:SfDataGrid.Columns>
-                <sf:DataGridTextColumn MappingName="Title" HeaderText="Title"></sf:DataGridTextColumn>
-                <sf:DataGridTextColumn MappingName="Isbn" HeaderText="ISBN" AllowSorting="False"></sf:DataGridTextColumn>
-                <sf:DataGridTextColumn MappingName="AuthorsDisplay" HeaderText="Authors"></sf:DataGridTextColumn>
-                <sf:DataGridTextColumn MappingName="Stock" HeaderText="Stock"></sf:DataGridTextColumn>
-                <sf:DataGridTextColumn MappingName="Price" HeaderText="Price"></sf:DataGridTextColumn>
-                <sf:DataGridTemplateColumn HeaderText="Actions">
+                <sf:DataGridTextColumn MappingName="Title" HeaderText="{lang:Translate Title}"></sf:DataGridTextColumn>
+                <sf:DataGridTextColumn MappingName="Isbn" HeaderText="{lang:Translate ISBN}" AllowSorting="False"></sf:DataGridTextColumn>
+                <sf:DataGridTextColumn MappingName="AuthorsDisplay" HeaderText="{lang:Translate Authors}"></sf:DataGridTextColumn>
+                <sf:DataGridTextColumn MappingName="Stock" HeaderText="{lang:Translate Stock}"></sf:DataGridTextColumn>
+                <sf:DataGridTextColumn MappingName="Price" HeaderText="{lang:Translate Price}"></sf:DataGridTextColumn>
+                <sf:DataGridTemplateColumn HeaderText="{lang:Translate Actions}">
                     <sf:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Grid RowDefinitions="*"
                                   ColumnDefinitions="*, *">
-                                <Button Grid.Column="0" Text="Edit" Command="{Binding Path=BindingContext.EditBookCommand, Source={x:Reference dataGrid}}"
+                                <Button Grid.Column="0" Text="{lang:Translate Edit}" Command="{Binding Path=BindingContext.EditBookCommand, Source={x:Reference dataGrid}}"
                                         CommandParameter="{Binding .}"></Button>
-                                <Button Grid.Column="1" Text="Delete" Command="{Binding Path=BindingContext.DeleteBookCommand, Source={x:Reference dataGrid}}"
+                                <Button Grid.Column="1" Text="{lang:Translate Delete}" Command="{Binding Path=BindingContext.DeleteBookCommand, Source={x:Reference dataGrid}}"
                                         CommandParameter="{Binding .}"></Button>
                             </Grid>
                         </DataTemplate>

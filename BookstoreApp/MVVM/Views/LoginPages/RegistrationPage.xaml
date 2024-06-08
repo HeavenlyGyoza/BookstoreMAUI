@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:sf="clr-namespace:Syncfusion.Maui.DataForm;assembly=Syncfusion.Maui.DataForm"
              xmlns:vm="clr-namespace:Bookstore_MAUI.MVVM.ViewModels"
+             xmlns:lang="clr-namespace:BookstoreApp.MVVM.Services.Localization"
              x:DataType="vm:UserViewModel"
              x:Class="BookstoreApp.MVVM.Views.LoginPages.RegistrationPage"
              Shell.TabBarIsVisible="False"
@@ -14,7 +15,7 @@
                      Padding="40"
                      Spacing="{OnPlatform WinUI=10}">
 
-        <Label Text="Sign up"
+        <Label Text="{lang:Translate SignUp}"
                FontSize="28"/>
         <Border StrokeShape="RoundRectangle 5"
             StrokeThickness="1"
@@ -27,21 +28,21 @@
                        HeightRequest="{OnPlatform WinUI=305}">
                 <sf:SfDataForm.Items>
                     <sf:DataFormTextItem FieldName="Name"
-                                         LabelText="Name: "/>
+                                         LabelText="{lang:Translate Name}"/>
                     <sf:DataFormTextItem FieldName="Surname"
-                                         LabelText="Surname: "/>
+                                         LabelText="{lang:Translate Surname}"/>
                     <sf:DataFormTextItem FieldName="Phone"
-                                         LabelText="Phone: "
+                                         LabelText="{lang:Translate Phone}"
                                          Keyboard="Numeric"/>
                     <sf:DataFormTextItem FieldName="Email"
-                                         LabelText="Email:"/>
+                                         LabelText="{lang:Translate Email}"/>
                     <sf:DataFormPasswordItem FieldName="Password"
-                                             LabelText="Password: "/>
+                                             LabelText="{lang:Translate Password}"/>
                 </sf:SfDataForm.Items>
             </sf:SfDataForm>
         </Border>
         
-        <Button Text="Register"
+        <Button Text="{lang:Translate Register}"
                 Command="{Binding SignUpCommand}"/>
     </VerticalStackLayout>
 </ContentPage>

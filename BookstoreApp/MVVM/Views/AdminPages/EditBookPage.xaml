@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:sf="clr-namespace:Syncfusion.Maui.DataForm;assembly=Syncfusion.Maui.DataForm"
              xmlns:vm="clr-namespace:Bookstore_MAUI.MVVM.ViewModels"
+             xmlns:lang="clr-namespace:BookstoreApp.MVVM.Services.Localization"
              x:DataType="vm:BookViewModel"
              x:Class="BookstoreApp.MVVM.Views.AdminPages.EditBookPage">
     <ScrollView>
@@ -25,23 +26,23 @@
 
                 <sf:SfDataForm.Items>
                     <sf:DataFormTextItem FieldName="Title"
-                                         LabelText="Title:"/>
+                                         LabelText="{lang:Translate Title}"/>
                     <sf:DataFormTextItem FieldName="Isbn"
-                                         LabelText="ISBN:"/>
+                                         LabelText="{lang:Translate ISBN}"/>
                     <sf:DataFormTextItem FieldName="AuthorsDisplay"
-                                         LabelText="Authors:"/>
+                                         LabelText="{lang:Translate Authors}"/>
                     <sf:DataFormTextItem FieldName="Publisher"
-                                         LabelText="Publisher:"/>
+                                         LabelText="{lang:Translate Publisher}"/>
                     <sf:DataFormTextItem FieldName="Genre"
-                                         LabelText="Genre:"/>
+                                         LabelText="{lang:Translate Genre}"/>
                     <sf:DataFormDateItem FieldName="PublishDate"
-                                         LabelText="Publishing date:"/>
+                                         LabelText="{lang:Translate PubDate}"/>
                     <sf:DataFormNumericItem FieldName="Price"
-                                            LabelText="Price:"/>
+                                            LabelText="{lang:Translate Price}"/>
                     <sf:DataFormNumericItem FieldName="Stock"
-                                            LabelText="Stock:"/>
+                                            LabelText="{lang:Translate Stock}"/>
                     <sf:DataFormMultilineItem FieldName="Description"
-                                              LabelText="Description:"
+                                              LabelText="{lang:Translate Description}"
                                               EditorHeight="200"/>
                 </sf:SfDataForm.Items>
             </sf:SfDataForm>
@@ -53,7 +54,7 @@
                   HorizontalOptions="Center">
 
                 <Label Grid.Row="0"
-                       Text="Book cover:"
+                       Text="{lang:Translate BookCover}"
                        HorizontalTextAlignment="Center"
                        VerticalOptions="Center"/>
 
@@ -67,14 +68,14 @@
                        Source="{Binding SelectedBook.CoverImagePath}"/>
 
                 <Button Grid.Row="2"
-                        Text="Select Image" 
+                        Text="{lang:Translate SelectImage}" 
                         Clicked="FilePickerButtonClicked"
                         HorizontalOptions="FillAndExpand"/>
             </Grid>
             <Button Grid.Row="1"
                     Grid.Column="0"
                     Grid.ColumnSpan="2"
-                    Text="Save changes"
+                    Text="{lang:Translate SaveChanges}"
                     Command="{Binding SaveChangesCommand}"
                     HorizontalOptions="FillAndExpand"/>
         </Grid>

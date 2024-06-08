@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:lang="clr-namespace:BookstoreApp.MVVM.Services.Localization"
              x:Class="BookstoreApp.MVVM.Views.NavigationPages.ManagementPage">
     
     <VerticalStackLayout>
-        <Button Text="Manage stock"
+        <Button Text="{lang:Translate ManageStock}"
                 Clicked="ManageStockButtonClicked"/>
         
     </VerticalStackLayout>

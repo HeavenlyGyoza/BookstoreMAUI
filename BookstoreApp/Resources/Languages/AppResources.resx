@@ -120,11 +120,74 @@
   <data name="AccountSettings" xml:space="preserve">
     <value>Account settings</value>
   </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="AddBook" xml:space="preserve">
+    <value>Add book</value>
+  </data>
+  <data name="AddInfo" xml:space="preserve">
+    <value>Apartment, suite, etc. (optional)</value>
+  </data>
+  <data name="AddNewBook" xml:space="preserve">
+    <value>Add new book</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Address:</value>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>Apply</value>
+  </data>
+  <data name="Authors" xml:space="preserve">
+    <value>Authors:</value>
+  </data>
+  <data name="BookCover" xml:space="preserve">
+    <value>Book cover:</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>City:</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Contact</value>
+  </data>
+  <data name="ContinueNoLogin" xml:space="preserve">
+    <value>Continue without login</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>Country:</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Delivery" xml:space="preserve">
+    <value>Delivery</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description:</value>
+  </data>
+  <data name="DiscountCode" xml:space="preserve">
+    <value>Discount code or gift card</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email:</value>
+  </data>
   <data name="English" xml:space="preserve">
     <value>English</value>
   </data>
+  <data name="FREE" xml:space="preserve">
+    <value>FREE</value>
+  </data>
+  <data name="Genre" xml:space="preserve">
+    <value>Genre:</value>
+  </data>
   <data name="Home" xml:space="preserve">
     <value>Home</value>
+  </data>
+  <data name="ISBN" xml:space="preserve">
+    <value>ISBN:</value>
   </data>
   <data name="LangPref" xml:space="preserve">
     <value>Language preferences</value>
@@ -141,6 +204,9 @@
   <data name="Management" xml:space="preserve">
     <value>Management</value>
   </data>
+  <data name="ManageStock" xml:space="preserve">
+    <value>Manage stock</value>
+  </data>
   <data name="MyAddresses" xml:space="preserve">
     <value>My addresses</value>
   </data>
@@ -150,13 +216,94 @@
   <data name="MyWishlists" xml:space="preserve">
     <value>My wishlists</value>
   </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name:</value>
+  </data>
+  <data name="NewlyIn" xml:space="preserve">
+    <value>Novedades</value>
+  </data>
+  <data name="or" xml:space="preserve">
+    <value>or</value>
+  </data>
+  <data name="OrderDetails" xml:space="preserve">
+    <value>Order details</value>
+  </data>
   <data name="Orders" xml:space="preserve">
     <value>Orders</value>
+  </data>
+  <data name="PageCount" xml:space="preserve">
+    <value>Page count:</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password:</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Phone:</value>
+  </data>
+  <data name="PhoneOpt" xml:space="preserve">
+    <value>Phone: (optional)</value>
+  </data>
+  <data name="PlaceOrder" xml:space="preserve">
+    <value>Place order</value>
+  </data>
+  <data name="PleaseLogIn" xml:space="preserve">
+    <value>Please, log in:</value>
+  </data>
+  <data name="PostalCode" xml:space="preserve">
+    <value>ZIP Code:</value>
+  </data>
+  <data name="Price" xml:space="preserve">
+    <value>Price:</value>
+  </data>
+  <data name="Province" xml:space="preserve">
+    <value>Province:</value>
+  </data>
+  <data name="PubDate" xml:space="preserve">
+    <value>Publishing date:</value>
+  </data>
+  <data name="Publisher" xml:space="preserve">
+    <value>Publisher:</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Save changes</value>
+  </data>
+  <data name="SearchPlaceholder" xml:space="preserve">
+    <value>Search...</value>
+  </data>
+  <data name="SelectImage" xml:space="preserve">
+    <value>Select image</value>
+  </data>
+  <data name="Shipping" xml:space="preserve">
+    <value>Shipping:</value>
+  </data>
+  <data name="SignUp" xml:space="preserve">
+    <value>Sign up</value>
   </data>
   <data name="Spanish" xml:space="preserve">
     <value>Spanish</value>
   </data>
+  <data name="State" xml:space="preserve">
+    <value>State:</value>
+  </data>
+  <data name="Stock" xml:space="preserve">
+    <value>Stock:</value>
+  </data>
+  <data name="Surname" xml:space="preserve">
+    <value>Surname:</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Title:</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Total:</value>
+  </data>
   <data name="User" xml:space="preserve">
     <value>User</value>
+  </data>
+  <data name="Welcome!" xml:space="preserve">
+    <value>Welcome!</value>
   </data>
 </root>

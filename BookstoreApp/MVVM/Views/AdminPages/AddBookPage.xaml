@@ -1,60 +1,61 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:lang="clr-namespace:BookstoreApp.MVVM.Services.Localization"
              x:Class="BookstoreApp.MVVM.Views.AdminPages.AddBookPage">
 
     <ScrollView>
         <VerticalStackLayout Margin="30"
                              Spacing="10">
-            <Label Text="Title:"/>
+            <Label Text="{lang:Translate Title}"/>
             <Entry x:Name="titleEntry"/>
 
-            <Label Text="ISBN:"/>
+            <Label Text="{lang:Translate ISBN}"/>
             <Entry x:Name="isbnEntry"
                    MaxLength="17"
                    ClearButtonVisibility="WhileEditing"/>
 
-            <Label Text="Authors:"/>
+            <Label Text="{lang:Translate Authors}"/>
             <Entry x:Name="authorsEntry"
                    Placeholder="Use commas to separate multiple authors"/>
 
-            <Label Text="Publisher:"/>
+            <Label Text="{lang:Translate Publisher}"/>
             <Entry x:Name="publisherEntry"/>
 
-            <Label Text="Genre:"/>
+            <Label Text="{lang:Translate Genre}"/>
             <Entry x:Name="genreEntry"/>
 
-            <Label Text="Publishing date:"/>
+            <Label Text="{lang:Translate PubDate}"/>
             <DatePicker x:Name="pubDateDatePicker"/>
 
-            <Label Text="Language:"/>
+            <Label Text="{lang:Translate Language}"/>
             <Entry x:Name="languageEntry"
                    Placeholder="SPA, ENG..."
                    MaxLength="3"/>
 
-            <Label Text="Page size:"/>
+            <Label Text="{lang:Translate PageCount}"/>
             <Entry x:Name="pageSizeEntry"
                    Keyboard="Numeric"/>
 
-            <Label Text="Description:"/>
+            <Label Text="{lang:Translate description}"/>
             <Editor x:Name="descriptionEditor"/>
 
             <Image x:Name="bookCoverImage"
                    WidthRequest="200"
                    HeightRequest="200"/>
             
-            <Label Text="Book cover:"/>
+            <Label Text="{lang:Translate BookCover}"/>
             <Button Text="Select Image" Clicked="FilePickerButtonClicked"/>
 
-            <Label Text="Stock:"/>
+            <Label Text="{lang:Translate Stock}"/>
             <Entry x:Name="stockEntry"
                    Keyboard="Numeric"/>
 
-            <Label Text="Price:"/>
+            <Label Text="{lang:Translate Price}"/>
             <Entry x:Name="priceEntry"
                    Keyboard="Numeric"/>
 
-            <Button Text="Add Book"
+            <Button Text="{lang:Translate AddBook}"
                     Clicked="AddBookButtonClicked"/>
         </VerticalStackLayout>
     </ScrollView>

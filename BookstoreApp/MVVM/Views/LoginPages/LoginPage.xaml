@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:sf="clr-namespace:Syncfusion.Maui.DataForm;assembly=Syncfusion.Maui.DataForm"
              xmlns:vm="clr-namespace:Bookstore_MAUI.MVVM.ViewModels"
+             xmlns:lang="clr-namespace:BookstoreApp.MVVM.Services.Localization"
              x:Class="BookstoreApp.MVVM.Views.LoginPages.LoginPage"
              x:DataType="vm:ClientViewModel"
              Shell.TabBarIsVisible="False"
@@ -17,10 +18,10 @@
                          Padding="40"
                          Spacing="{OnPlatform WinUI=10}">
 
-        <Label Text="Welcome!"
+        <Label Text="{lang:Translate Welcome!}"
                FontSize="28"
                FontAttributes="Bold"/>
-        <Label Text="Please, log in:"/>
+        <Label Text="{lang:Translate PleaseLogIn}"/>
         <Border StrokeShape="RoundRectangle 5"
                 StrokeThickness="1"
                 Padding="5">
@@ -32,26 +33,26 @@
                            HeightRequest="{OnPlatform WinUI=125}">
                 <sf:SfDataForm.Items>
                     <sf:DataFormTextItem FieldName="Email"
-                                         LabelText="Email:"/>
+                                         LabelText="{lang:Translate Email}"/>
                     <sf:DataFormPasswordItem FieldName="Password"
-                                             LabelText="Password: "/>
+                                             LabelText="{lang:Translate Password}"/>
                 </sf:SfDataForm.Items>
             </sf:SfDataForm>
         </Border>
 
-        <Button Text="Login"
+        <Button Text="{lang:Translate LogIn}"
                 Command="{Binding LoginCommand}"/>
 
         <HorizontalStackLayout Spacing="5">
-            <Label Text="Register"
+            <Label Text="{lang:Translate Register}"
                 TextDecorations="Underline"
                 TextColor="LightBlue">
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ToRegisterPageCommand}"/>
                 </Label.GestureRecognizers>
             </Label>
-            <Label Text="or"/>
-            <Label Text="continue without logging in"
+            <Label Text="{lang:Translate or}"/>
+            <Label Text="{lang:Translate ContinueNoLogin}"
                 TextDecorations="Underline">
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer Tapped="NoLoginTapped"/>
