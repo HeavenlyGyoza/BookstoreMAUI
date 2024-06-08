@@ -53,8 +53,8 @@ namespace Bookstore_MAUI.MVVM.ViewModels
             LoginCommand = new RelayCommand(LoginCommandAction);
             ToRegisterPageCommand = new RelayCommand(ToRegisterPageCommandAction);
             SignUpCommand = new RelayCommand(SignUpCommandAction);
-            ToLoginPageCommand = new RelayCommand(ToLoginPageCommandAction);
             LogOutCommand = new RelayCommand(LogOutCommandAction);
+            ToLoginPageCommand = new RelayCommand(ToLoginPageCommandAction);
             ToUserOrderHistoryPageCommand = new RelayCommand(ToUserOrderHistoryPageCommandAction);
             ToAccountSettingsPageCommand = new RelayCommand(ToAccountSettingsPageCommandAction);
             ToUserAddressesPageCommand = new RelayCommand(ToUserAddressesPageCommandAction);
@@ -179,6 +179,7 @@ namespace Bookstore_MAUI.MVVM.ViewModels
             if (await Application.Current.MainPage.DisplayAlert("Log out", "Are you sure you want to log out?", "Yes", "No"))
             {
                 SecureStorage.RemoveAll();
+                ClearClientData();
                 var stack = Shell.Current.Navigation.NavigationStack.ToArray();
                 for (int i = stack.Length - 1; i > 0; i--)
                 {
@@ -188,6 +189,17 @@ namespace Bookstore_MAUI.MVVM.ViewModels
             }
         }
 
+        private void ClearClientData()
+        {
+            Id = 0;
+            Name = string.Empty;
+            Surname = string.Empty;
+            Email = string.Empty;
+            Password = string.Empty;
+            Role = string.Empty;
+            Phone = string.Empty;
+            Addresses?.Clear();
+        }
         public async Task LoadClientDataAsync()
         {
             try
@@ -205,7 +217,8 @@ namespace Bookstore_MAUI.MVVM.ViewModels
                         Password = client.Password;
                         Role = client.Role;
                         Phone = client.Phone;
-                        Addresses = client.Addresses.ToList();
+                        Addresses = client.Addresses.ToList() ?? new List<Address>();
+                        return;
                     }
                 }
                 else
