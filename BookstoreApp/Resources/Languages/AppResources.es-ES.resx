@@ -126,6 +126,9 @@
   <data name="Home" xml:space="preserve">
     <value>Inicio</value>
   </data>
+  <data name="LangPref" xml:space="preserve">
+    <value>Preferencias de idioma</value>
+  </data>
   <data name="Language" xml:space="preserve">
     <value>Idioma</value>
   </data>
@@ -137,6 +140,9 @@
   </data>
   <data name="Management" xml:space="preserve">
     <value>Gestión</value>
+  </data>
+  <data name="MyAddresses" xml:space="preserve">
+    <value>Mis direcciones</value>
   </data>
   <data name="MyOrderHistory" xml:space="preserve">
     <value>Mi historial de pedidos</value>

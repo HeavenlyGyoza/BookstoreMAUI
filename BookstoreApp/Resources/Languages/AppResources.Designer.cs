@@ -88,6 +88,15 @@ namespace BookstoreApp.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Language preferences.
+        /// </summary>
+        internal static string LangPref {
+            get {
+                return ResourceManager.GetString("LangPref", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Language.
         /// </summary>
         internal static string Language {
@@ -120,6 +129,15 @@ namespace BookstoreApp.Resources.Languages {
         internal static string Management {
             get {
                 return ResourceManager.GetString("Management", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to My addresses.
+        /// </summary>
+        internal static string MyAddresses {
+            get {
+                return ResourceManager.GetString("MyAddresses", resourceCulture);
             }
         }
         
