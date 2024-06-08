@@ -40,8 +40,10 @@ namespace Bookstore_MAUI.MVVM.ViewModels
         public IRelayCommand LoginCommand { get; }
         public IRelayCommand ToRegisterPageCommand { get; }
         public IRelayCommand ToLoginPageCommand { get; }
-        public IRelayCommand ToMyOrderHistoryPageCommand { get; }
+        public IRelayCommand ToUserOrderHistoryPageCommand { get; }
         public IRelayCommand ToAccountSettingsPageCommand { get; }
+        public IRelayCommand ToUserAddressesPageCommand { get; }
+        public IRelayCommand ToUserWishlistsPageCommand { get; }
         public IRelayCommand SignUpCommand { get; }
         public IRelayCommand LogOutCommand { get; }
 
@@ -53,8 +55,10 @@ namespace Bookstore_MAUI.MVVM.ViewModels
             SignUpCommand = new RelayCommand(SignUpCommandAction);
             ToLoginPageCommand = new RelayCommand(ToLoginPageCommandAction);
             LogOutCommand = new RelayCommand(LogOutCommandAction);
-            ToMyOrderHistoryPageCommand = new RelayCommand(ToMyOrderHistoryPageCommandAction);
+            ToUserOrderHistoryPageCommand = new RelayCommand(ToUserOrderHistoryPageCommandAction);
             ToAccountSettingsPageCommand = new RelayCommand(ToAccountSettingsPageCommandAction);
+            ToUserAddressesPageCommand = new RelayCommand(ToUserAddressesPageCommandAction);
+            ToUserWishlistsPageCommand = new RelayCommand(ToUserWishlistsPageCommandAction);
         }
 
         public async Task<IEnumerable<Client>> GetAllClientsAsync()
@@ -150,14 +154,24 @@ namespace Bookstore_MAUI.MVVM.ViewModels
             await Shell.Current.GoToAsync($"{nameof(LoginPage)}");
         }
 
-        public async void ToMyOrderHistoryPageCommandAction()
+        public async void ToUserOrderHistoryPageCommandAction()
         {
-            await Shell.Current.GoToAsync($"{nameof(MyOrderHistoryPage)}");
+            await Shell.Current.GoToAsync($"{nameof(UserOrderHistoryPage)}");
         }
 
         public async void ToAccountSettingsPageCommandAction()
         {
             await Shell.Current.GoToAsync($"{nameof(AccountSettingsPage)}");
+        }
+
+        public async void ToUserAddressesPageCommandAction()
+        {
+            await Shell.Current.GoToAsync($"{nameof(UserAddressesPage)}");
+        }
+
+        public async void ToUserWishlistsPageCommandAction()
+        {
+            await Shell.Current.GoToAsync($"{nameof(UserWishlistsPage)}");
         }
 
         public async void LogOutCommandAction()
