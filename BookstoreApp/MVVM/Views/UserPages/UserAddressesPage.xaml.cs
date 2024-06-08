@@ -12,4 +12,11 @@ public partial class UserAddressesPage : ContentPage
 		BindingContext = _addressVM = addressVM;
 		_clientVM = clientVM;
 	}
+
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+        await _addressVM.LoadClientAddressesCollection(_clientVM.Id);
+
+    }
 }
