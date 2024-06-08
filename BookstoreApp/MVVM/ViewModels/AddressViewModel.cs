@@ -41,13 +41,19 @@ namespace Bookstore_MAUI.MVVM.ViewModels
 
         public ObservableCollection<Address> ClientAddresses { get; set; } = [];
 
-        public RelayCommand EditAddressCommand { get; }
-        public RelayCommand DeleteAddressCommand { get; }
-        public RelayCommand AddNewAddressCommand { get; }
+        public IRelayCommand EditAddressCommand { get; }
+        public IRelayCommand DeleteAddressCommand { get; }
+        public IRelayCommand AddNewAddressCommand { get; }
+        public IRelayCommand SaveAddressCommand { get; }
 
         public AddressViewModel (HttpClient httpClient)
         {
             _httpClient = httpClient;
+            EditAddressCommand = new RelayCommand<Address>(EditAddressCommandAction);
+            DeleteAddressCommand = new RelayCommand<Address>(DeleteAddressCommandAction);
+            AddNewAddressCommand = new RelayCommand(AddNewAddressCommandAction);
+            SaveAddressCommand = new RelayCommand(SaveAddressCommandAction);
+            SelectedAddress = new Address();
         }
 
         public async Task<IEnumerable<Address>> GetAllAddressesAsync()
@@ -60,7 +66,7 @@ namespace Bookstore_MAUI.MVVM.ViewModels
             return await _httpClient.GetFromJsonAsync<Address>($"{BaseUrl}/{id}");
         }
 
-        public async Task<Address> GetPrimaryAddressByClientIdAsync(int clientId)
+        public async Task<Address?> GetPrimaryAddressByClientIdAsync(int clientId)
         {
             var addresses = await _httpClient.GetFromJsonAsync<IEnumerable<Address>>($"{BaseUrl}/byClientId/{clientId}");
             return addresses?.FirstOrDefault(a => a.IsPrimary);
@@ -69,12 +75,12 @@ namespace Bookstore_MAUI.MVVM.ViewModels
         public async Task<IEnumerable<Address>> GetAllAddressByClientIdAsync(int clientId)
         {
             var addresses = await _httpClient.GetFromJsonAsync<IEnumerable<Address>>($"{BaseUrl}/byClientId/{clientId}");
-            return addresses ?? Enumerable.Empty<Address>();
+            return addresses ?? [];
         }
 
         public async Task<bool> AddAddressAsync(Address address)
         {
-            var response = await _httpClient.PatchAsJsonAsync($"{BaseUrl}/add", address);
+            var response = await _httpClient.PostAsJsonAsync($"{BaseUrl}/add", address);
             return response.IsSuccessStatusCode;
         }
 
@@ -125,6 +131,34 @@ namespace Bookstore_MAUI.MVVM.ViewModels
         public async void AddNewAddressCommandAction()
         {
             await Shell.Current.GoToAsync(nameof(ManageUserAddressPage));
+        }
+
+        public async void SaveAddressCommandAction()
+        {
+            if(SelectedAddress != null && SelectedAddress.Id > 0)
+            {
+                var response = await UpdateAddressAsync(SelectedAddress);
+                if (response)
+                {
+                    await Shell.Current.GoToAsync("..");
+                }
+                else
+                {
+                    await Application.Current.MainPage.DisplayAlert("Error", "Failed to update address.", "OK");
+                }
+            }
+            else
+            {
+                var response = await AddAddressAsync(SelectedAddress);
+                if (response)
+                {
+                    await Shell.Current.GoToAsync("..");
+                }
+                else
+                {
+                    await Application.Current.MainPage.DisplayAlert("Error", "Failed to update address.", "OK");
+                }
+            }
         }
     }
 }
