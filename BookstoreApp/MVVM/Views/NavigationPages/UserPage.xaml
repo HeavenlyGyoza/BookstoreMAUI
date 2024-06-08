@@ -4,7 +4,8 @@
              xmlns:vm="clr-namespace:Bookstore_MAUI.MVVM.ViewModels"
              xmlns:lang="clr-namespace:BookstoreApp.MVVM.Services.Localization"
              x:Class="BookstoreApp.MVVM.Views.NavigationPages.UserPage">
-    <VerticalStackLayout>
+    
+    <VerticalStackLayout Margin="50">
 
         <Button x:Name="signInButton"
                 x:DataType="vm:ClientViewModel"
@@ -13,36 +14,25 @@
 
         <Grid x:Name="userGrid"
               ColumnDefinitions="*, *"
-              RowDefinitions="*, *, *"
+              RowDefinitions="*, *"
               IsVisible="False">
 
-            <Button Grid.Column="0"
-                    Grid.Row="0"
-                    x:DataType="vm:ClientViewModel"
-                    Text="{lang:Translate LogOut}"
-                    Command="{Binding LogOutCommand}"/>
-            <Button Grid.Column="1"
-                    Grid.Row="0"
+            <Button Grid.Column="0" Grid.Row="0" Margin="5"
                     x:DataType="vm:ClientViewModel"
                     Text="{lang:Translate MyOrderHistory}"
-                    Command="{Binding ToMyOrderHistoryPageCommand}"/>
-            <Button Grid.Column="0"
-                    Grid.Row="1"
+                    Command="{Binding ToUserOrderHistoryPageCommand}"/>
+            <Button Grid.Column="1" Grid.Row="0" Margin="5"
+                    x:DataType="vm:ClientViewModel"
+                    Text="{lang:Translate MyWishlists}"
+                    Command="{Binding ToUserWishlistsPageCommand}"/>
+            <Button Grid.Column="0" Grid.Row="1" Margin="5"
+                    x:DataType="vm:ClientViewModel"
+                    Text="{lang:Translate MyAddresses}"
+                    Command="{Binding ToUserAddressesPageCommand}"/>
+            <Button Grid.Column="1" Grid.Row="1" Margin="5"
                     x:DataType="vm:ClientViewModel"
                     Text="{lang:Translate AccountSettings}"
                     Command="{Binding ToAccountSettingsPageCommand}"/>
-            <Button Grid.Column="1"
-                    Grid.Row="1"
-                    Text="{lang:Translate MyWishlists}"/>
-
-            <Button Grid.Column="0" Grid.Row="2"
-                    Text="My Addresses"/>
         </Grid>
-
-        <VerticalStackLayout RadioButtonGroup.GroupName="Languague">
-            <RadioButton Content="{lang:Translate English}" x:Name="rbEnglish" CheckedChanged="rbEnglish_CheckedChanged"/>
-            <RadioButton Content="{lang:Translate Spanish}" x:Name="rbSpanish" CheckedChanged="rbSpanish_CheckedChanged"/>
-        </VerticalStackLayout>
-        
     </VerticalStackLayout>
 </ContentPage>
