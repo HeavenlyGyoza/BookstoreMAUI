@@ -35,14 +35,14 @@ namespace BookstoreWebAPI.Controllers
         [HttpGet("byClientId/{clientId}")]
         public async Task<ActionResult<IEnumerable<Address>>> GetAddressesByClientId(int clientId)
         {
-            if (clientId != null && clientId < 0) 
+            if (clientId > 0) 
             {
                 var addresses = await _dbContext.Addresses.Where(a => a.Clients.Any(c => c.Id == clientId)).ToListAsync();
                 return Ok(addresses);
             }
             else
             {
-                return BadRequest();
+                return BadRequest("clientId is < 0");
             }
         }
 
