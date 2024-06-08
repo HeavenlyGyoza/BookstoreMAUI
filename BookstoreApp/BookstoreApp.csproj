@@ -97,6 +97,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="MVVM\Views\UserPages\UserOrderHistoryPage.xaml.cs">
+	    <DependentUpon>UserOrderHistoryPage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Resources\Languages\AppResources.Designer.cs">
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
@@ -157,7 +160,13 @@
 	  <MauiXaml Update="MVVM\Views\UserPages\AccountSettingsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="MVVM\Views\UserPages\MyOrderHistoryPage.xaml">
+	  <MauiXaml Update="MVVM\Views\UserPages\UserAddressesPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="MVVM\Views\UserPages\UserOrderHistoryPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="MVVM\Views\UserPages\UserWishlistsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
