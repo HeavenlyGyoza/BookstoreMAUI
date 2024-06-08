@@ -4,7 +4,7 @@
              xmlns:vm="clr-namespace:Bookstore_MAUI.MVVM.ViewModels"
              xmlns:lang="clr-namespace:BookstoreApp.MVVM.Services.Localization"
              x:DataType="vm:OrderViewModel"
-             x:Class="BookstoreApp.MVVM.Views.UserPages.MyOrderHistoryPage">
+             x:Class="BookstoreApp.MVVM.Views.UserPages.UserOrderHistoryPage">
     
     <VerticalStackLayout>
         <Label Text="{lang:Translate Orders}" FontSize="Medium" Margin="0,10"/>

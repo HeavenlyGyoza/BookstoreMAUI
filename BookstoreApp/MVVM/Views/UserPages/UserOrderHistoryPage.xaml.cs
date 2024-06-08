@@ -2,10 +2,10 @@ using Bookstore_MAUI.MVVM.ViewModels;
 
 namespace BookstoreApp.MVVM.Views.UserPages;
 
-public partial class MyOrderHistoryPage : ContentPage
+public partial class UserOrderHistoryPage : ContentPage
 {
     private readonly OrderViewModel _orderVM;
-    public MyOrderHistoryPage(OrderViewModel orderVM)
+    public UserOrderHistoryPage(OrderViewModel orderVM)
 	{
 		InitializeComponent();
 		BindingContext = _orderVM = orderVM;
