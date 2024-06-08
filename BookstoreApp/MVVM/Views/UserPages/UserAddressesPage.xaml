@@ -4,11 +4,59 @@
              xmlns:vm="clr-namespace:Bookstore_MAUI.MVVM.ViewModels"
              xmlns:lang="clr-namespace:BookstoreApp.MVVM.Services.Localization"
              x:Class="BookstoreApp.MVVM.Views.UserPages.UserAddressesPage">
-    
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+    <ScrollView>
+        <VerticalStackLayout Margin="30">
+            <CollectionView x:Name="addressCollectionView"
+                            x:DataType="vm:AddressViewModel"
+                            ItemsSource="{Binding ClientAddresses}"
+                            SelectionMode="None"
+                            ItemsLayout="Vertical">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border StrokeShape="RoundRectangle 5"
+                                StrokeThickness="1"
+                                Padding="5"
+                                WidthRequest="350">
+                            <Grid RowDefinitions="*, *, *, *, *, *" ColumnDefinitions="Auto, *"
+                                  RadioButtonGroup.GroupName="isPrimary"
+                                  Padding="5">
+                                <Label Grid.Row="0" Grid.Column="0"
+                                       Text="{Binding Street, StringFormat='{0},'}"/>
+                                <Label Grid.Row="0" Grid.Column="1"
+                                       Text="{Binding AddInfo}"/>
+                                <Label Grid.Row="1" Grid.Column="0"
+                                       Text="{Binding City, StringFormat='{0},'}"/>
+                                <Label Grid.Row="1" Grid.Column="1"
+                                       Text="{Binding Province}"/>
+                                <Label Grid.Row="2" Grid.Column="0"
+                                       Text="{Binding PostalCode}"/>
+                                <Label Grid.Row="3" Grid.Column="0"
+                                       Text="{Binding Country}"/>
+                                <Label Grid.Row="4" Grid.Column="0"
+                                       Text="Preferred address"
+                                       Margin="0,8,10,0"/>
+                                <RadioButton Grid.Row="4" Grid.Column="1"
+                                             Value="{Binding IsPrimary}"/>
+                                <Label Grid.Row="5" Grid.Column="0"
+                                       Text="{lang:Translate Edit}"
+                                       TextDecorations="Underline">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding EditAddressCommand}"/>
+                                    </Label.GestureRecognizers>
+                                </Label>
+                                <Label Grid.Row="5" Grid.Column="1"
+                                       Text="{lang:Translate Delete}"
+                                       TextDecorations="Underline" HorizontalTextAlignment="End">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding DeleteAddressCommand}"/>
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Button Text="Add" Margin="15" Command="{Binding AddNewAddressCommand}"/>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
