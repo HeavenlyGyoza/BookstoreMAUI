@@ -18,7 +18,6 @@
                                 Padding="5"
                                 WidthRequest="350">
                             <Grid RowDefinitions="*, *, *, *, *, *" ColumnDefinitions="Auto, *"
-                                  RadioButtonGroup.GroupName="isPrimary"
                                   Padding="5">
                                 <Label Grid.Row="0" Grid.Column="0"
                                        Text="{Binding Street, StringFormat='{0},'}"/>
@@ -35,20 +34,23 @@
                                 <Label Grid.Row="4" Grid.Column="0"
                                        Text="Preferred address"
                                        Margin="0,8,10,0"/>
-                                <RadioButton Grid.Row="4" Grid.Column="1"
-                                             Value="{Binding IsPrimary}"/>
+                                <RadioButton Grid.Row="4" Grid.Column="1" x:Name="primaryRB"
+                                             IsChecked="{Binding IsPrimary, Mode=TwoWay}" GroupName="isPrimary"
+                                             CheckedChanged="RadioButton_CheckedChanged"/>
                                 <Label Grid.Row="5" Grid.Column="0"
                                        Text="{lang:Translate Edit}"
                                        TextDecorations="Underline">
                                     <Label.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding EditAddressCommand}"/>
+                                        <TapGestureRecognizer Command="{Binding Path=BindingContext.EditAddressCommand, Source={x:Reference addressCollectionView}}"
+                                                  CommandParameter="{Binding .}"/>
                                     </Label.GestureRecognizers>
                                 </Label>
                                 <Label Grid.Row="5" Grid.Column="1"
                                        Text="{lang:Translate Delete}"
                                        TextDecorations="Underline" HorizontalTextAlignment="End">
                                     <Label.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding DeleteAddressCommand}"/>
+                                        <TapGestureRecognizer Command="{Binding Path=BindingContext.DeleteAddressCommand, Source={x:Reference addressCollectionView}}"
+                                                              CommandParameter="{Binding .}"/>
                                     </Label.GestureRecognizers>
                                 </Label>
                             </Grid>
@@ -56,7 +58,7 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-            <Button Text="Add" Margin="15" Command="{Binding AddNewAddressCommand}"/>
+            <Button Text="Add" Margin="15" x:DataType="vm:AddressViewModel" Command="{Binding AddNewAddressCommand}"/>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
