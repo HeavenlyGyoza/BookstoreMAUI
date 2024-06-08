@@ -39,21 +39,26 @@
                     <Label Grid.Row="2" Grid.Column="1" Text="{Binding SelectedBook.PageSize}" FontSize="18"/>
                 </Grid>
 
-                <Button Text="{Binding SelectedBook.Price, StringFormat='{0:C}'}" 
-                        FontSize="18" 
-                        BackgroundColor="#007bff"
-                        CornerRadius="5"
-                        Padding="10"
-                        Margin="0, 20, 0, 20"
-                        FontAttributes="Bold"
-                        HorizontalOptions="Start"
-                        ContentLayout="Right, 0"
-                        ImageSource="shopping_cart.png"
-                        WidthRequest="150"
-                        Command="{Binding ToOrderPageCommand}"
-                        CommandParameter="{Binding SelectedBook}"/>
+                <HorizontalStackLayout>
+                    <Button Text="{Binding SelectedBook.Price, StringFormat='{0:C}'}" 
+                            FontSize="18" 
+                            BackgroundColor="#007bff"
+                            CornerRadius="5"
+                            Padding="10"
+                            Margin="0, 20, 0, 20"
+                            FontAttributes="Bold"
+                            HorizontalOptions="Start"
+                            ContentLayout="Right, 0"
+                            ImageSource="shopping_cart.png"
+                            WidthRequest="150"
+                            Command="{Binding ToOrderPageCommand}"
+                            CommandParameter="{Binding SelectedBook}"/>
+                    <Button ImageSource="heart.png"
+                            HeightRequest="50"
+                            BackgroundColor="Transparent"
+                            Margin="10, 0"/>
+                </HorizontalStackLayout>
 
-                
                 <Label Text="{Binding SelectedBook.Description}" 
                        FontSize="16" />
             </VerticalStackLayout>
