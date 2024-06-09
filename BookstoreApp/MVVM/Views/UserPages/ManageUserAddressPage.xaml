@@ -25,13 +25,13 @@
                     <sf:DataFormTextItem FieldName="AddInfo" LabelText="{lang:Translate AddInfo}"/>
                     <sf:DataFormTextItem FieldName="City" LabelText="{lang:Translate City}"/>
                     <sf:DataFormTextItem FieldName="Province" LabelText="{lang:Translate Province}"/>
-                    <sf:DataFormTextItem FieldName="PostalCode" LabelText="{lang:Translate Province}"/>
+                    <sf:DataFormTextItem FieldName="PostalCode" LabelText="{lang:Translate PostalCode}" MaxLength="5"/>
                     <sf:DataFormTextItem FieldName="State" LabelText="{lang:Translate State}"/>
                     <sf:DataFormTextItem FieldName="Country" LabelText="{lang:Translate Country}"/>
                     <sf:DataFormCheckBoxItem FieldName="IsPrimary" LabelText="Preferred address"/>
                 </sf:SfDataForm.Items>
             </sf:SfDataForm>
         </Border>
-        <Button Text="Save" Command="{Binding SaveAddressCommand}"/>
+        <Button Text="Save" Command="{Binding SaveAddressCommand}" CommandParameter="{Binding client}"/>
     </VerticalStackLayout>
 </ContentPage>
