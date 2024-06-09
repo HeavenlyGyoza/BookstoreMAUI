@@ -3,10 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:lang="clr-namespace:BookstoreApp.MVVM.Services.Localization"
              x:Class="BookstoreApp.MVVM.Views.NavigationPages.ManagementPage">
-    
-    <VerticalStackLayout>
-        <Button Text="{lang:Translate ManageStock}"
+    <ScrollView>
+        <VerticalStackLayout>
+            <Button Text="{lang:Translate ManageStock}"
                 Clicked="ManageStockButtonClicked"/>
-        
-    </VerticalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

@@ -5,53 +5,55 @@
              xmlns:lang="clr-namespace:BookstoreApp.MVVM.Services.Localization"
              x:Class="BookstoreApp.MVVM.Views.NavigationPages.HomePage">
 
-    <VerticalStackLayout Padding="10"
-                         Margin="25">
+    <ScrollView>
+        <VerticalStackLayout Padding="10"
+                             Margin="25">
 
-        <cells:SearchBarCell x:Name="searchBarCell"/>
-        <Label Text="{lang:Translate NewlyIn}"
-               HorizontalOptions="CenterAndExpand"
-               FontSize="42"
-               FontAttributes="Bold"
-               TextDecorations="Underline"
-               Padding="0,0,0,30"/>
-        <CollectionView x:Name="newInCollectionView"
-                        ItemsSource="{Binding Books}"
-                        SelectionMode="Single">
-            <CollectionView.ItemsLayout>
-                <LinearItemsLayout Orientation="Horizontal"/>
-            </CollectionView.ItemsLayout>
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Border StrokeShape="RoundRectangle 5"
-                            StrokeThickness="1"
-                            Padding="5"
-                            HeightRequest="550"
-                            WidthRequest="450">
-                        <Border.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding Path=BindingContext.BookTappedCommand, Source={x:Reference newInCollectionView}}"
-                                                  CommandParameter="{Binding .}"/>
-                        </Border.GestureRecognizers>
-                        <VerticalStackLayout>
-                            <Image Source="{Binding CoverImagePath}"
-                                   HeightRequest="450"
-                                   Aspect="AspectFit">
-                            </Image>
-                            <Label Text="{Binding Title}"
-                                   HorizontalOptions="Center"
-                                   FontSize="18"
-                                   FontAttributes="Italic, Bold"/>
-                            <Label Text="{Binding AuthorsDisplay}"
-                                   HorizontalOptions="Center"
-                                   FontSize="14"
-                                   FontAttributes="Italic"/>
-                            <Label Text="{Binding Price, StringFormat='{0:C}'}"
-                                   HorizontalOptions="Center"/>
-                        </VerticalStackLayout>
-                    </Border>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+            <cells:SearchBarCell x:Name="searchBarCell"/>
+            <Label Text="{lang:Translate NewlyIn}"
+                   HorizontalOptions="CenterAndExpand"
+                   FontSize="42"
+                   FontAttributes="Bold"
+                   TextDecorations="Underline"
+                   Padding="0,0,0,30"/>
+            <CollectionView x:Name="newInCollectionView"
+                            ItemsSource="{Binding Books}"
+                            SelectionMode="Single">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Horizontal"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border StrokeShape="RoundRectangle 5"
+                                StrokeThickness="1"
+                                Padding="5"
+                                HeightRequest="550"
+                                WidthRequest="450">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Path=BindingContext.BookTappedCommand, Source={x:Reference newInCollectionView}}"
+                                                      CommandParameter="{Binding .}"/>
+                            </Border.GestureRecognizers>
+                            <VerticalStackLayout>
+                                <Image Source="{Binding CoverImagePath}"
+                                       HeightRequest="450"
+                                       Aspect="AspectFit">
+                                </Image>
+                                <Label Text="{Binding Title}"
+                                       HorizontalOptions="Center"
+                                       FontSize="18"
+                                       FontAttributes="Italic, Bold"/>
+                                <Label Text="{Binding AuthorsDisplay}"
+                                       HorizontalOptions="Center"
+                                       FontSize="14"
+                                       FontAttributes="Italic"/>
+                                <Label Text="{Binding Price, StringFormat='{0:C}'}"
+                                       HorizontalOptions="Center"/>
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
 
-    </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

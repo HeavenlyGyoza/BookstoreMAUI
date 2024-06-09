@@ -12,53 +12,55 @@
     <Shell.BackButtonBehavior>
         <BackButtonBehavior IsEnabled="False" IsVisible="False"/>
     </Shell.BackButtonBehavior>
-    <VerticalStackLayout HorizontalOptions="{OnPlatform Default=Center, Android=FillAndExpand}"
-                         WidthRequest="{OnPlatform WinUI=600}"
-                         VerticalOptions="Center"
-                         Padding="40"
-                         Spacing="{OnPlatform WinUI=10}">
+    <ScrollView>
+        <VerticalStackLayout HorizontalOptions="{OnPlatform Default=Center, Android=FillAndExpand}"
+                             WidthRequest="{OnPlatform WinUI=600}"
+                             VerticalOptions="Center"
+                             Padding="40"
+                             Spacing="{OnPlatform WinUI=10}">
 
-        <Label Text="{lang:Translate Welcome!}"
-               FontSize="28"
-               FontAttributes="Bold"/>
-        <Label Text="{lang:Translate PleaseLogIn}"/>
-        <Border StrokeShape="RoundRectangle 5"
-                StrokeThickness="1"
-                Padding="5">
-            <sf:SfDataForm x:Name="loginDataForm"
-                           DataObject="{Binding .}"
-                           AutoGenerateItems="False"
-                           LayoutType="TextInputLayout"
-                           MinimumHeightRequest="100"
-                           HeightRequest="{OnPlatform WinUI=125}">
-                <sf:SfDataForm.Items>
-                    <sf:DataFormTextItem FieldName="Email"
-                                         LabelText="{lang:Translate Email}"/>
-                    <sf:DataFormPasswordItem FieldName="Password"
-                                             LabelText="{lang:Translate Password}"/>
-                </sf:SfDataForm.Items>
-            </sf:SfDataForm>
-        </Border>
+            <Label Text="{lang:Translate Welcome!}"
+                   FontSize="28"
+                   FontAttributes="Bold"/>
+            <Label Text="{lang:Translate PleaseLogIn}"/>
+            <Border StrokeShape="RoundRectangle 5"
+                    StrokeThickness="1"
+                    Padding="5">
+                <sf:SfDataForm x:Name="loginDataForm"
+                               DataObject="{Binding .}"
+                               AutoGenerateItems="False"
+                               LayoutType="TextInputLayout"
+                               MinimumHeightRequest="100"
+                               HeightRequest="{OnPlatform WinUI=125}">
+                    <sf:SfDataForm.Items>
+                        <sf:DataFormTextItem FieldName="Email"
+                                             LabelText="{lang:Translate Email}"/>
+                        <sf:DataFormPasswordItem FieldName="Password"
+                                                 LabelText="{lang:Translate Password}"/>
+                    </sf:SfDataForm.Items>
+                </sf:SfDataForm>
+            </Border>
 
-        <Button Text="{lang:Translate LogIn}"
-                Command="{Binding LoginCommand}"/>
+            <Button Text="{lang:Translate LogIn}"
+                    Command="{Binding LoginCommand}"/>
 
-        <HorizontalStackLayout Spacing="5">
-            <Label Text="{lang:Translate Register}"
-                TextDecorations="Underline"
-                TextColor="LightBlue">
-                <Label.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding ToRegisterPageCommand}"/>
-                </Label.GestureRecognizers>
-            </Label>
-            <Label Text="{lang:Translate or}"/>
-            <Label Text="{lang:Translate ContinueNoLogin}"
-                TextDecorations="Underline">
-                <Label.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="NoLoginTapped"/>
-                </Label.GestureRecognizers>
-            </Label>
-        </HorizontalStackLayout>
+            <HorizontalStackLayout Spacing="5">
+                <Label Text="{lang:Translate Register}"
+                    TextDecorations="Underline"
+                    TextColor="LightBlue">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ToRegisterPageCommand}"/>
+                    </Label.GestureRecognizers>
+                </Label>
+                <Label Text="{lang:Translate or}"/>
+                <Label Text="{lang:Translate ContinueNoLogin}"
+                    TextDecorations="Underline">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="NoLoginTapped"/>
+                    </Label.GestureRecognizers>
+                </Label>
+            </HorizontalStackLayout>
 
-    </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

@@ -4,22 +4,24 @@
              xmlns:vm="clr-namespace:Bookstore_MAUI.MVVM.ViewModels"
              xmlns:lang="clr-namespace:BookstoreApp.MVVM.Services.Localization"
              x:Class="BookstoreApp.MVVM.Views.UserPages.AccountSettingsPage">
-    
-    <VerticalStackLayout Margin="50">
-        <Border StrokeShape="RoundRectangle 5"
-                StrokeThickness="1"
-                Padding="5">
-            <VerticalStackLayout RadioButtonGroup.GroupName="Languague">
-                <Label Text="{lang:Translate LangPref}" FontSize="18" FontAttributes="Bold"/>
-                <RadioButton Content="{lang:Translate English}" x:Name="rbEnglish" CheckedChanged="rbEnglish_CheckedChanged"/>
-                <RadioButton Content="{lang:Translate Spanish}" x:Name="rbSpanish" CheckedChanged="rbSpanish_CheckedChanged"/>
-            </VerticalStackLayout>
-        </Border>
-        <Button x:DataType="vm:ClientViewModel"
-                Text="{lang:Translate LogOut}"
-                WidthRequest="150"
-                HorizontalOptions="Start"
-                Margin="0, 5"
-                Command="{Binding LogOutCommand}"/>
-    </VerticalStackLayout>
+
+    <ScrollView>
+        <VerticalStackLayout Margin="50">
+            <Border StrokeShape="RoundRectangle 5"
+                    StrokeThickness="1"
+                    Padding="5">
+                <VerticalStackLayout RadioButtonGroup.GroupName="Languague">
+                    <Label Text="{lang:Translate LangPref}" FontSize="18" FontAttributes="Bold"/>
+                    <RadioButton Content="{lang:Translate English}" x:Name="rbEnglish" CheckedChanged="rbEnglish_CheckedChanged"/>
+                    <RadioButton Content="{lang:Translate Spanish}" x:Name="rbSpanish" CheckedChanged="rbSpanish_CheckedChanged"/>
+                </VerticalStackLayout>
+            </Border>
+            <Button x:DataType="vm:ClientViewModel"
+                    Text="{lang:Translate LogOut}"
+                    WidthRequest="150"
+                    HorizontalOptions="Start"
+                    Margin="0, 5"
+                    Command="{Binding LogOutCommand}"/>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

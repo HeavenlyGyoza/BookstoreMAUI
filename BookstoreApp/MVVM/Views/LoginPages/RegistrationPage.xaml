@@ -9,40 +9,42 @@
              Shell.TabBarIsVisible="False"
              Shell.NavBarIsVisible="False">
 
-    <VerticalStackLayout HorizontalOptions="{OnPlatform Default=Center, Android=FillAndExpand}"
-                     WidthRequest="{OnPlatform WinUI=600}"
-                     VerticalOptions="Center"
-                     Padding="40"
-                     Spacing="{OnPlatform WinUI=10}">
+    <ScrollView>
+        <VerticalStackLayout HorizontalOptions="{OnPlatform Default=Center, Android=FillAndExpand}"
+                         WidthRequest="{OnPlatform WinUI=600}"
+                         VerticalOptions="Center"
+                         Padding="40"
+                         Spacing="{OnPlatform WinUI=10}">
 
-        <Label Text="{lang:Translate SignUp}"
-               FontSize="28"/>
-        <Border StrokeShape="RoundRectangle 5"
-            StrokeThickness="1"
-            Padding="5">
-            <sf:SfDataForm x:Name="loginDataForm"
-                       DataObject="{Binding .}"
-                       AutoGenerateItems="False"
-                       LayoutType="TextInputLayout"
-                       MinimumHeightRequest="100"
-                       HeightRequest="{OnPlatform WinUI=305}">
-                <sf:SfDataForm.Items>
-                    <sf:DataFormTextItem FieldName="Name"
-                                         LabelText="{lang:Translate Name}"/>
-                    <sf:DataFormTextItem FieldName="Surname"
-                                         LabelText="{lang:Translate Surname}"/>
-                    <sf:DataFormTextItem FieldName="Phone"
-                                         LabelText="{lang:Translate Phone}"
-                                         Keyboard="Numeric"/>
-                    <sf:DataFormTextItem FieldName="Email"
-                                         LabelText="{lang:Translate Email}"/>
-                    <sf:DataFormPasswordItem FieldName="Password"
-                                             LabelText="{lang:Translate Password}"/>
-                </sf:SfDataForm.Items>
-            </sf:SfDataForm>
-        </Border>
+            <Label Text="{lang:Translate SignUp}"
+                   FontSize="28"/>
+            <Border StrokeShape="RoundRectangle 5"
+                StrokeThickness="1"
+                Padding="5">
+                <sf:SfDataForm x:Name="loginDataForm"
+                           DataObject="{Binding .}"
+                           AutoGenerateItems="False"
+                           LayoutType="TextInputLayout"
+                           MinimumHeightRequest="100"
+                           HeightRequest="{OnPlatform WinUI=305}">
+                    <sf:SfDataForm.Items>
+                        <sf:DataFormTextItem FieldName="Name"
+                                             LabelText="{lang:Translate Name}"/>
+                        <sf:DataFormTextItem FieldName="Surname"
+                                             LabelText="{lang:Translate Surname}"/>
+                        <sf:DataFormTextItem FieldName="Phone"
+                                             LabelText="{lang:Translate Phone}"
+                                             Keyboard="Numeric"/>
+                        <sf:DataFormTextItem FieldName="Email"
+                                             LabelText="{lang:Translate Email}"/>
+                        <sf:DataFormPasswordItem FieldName="Password"
+                                                 LabelText="{lang:Translate Password}"/>
+                    </sf:SfDataForm.Items>
+                </sf:SfDataForm>
+            </Border>
         
-        <Button Text="{lang:Translate Register}"
-                Command="{Binding SignUpCommand}"/>
-    </VerticalStackLayout>
+            <Button Text="{lang:Translate Register}"
+                    Command="{Binding SignUpCommand}"/>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

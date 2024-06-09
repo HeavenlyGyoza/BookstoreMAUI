@@ -4,35 +4,37 @@
              xmlns:vm="clr-namespace:Bookstore_MAUI.MVVM.ViewModels"
              xmlns:lang="clr-namespace:BookstoreApp.MVVM.Services.Localization"
              x:Class="BookstoreApp.MVVM.Views.NavigationPages.UserPage">
-    
-    <VerticalStackLayout Margin="50">
 
-        <Button x:Name="signInButton"
-                x:DataType="vm:ClientViewModel"
-                Text="{lang:Translate LogIn}"
-                Command="{Binding ToLoginPageCommand}"/>
+    <ScrollView>
+        <VerticalStackLayout Margin="50">
 
-        <Grid x:Name="userGrid"
-              ColumnDefinitions="*, *"
-              RowDefinitions="*, *"
-              IsVisible="False">
+            <Button x:Name="signInButton"
+                    x:DataType="vm:ClientViewModel"
+                    Text="{lang:Translate LogIn}"
+                    Command="{Binding ToLoginPageCommand}"/>
 
-            <Button Grid.Column="0" Grid.Row="0" Margin="5"
-                    x:DataType="vm:ClientViewModel"
-                    Text="{lang:Translate MyOrderHistory}"
-                    Command="{Binding ToUserOrderHistoryPageCommand}"/>
-            <Button Grid.Column="1" Grid.Row="0" Margin="5"
-                    x:DataType="vm:ClientViewModel"
-                    Text="{lang:Translate MyWishlists}"
-                    Command="{Binding ToUserWishlistsPageCommand}"/>
-            <Button Grid.Column="0" Grid.Row="1" Margin="5"
-                    x:DataType="vm:ClientViewModel"
-                    Text="{lang:Translate MyAddresses}"
-                    Command="{Binding ToUserAddressesPageCommand}"/>
-            <Button Grid.Column="1" Grid.Row="1" Margin="5"
-                    x:DataType="vm:ClientViewModel"
-                    Text="{lang:Translate AccountSettings}"
-                    Command="{Binding ToAccountSettingsPageCommand}"/>
-        </Grid>
-    </VerticalStackLayout>
+            <Grid x:Name="userGrid"
+                  ColumnDefinitions="*, *"
+                  RowDefinitions="*, *"
+                  IsVisible="False">
+
+                <Button Grid.Column="0" Grid.Row="0" Margin="5"
+                        x:DataType="vm:ClientViewModel"
+                        Text="{lang:Translate MyOrderHistory}"
+                        Command="{Binding ToUserOrderHistoryPageCommand}"/>
+                <Button Grid.Column="1" Grid.Row="0" Margin="5"
+                        x:DataType="vm:ClientViewModel"
+                        Text="{lang:Translate MyWishlists}"
+                        Command="{Binding ToUserWishlistsPageCommand}"/>
+                <Button Grid.Column="0" Grid.Row="1" Margin="5"
+                        x:DataType="vm:ClientViewModel"
+                        Text="{lang:Translate MyAddresses}"
+                        Command="{Binding ToUserAddressesPageCommand}"/>
+                <Button Grid.Column="1" Grid.Row="1" Margin="5"
+                        x:DataType="vm:ClientViewModel"
+                        Text="{lang:Translate AccountSettings}"
+                        Command="{Binding ToAccountSettingsPageCommand}"/>
+            </Grid>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
