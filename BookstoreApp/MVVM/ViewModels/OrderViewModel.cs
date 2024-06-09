@@ -93,6 +93,8 @@ namespace Bookstore_MAUI.MVVM.ViewModels
             if (response)
             {
                 await Application.Current.MainPage.DisplayAlert("Success", "Order placed successfully.", "OK");
+                await Shell.Current.GoToAsync("..");
+
             }
             else
             {
