@@ -51,11 +51,38 @@ namespace BookstoreWebAPI.Controllers
         {
             if (address == null)
             {
-                return BadRequest();
+                return BadRequest("Invalid address data.");
             }
-            _dbContext.Addresses.Add(address);
-            _dbContext.SaveChangesAsync();
-            return Ok();
+
+            int clientId = address.Clients.FirstOrDefault()?.Id ?? 0;
+            if (clientId <= 0)
+            {
+                return BadRequest("No client associated with the address");
+            }
+            var existingClient = await _dbContext.Clients.FirstOrDefaultAsync(c => c.Id == clientId);
+            if (existingClient == null)
+            {
+                return NotFound("Client not found");
+            }
+
+            var newAddress = new Address
+            {
+                Street = address.Street,
+                AddInfo = address.AddInfo,
+                City = address.City,
+                PostalCode = address.PostalCode,
+                Province = address.Province,
+                State = address.State,
+                Country = address.Country,
+                IsPrimary = address.IsPrimary
+            };
+
+            existingClient.Addresses ??= new List<Address>();
+            existingClient.Addresses.Add(newAddress);
+
+            await _dbContext.SaveChangesAsync();
+
+            return Ok(newAddress);
         }
 
         [HttpPut("{id}")]
