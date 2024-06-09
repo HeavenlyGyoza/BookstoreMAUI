@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http.Json;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Bookstore_MAUI.MVVM.ViewModels
@@ -37,7 +38,9 @@ namespace Bookstore_MAUI.MVVM.ViewModels
         public bool isPrimary;
         [ObservableProperty]
         public Address selectedAddress;
-        public List<Client> Clients { get; set; }
+        [ObservableProperty]
+        public List<Client> clients;
+        public Client client { get; set; }
 
         public ObservableCollection<Address> ClientAddresses { get; set; } = [];
 
@@ -52,8 +55,9 @@ namespace Bookstore_MAUI.MVVM.ViewModels
             EditAddressCommand = new RelayCommand<Address>(EditAddressCommandAction);
             DeleteAddressCommand = new RelayCommand<Address>(DeleteAddressCommandAction);
             AddNewAddressCommand = new RelayCommand(AddNewAddressCommandAction);
-            SaveAddressCommand = new RelayCommand(SaveAddressCommandAction);
+            SaveAddressCommand = new RelayCommand<Client>(SaveAddressCommandAction);
             SelectedAddress = new Address();
+            Clients = new List<Client>();
         }
 
         public async Task<IEnumerable<Address>> GetAllAddressesAsync()
@@ -121,10 +125,13 @@ namespace Bookstore_MAUI.MVVM.ViewModels
 
         public async void DeleteAddressCommandAction(Address address)
         {
-            var response = await DeleteAddressAsync(address.Id);
-            if (response)
+            if (await Application.Current.MainPage.DisplayAlert("Success", "Book updated succesfully.", "Yes", "No"))
             {
-                ClientAddresses.Remove(address);
+                var response = await DeleteAddressAsync(address.Id);
+                if (response)
+                {
+                    ClientAddresses.Remove(address);
+                }
             }
         }
 
@@ -133,7 +140,7 @@ namespace Bookstore_MAUI.MVVM.ViewModels
             await Shell.Current.GoToAsync(nameof(ManageUserAddressPage));
         }
 
-        public async void SaveAddressCommandAction()
+        public async void SaveAddressCommandAction(Client clientA)
         {
             if(SelectedAddress != null && SelectedAddress.Id > 0)
             {
@@ -149,6 +156,7 @@ namespace Bookstore_MAUI.MVVM.ViewModels
             }
             else
             {
+                SelectedAddress.Clients.Add(client);
                 var response = await AddAddressAsync(SelectedAddress);
                 if (response)
                 {
@@ -156,7 +164,7 @@ namespace Bookstore_MAUI.MVVM.ViewModels
                 }
                 else
                 {
-                    await Application.Current.MainPage.DisplayAlert("Error", "Failed to update address.", "OK");
+                    await Application.Current.MainPage.DisplayAlert("Error", "Failed to add address.", "OK");
                 }
             }
         }
