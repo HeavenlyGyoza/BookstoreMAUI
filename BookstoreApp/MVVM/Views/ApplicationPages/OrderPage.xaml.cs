@@ -26,11 +26,14 @@ public partial class OrderPage : ContentPage
             {
                 _orderVM.Client = await _clientVM.GetClientByIdAsync(int.Parse(clientId));
             }
-            if (_orderVM.Client.Addresses.Any())
-            {
-                _orderVM.Address = await _addressVM.GetPrimaryAddressByClientIdAsync(int.Parse(clientId));
-            }
+            //if (_orderVM.Client.Addresses.Any())
+            //{
+            //    _orderVM.Address = await _addressVM.GetPrimaryAddressByClientIdAsync(int.Parse(clientId));
+            //}
         }
+        _orderVM.Quantity = 1;
+        _orderVM.Price = _orderVM.SelectedBook.Price;
+        _orderVM.UpdateTotalPrice();
     }
 
     private async Task<bool> IsUserLoggedIn()
