@@ -16,7 +16,7 @@
         <Tab Title="{lang:Translate User}" Icon="user.png">
             <ShellContent ContentTemplate="{DataTemplate navViews:UserPage}" Route="UserPage"/>
         </Tab>
-        <Tab Title="{lang:Translate Management}" Icon="database.png">
+        <Tab Title="{lang:Translate Management}" Icon="database.png" x:Name="managementTab">
             <ShellContent ContentTemplate="{DataTemplate navViews:ManagementPage}" Route="ManagementPage"/>
         </Tab>
     </TabBar>

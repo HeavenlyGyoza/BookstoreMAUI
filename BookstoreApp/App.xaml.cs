@@ -17,7 +17,7 @@ namespace BookstoreApp
             var culture = savedCulture != null ? new CultureInfo(savedCulture) : new CultureInfo("en-US");
             LocalizationResourceManager.Instance.SetCulture(culture);
             _clientViewModel.lang = culture;
-            MainPage = new AppShell();
+            MainPage = new AppShell(_clientViewModel);
         }
 
         protected override async void OnStart()
