@@ -26,7 +26,7 @@ namespace BookstoreClassLibrary.Models
         [StringLength(64)]
         [MinLength(4)]
         public string Password { get; set; }
-        public string Role { get; } = "User";
+        public string Role { get; set; } = "User";
         public ICollection<Address>? Addresses { get; set; } = [];
         public ICollection<Order>? Orders { get; set; } = [];
         public ICollection<Wishlist>? Wishlists { get; set; } = [];
