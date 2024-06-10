@@ -7,7 +7,6 @@
              x:DataType="vm:OrderViewModel"
              x:Class="BookstoreApp.MVVM.Views.ApplicationPages.OrderPage">
 
-
     <ScrollView>
         <Grid ColumnDefinitions="*, *"
               RowDefinitions="*, Auto"
@@ -55,7 +54,8 @@
                                              LabelText="{lang:Translate State}"/>
                         <sf:DataFormTextItem FieldName="PostalCode"
                                              LabelText="{lang:Translate PostalCode}"
-                                             Keyboard="Numeric"/>
+                                             Keyboard="Numeric"
+                                             MaxLength="5"/>
                         
                     </sf:SfDataForm.Items>
                 </sf:SfDataForm>
@@ -80,7 +80,10 @@
                                Grid.Column="0">
                         </Image>
                         <Label Text="{Binding SelectedBook.Title}" FontSize="14" Grid.Column="1" Grid.Row="0"/>
-                        <Stepper Value="{Binding Quantity, Mode=TwoWay}"  Minimum="1" Maximum="{Binding SelectedBook.Stock}" Grid.Row="0" Grid.Column="2" ValueChanged="OnQuantityStepperChanged"/>
+                        <HorizontalStackLayout Grid.Row="0" Grid.Column="2">
+                            <Label Text="{Binding Quantity}"/>
+                            <Stepper Value="{Binding Quantity}" Minimum="1" Maximum="{Binding SelectedBook.Stock}" ValueChanged="OnQuantityStepperChanged" x:DataType="vm:OrderViewModel"/>
+                        </HorizontalStackLayout>
                         <Label Text="{Binding SelectedBook.Price, StringFormat='{0:C}'}" Grid.Row="0" Grid.Column="3"/>
 
                         <Entry Placeholder="{lang:Translate DiscountCode}"
