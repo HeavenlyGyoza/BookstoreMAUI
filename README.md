@@ -1,6 +1,6 @@
 # BookstoreMAUI
 <h2>Overview</h2>
-<p>This project is an e-commerce application for a bookstore developed with .NET MAUI and Entity Framework Core, made to develop my knwoledge and skills in multiplatform development.</p>
+<p>This project is an e-commerce application for a bookstore developed with .NET MAUI and Entity Framework Core, made to develop my knowledge and skills in multiplatform app development.</p>
 <h3>Structure</h3>
 <p>It consists of the .NET MAUI app, which uses the MVVM pattern; an ASP.NET Web API, currently set up to use MS SQL Server using Entity Framework Core; and a class library for the models. The app is localized to English and Spanish.</p>
 <h3>TODO</h3>
