@@ -25,4 +25,5 @@
     </ul>
   </li>
   <li>Implement a branch and PR system</li>
+  <li>Implement a system to bulk insert records into the database such as EPPlus</li>
 </ul>
