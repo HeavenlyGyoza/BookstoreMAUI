@@ -24,6 +24,5 @@
       <li>Fix EF not understanding inheritance of the Client=>User/Guest models</li>
     </ul>
   </li>
-  <li>Implement a branch and PR system</li>
   <li>Implement a system to bulk insert records into the database such as EPPlus</li>
 </ul>
