@@ -15,7 +15,7 @@
   <li>Finalize wishlist system</li>
   <li>Add a shopping cart</li>
   <li>Add .NET Identity for a more robust identity system</li>
-  <li>Develop unit tests to follow TDD</li>
+  <li>Develop unit tests</li>
   <li>Add location APIs to use when setting an order's delivery address</li>
   <li>Add categories, coupons</li>
   <li>Flesh out models</li>
