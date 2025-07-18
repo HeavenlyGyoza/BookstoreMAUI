@@ -32,13 +32,12 @@ An e-commerce bookstore app built with .NET MAUI and ASP.NET Core Web API. Devel
 
 ## 🛠️ Planned (but not completed)
 
-- Responsive and adaptive UI across platforms
 - Filtering and sorting options for books
 - Shopping cart and checkout flow
 - Guest checkout support
 - .NET Identity integration
 - Unit tests and testable architecture
-- Bulk data import (e.g. via EPPlus)
+- Bulk data import (e.g. via Excel)
 - Enhanced model relationships (e.g. inheritance for user types)
 - Geolocation APIs for delivery address support
 
